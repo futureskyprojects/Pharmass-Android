@@ -12,6 +12,7 @@ import vn.vistark.pharmass.core.api.request.BodyRegisterRequest
 import vn.vistark.pharmass.core.api.response.BodyAuthenticationResponse
 import vn.vistark.pharmass.core.api.response.Error400Response
 import vn.vistark.pharmass.core.api.response.Error401Response
+import vn.vistark.pharmass.core.constants.Constants
 import vn.vistark.pharmass.core.model.User
 import vn.vistark.pharmass.utils.DialogNotify
 
@@ -34,6 +35,7 @@ class GetUserSelftProcessing(context: Context) {
                 ) {
                     loading.close()
                     if (response.code() == 401) {
+                        Constants.token = "" // Xóa token ngay
                         val error401Response = Gson().fromJson(
                             response.errorBody()?.string(),
                             Error401Response::class.java

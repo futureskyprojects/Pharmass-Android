@@ -1,6 +1,10 @@
 package vn.vistark.pharmass.processing
 
+import android.app.Activity
 import android.content.Context
+import android.content.Intent
+import androidx.appcompat.app.AppCompatActivity
+import cn.pedant.SweetAlert.SweetAlertDialog
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import com.google.gson.JsonParser
@@ -14,6 +18,8 @@ import vn.vistark.pharmass.core.api.request.BodyRegisterRequest
 import vn.vistark.pharmass.core.api.response.BodyAuthenticationResponse
 import vn.vistark.pharmass.core.api.response.Error400Response
 import vn.vistark.pharmass.core.api.response.Error401Response
+import vn.vistark.pharmass.core.constants.Constants
+import vn.vistark.pharmass.ui.login.LoginActivity
 import vn.vistark.pharmass.utils.DialogNotify
 
 class LoginProcessing(context: Context, loginRequest: BodyLoginRequest) {
@@ -52,12 +58,26 @@ class LoginProcessing(context: Context, loginRequest: BodyLoginRequest) {
                             }
                         }
                     } else if (response.code() == 401) {
+                        Constants.token = "" // Xóa token ngay
                         val error401Response = Gson().fromJson(
                             response.errorBody()?.string(),
                             Error401Response::class.java
                         )
                         if (error401Response != null) {
                             DialogNotify.error(context, error401Response.message)
+                        }
+                        return
+                    } else if (response.code() == 403) {
+                        SweetAlertDialog(context, SweetAlertDialog.ERROR_TYPE).apply {
+                            titleText =
+                                "Không thể đăng nhập lại vì bạn đã đăng nhập trước đó. Đăng nhập lại ngay?"
+                            contentText = "ĐÃ ĐĂNG NHẬP"
+                            setCancelable(false)
+                            showCancelButton(false)
+                            setConfirmButton("Đăng nhập") {
+                                (context as AppCompatActivity).recreate()
+                            }
+                            show()
                         }
                         return
                     }
