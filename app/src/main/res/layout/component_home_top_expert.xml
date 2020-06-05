@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingBottom="30dp"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="?android:attr/actionBarSize"
+        android:layout_marginHorizontal="@dimen/padding">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="Chuyên Gia hàng đầu"
+            android:textColor="#000"
+            android:textSize="@dimen/text_size"
+            android:textStyle="bold" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentEnd="true"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginHorizontal="10dp"
+                android:gravity="center"
+                android:text="Tất Cả"
+                android:textColor="#000"
+                android:textSize="16sp" />
+
+            <ImageView
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                android:layout_gravity="center"
+                android:background="@drawable/button_style_orange"
+                android:padding="10dp"
+                android:src="@drawable/ic_right_arrow_bold"
+                android:tint="#FFF" />
+        </LinearLayout>
+    </RelativeLayout>
+
+    <include layout="@layout/component_home_doctor_item" />
+
+    <include layout="@layout/component_home_doctor_item" />
+
+    <include layout="@layout/component_home_doctor_item" />
+</LinearLayout>

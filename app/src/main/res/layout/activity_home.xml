@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background_white_gradient"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical"
+    tools:context=".ui.home.HomeActivity">
+
+    <include layout="@layout/components_top_round_primary_dark" />
+
+    <include layout="@layout/components_toolbar" />
+
+    <include layout="@layout/components_search_bar" />
+
+    <include layout="@layout/component_home_main_scroll" />
+</LinearLayout>

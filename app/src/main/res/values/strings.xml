@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">Pharmass</string>
+    <string name="nhap_thieu">Nhập thiếu</string>
+    <string name="loi">Lỗi</string>
+    <string name="hoan_tat">Hoàn tất</string>
+    <string name="dang_xu_ly">Đang xử lý</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="chu_y">Chú ý</string>
+</resources>

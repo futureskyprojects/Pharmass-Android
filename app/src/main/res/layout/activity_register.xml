@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="registerRequest"
+            type="vn.vistark.pharmass.core.api.request.BodyRegisterRequest" />
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/background_light_blue"
+        tools:context=".ui.register.RegisterActivity">
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:overScrollMode="never">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:orientation="vertical"
+                tools:ignore="UselessParent">
+
+                <ImageView
+                    android:id="@+id/imageView"
+                    android:layout_width="180dp"
+                    android:layout_height="180dp"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="50dp"
+                    android:layout_marginBottom="50dp"
+                    app:srcCompat="@drawable/logo_transparent_white" />
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="30dp"
+                    android:layout_marginRight="30dp"
+                    android:background="@drawable/edittext_style_round"
+                    android:drawableStart="@drawable/ic_name"
+                    android:drawablePadding="10dp"
+                    android:drawableTint="#FFF"
+                    android:hint="Họ và tên"
+                    android:inputType="textPersonName|textAutoCorrect|textAutoComplete|textCapWords"
+                    android:lines="1"
+                    android:padding="@dimen/padding"
+                    android:text="@={registerRequest.fullName}"
+                    android:textColor="#FFF"
+                    android:textColorHint="#e6e6e6"
+                    android:textSize="16sp" />
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="30dp"
+                    android:layout_marginTop="30dp"
+                    android:layout_marginRight="30dp"
+                    android:background="@drawable/edittext_style_round"
+                    android:drawableStart="@drawable/ic_lock"
+                    android:drawablePadding="10dp"
+                    android:hint="Tên đăng nhập"
+                    android:inputType="textEmailAddress"
+                    android:lines="1"
+                    android:padding="@dimen/padding"
+                    android:text="@={registerRequest.username}"
+                    android:textColor="#FFF"
+                    android:textColorHint="#e6e6e6"
+                    android:textSize="16sp" />
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="30dp"
+                    android:layout_marginTop="30dp"
+                    android:layout_marginRight="30dp"
+                    android:background="@drawable/edittext_style_round"
+                    android:drawableStart="@drawable/ic_at"
+                    android:drawablePadding="10dp"
+                    android:drawableTint="#FFF"
+                    android:hint="email@company.com"
+                    android:inputType="textEmailAddress|textAutoComplete"
+                    android:lines="1"
+                    android:padding="@dimen/padding"
+                    android:text="@={registerRequest.email}"
+                    android:textColor="#FFF"
+                    android:textColorHint="#e6e6e6"
+                    android:textSize="16sp" />
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="30dp"
+                    android:layout_marginTop="30dp"
+                    android:layout_marginRight="30dp"
+                    android:background="@drawable/edittext_style_round"
+                    android:drawableStart="@drawable/ic_call"
+                    android:drawablePadding="10dp"
+                    android:drawableTint="#FFF"
+                    android:hint="Số diện thoại"
+                    android:inputType="phone"
+                    android:lines="1"
+                    android:maxLength="12"
+                    android:padding="@dimen/padding"
+                    android:text="@={registerRequest.phoneNumber}"
+                    android:textColor="#FFF"
+                    android:textColorHint="#e6e6e6"
+                    android:textSize="16sp" />
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="30dp"
+                    android:layout_marginTop="30dp"
+                    android:layout_marginRight="30dp"
+                    android:background="@drawable/edittext_style_round"
+                    android:drawableStart="@drawable/ic_the_key"
+                    android:drawablePadding="10dp"
+                    android:hint="Mật khẩu"
+                    android:inputType="textPassword"
+                    android:lines="1"
+                    android:padding="@dimen/padding"
+                    android:text="@={registerRequest.password}"
+                    android:textColor="#FFF"
+                    android:textColorHint="#e6e6e6"
+                    android:textSize="15sp" />
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="30dp"
+                    android:layout_marginTop="30dp"
+                    android:layout_marginRight="30dp"
+                    android:background="@drawable/edittext_style_round"
+                    android:drawableStart="@drawable/ic_the_key"
+                    android:drawablePadding="10dp"
+                    android:hint="Nhập lại mật khẩu"
+                    android:inputType="textPassword"
+                    android:lines="1"
+                    android:padding="@dimen/padding"
+                    android:text="@={registerRequest.rePassword}"
+                    android:textColor="#FFF"
+                    android:textColorHint="#e6e6e6"
+                    android:textSize="15sp" />
+
+                <Button
+                    android:id="@+id/btnRegister"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="30dp"
+                    android:layout_marginTop="40dp"
+                    android:layout_marginRight="30dp"
+                    android:layout_marginBottom="15dp"
+                    android:background="@drawable/button_style_white_round"
+                    android:fontFamily="sans-serif-medium"
+                    android:padding="@dimen/padding"
+                    android:text="Đăng ký"
+                    android:textColor="#3083e2"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="40dp"
+                    android:layout_marginBottom="50dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Đã có tài khoản?"
+                        android:textColor="#FFF"
+                        android:textSize="@dimen/text_size" />
+
+                    <TextView
+                        android:id="@+id/tvLoginLink"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:text="Đăng nhập"
+                        android:textColor="#FFF"
+                        android:textSize="@dimen/text_size"
+                        android:textStyle="bold" />
+                </LinearLayout>
+            </LinearLayout>
+        </ScrollView>
+    </RelativeLayout>
+</layout>

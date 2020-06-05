@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="text_size">18sp</dimen>
+    <dimen name="padding">20dp</dimen>
+    <dimen name="home_menu_item_size">60dp</dimen>
+    <dimen name="pharmacy_feature_image_height">140dp</dimen>
+</resources>

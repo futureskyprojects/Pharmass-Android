@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="20dp"
+    android:background="@drawable/edittext_search_style_round"
+    android:orientation="horizontal"
+    android:padding="20dp">
+
+    <ImageView
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:layout_gravity="center"
+        android:src="@drawable/ic_search"
+        android:tint="@color/blue" />
+
+    <EditText
+        android:id="@+id/edtSearchContent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/transparent_control"
+        android:hint="Tìm kiếm thuốc, dược sỹ..."
+        android:inputType="textAutoComplete|textAutoCorrect"
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp"
+        android:singleLine="true"
+        android:textSize="@dimen/text_size" />
+</LinearLayout>

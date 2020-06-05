@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="?android:attr/actionBarSize"
+    android:layout_marginLeft="20dp"
+    android:layout_marginTop="-10dp"
+    android:layout_marginRight="20dp">
+
+    <ImageView
+        android:id="@+id/ivBackButton"
+        android:layout_width="28dp"
+        android:layout_height="28dp"
+        android:layout_centerVertical="true"
+        android:clickable="true"
+        android:focusable="true"
+        android:src="@drawable/ic_left_arrow_slim"
+        android:visibility="gone" />
+
+    <ImageView
+        android:id="@+id/ivExpandAuthorInfomation"
+        android:layout_width="?android:attr/actionBarSize"
+        android:layout_height="?android:attr/actionBarSize"
+        android:layout_toEndOf="@id/ivBackButton"
+        android:clickable="true"
+        android:focusable="true"
+        android:src="@drawable/logo_transparent_black" />
+
+    <TextView
+        android:id="@+id/tvToolbarLabel"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_toStartOf="@id/civUserAvatar"
+        android:layout_toEndOf="@id/ivExpandAuthorInfomation"
+        android:ellipsize="marquee"
+        android:gravity="center"
+        android:marqueeRepeatLimit="marquee_forever"
+        android:singleLine="true"
+        android:text="Trang chủ"
+        android:textAllCaps="true"
+        android:textColor="#000"
+        android:textSize="22sp" />
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/civUserAvatar"
+        android:layout_width="?android:attr/actionBarSize"
+        android:layout_height="?android:attr/actionBarSize"
+        android:layout_alignParentEnd="true"
+        android:src="@drawable/no_avatar" />
+</RelativeLayout>

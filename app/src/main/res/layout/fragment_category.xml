@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.pharmacy.fragments.CategoryFragment">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="?android:attr/actionBarSize"
+            android:layout_marginHorizontal="@dimen/padding">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text="Danh mục sản phẩm"
+                android:textColor="#000"
+                android:textSize="@dimen/text_size"
+                android:textStyle="bold" />
+
+            <LinearLayout
+                android:id="@+id/lnCreateNewPharmacyButton"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_alignParentEnd="true"
+                android:clickable="true"
+                android:focusable="true"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginHorizontal="10dp"
+                    android:gravity="center"
+                    android:text="Mục sản phẩm mới"
+                    android:textColor="#000"
+                    android:textSize="16sp"
+                    android:visibility="gone" />
+
+                <ImageView
+                    android:layout_width="36dp"
+                    android:layout_height="36dp"
+                    android:layout_gravity="center"
+                    android:background="@drawable/button_style_green"
+                    android:padding="10dp"
+                    android:src="@drawable/ic_plus"
+                    android:tint="#FFF"
+                    android:visibility="gone" />
+            </LinearLayout>
+        </RelativeLayout>
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:overScrollMode="never">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <include layout="@layout/component_home_doctor_item" />
+
+                <include layout="@layout/component_home_doctor_item" />
+
+                <include layout="@layout/component_home_doctor_item" />
+
+                <include layout="@layout/component_home_doctor_item" />
+
+                <include layout="@layout/component_home_doctor_item" />
+
+                <include layout="@layout/component_home_doctor_item" />
+
+                <include layout="@layout/component_home_doctor_item" />
+            </LinearLayout>
+        </ScrollView>
+    </LinearLayout>
+</FrameLayout>
