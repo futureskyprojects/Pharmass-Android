@@ -11,6 +11,7 @@ import vn.vistark.pharmass.core.api.request.BodyLoginRequest
 import vn.vistark.pharmass.core.api.request.BodyRegisterRequest
 import vn.vistark.pharmass.core.api.response.BodyAuthenticationResponse
 import vn.vistark.pharmass.core.api.response.Error400Response
+import vn.vistark.pharmass.core.api.response.Error401Response
 import vn.vistark.pharmass.core.model.User
 import vn.vistark.pharmass.utils.DialogNotify
 
@@ -32,10 +33,16 @@ class GetUserSelftProcessing(context: Context) {
                     response: Response<User>
                 ) {
                     loading.close()
-                    println(
-                        "Nội dung lỗi - LẤY NGƯỜI DÙNG: " + response.errorBody()
-                            ?.string() + " >>>>>>"
-                    )
+                    if (response.code() == 401) {
+                        val error401Response = Gson().fromJson(
+                            response.errorBody()?.string(),
+                            Error401Response::class.java
+                        )
+                        if (error401Response != null) {
+                            DialogNotify.error(context, error401Response.message)
+                        }
+                        return
+                    }
                     onFinished?.invoke(response.body())
                 }
             })

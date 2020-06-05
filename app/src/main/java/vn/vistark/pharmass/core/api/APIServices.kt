@@ -15,6 +15,6 @@ public interface APIServices {
     @POST("/auth/local")
     fun login(@Body bodyLoginRequest: BodyLoginRequest): Call<BodyAuthenticationResponse>
 
-    @POST("/users/me")
+    @GET("/users/me")
     fun getUserSelft(): Call<User>
 }

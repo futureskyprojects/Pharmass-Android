@@ -2,6 +2,8 @@ package vn.vistark.pharmass.processing
 
 import android.content.Context
 import com.google.gson.Gson
+import com.google.gson.GsonBuilder
+import com.google.gson.JsonParser
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -11,6 +13,7 @@ import vn.vistark.pharmass.core.api.request.BodyLoginRequest
 import vn.vistark.pharmass.core.api.request.BodyRegisterRequest
 import vn.vistark.pharmass.core.api.response.BodyAuthenticationResponse
 import vn.vistark.pharmass.core.api.response.Error400Response
+import vn.vistark.pharmass.core.api.response.Error401Response
 import vn.vistark.pharmass.utils.DialogNotify
 
 class LoginProcessing(context: Context, loginRequest: BodyLoginRequest) {
@@ -31,22 +34,15 @@ class LoginProcessing(context: Context, loginRequest: BodyLoginRequest) {
                     response: Response<BodyAuthenticationResponse>
                 ) {
                     loading.close()
-                    println(
-                        "Nội dung lỗi - ĐĂNG NHẬP: " + response.errorBody()?.string() + " >>>>>>"
-                    )
                     if (response.isSuccessful) {
                         // Khi thực hiện thành công
                         onFinished?.invoke(response.body())
                         return
                     } else if (response.code() == 400) {
-                        println("Hazizzzzzzzzzzzzz")
                         // Khi nhận được thông báo lỗi 400
-                        val error400 = Gson().fromJson(
-                            response.errorBody()?.string(),
-                            Error400Response::class.java
-                        )
+                        val error400 = Gson()
+                            .fromJson(response.errorBody()?.string(), Error400Response::class.java)
                         if (error400 != null) {
-                            println("Ở đây: ${error400.message.firstOrNull()?.messages?.firstOrNull()?.id}")
                             val extractError = ErrorLibrary.find(
                                 error400.message.firstOrNull()?.messages?.firstOrNull()?.id ?: ""
                             )
@@ -55,6 +51,15 @@ class LoginProcessing(context: Context, loginRequest: BodyLoginRequest) {
                                 return
                             }
                         }
+                    } else if (response.code() == 401) {
+                        val error401Response = Gson().fromJson(
+                            response.errorBody()?.string(),
+                            Error401Response::class.java
+                        )
+                        if (error401Response != null) {
+                            DialogNotify.error(context, error401Response.message)
+                        }
+                        return
                     }
                     // Nếu lỗi không nằm trong dự tính
                     DialogNotify.error(context, response.message())

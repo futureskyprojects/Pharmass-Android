@@ -10,6 +10,7 @@ import vn.vistark.pharmass.core.api.ErrorLibrary
 import vn.vistark.pharmass.core.api.request.BodyRegisterRequest
 import vn.vistark.pharmass.core.api.response.BodyAuthenticationResponse
 import vn.vistark.pharmass.core.api.response.Error400Response
+import vn.vistark.pharmass.core.api.response.Error401Response
 import vn.vistark.pharmass.utils.DialogNotify
 
 class RegisterProcessing(context: Context, bodyRegisterRequest: BodyRegisterRequest) {
@@ -30,7 +31,6 @@ class RegisterProcessing(context: Context, bodyRegisterRequest: BodyRegisterRequ
                     response: Response<BodyAuthenticationResponse>
                 ) {
                     loading.close()
-                    println("Nội dung lỗi - ĐĂNG KÝ: " + response.errorBody()?.string() + " >>>>>>")
                     if (response.isSuccessful) {
                         // Khi thực hiện thành công
                         onFinished?.invoke(response.body())
@@ -50,6 +50,12 @@ class RegisterProcessing(context: Context, bodyRegisterRequest: BodyRegisterRequ
                                 return
                             }
                         }
+                    } else if (response.code() == 403) {
+                        DialogNotify.error(
+                            context,
+                            "Không thể đăng ký vì bạn đã đăng nhập trước đó rồi!"
+                        )
+                        return
                     }
                     // Nếu lỗi không nằm trong dự tính
                     DialogNotify.error(context, response.message())

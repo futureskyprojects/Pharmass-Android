@@ -15,7 +15,6 @@ data class ErrorLibrary(val code: String, val name: String) {
 
         @SuppressLint("DefaultLocale")
         fun find(code: String): String {
-            println("Find with code: $code")
             return all.find { it.code.toLowerCase() == code.toLowerCase() }?.name ?: ""
         }
     }
