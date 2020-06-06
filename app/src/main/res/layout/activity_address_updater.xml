@@ -1,9 +1,149 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/rlHomeMenuRoot"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#B2000000"
+    android:clickable="true"
+    android:focusable="true"
     tools:context=".ui.address_updater.AddressUpdaterActivity">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <ImageView
+        android:id="@+id/ivCloseButton"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:layout_above="@id/lnMenuContainer"
+        android:layout_centerInParent="true"
+        android:background="@drawable/button_style_white_round"
+        android:src="@drawable/ic_close" />
+
+    <LinearLayout
+        android:id="@+id/lnMenuContainer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/background_bottom_sheet_white"
+        android:clickable="true"
+        android:focusable="true"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tvAdressUpdaterHint"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginHorizontal="@dimen/padding"
+            android:layout_marginTop="@dimen/padding"
+            android:layout_marginBottom="10dp"
+            android:gravity="center"
+            android:text="Hãy nhập địa chỉ của bạn"
+            android:textColor="#424242"
+            android:textSize="@dimen/text_size"
+            android:textStyle="bold" />
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:overScrollMode="never">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="10dp"
+                android:orientation="vertical"
+                android:padding="20dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="5dp"
+                    android:text="Tên đường/số nhà"
+                    android:textColor="#636363"
+                    android:textSize="@dimen/text_size" />
+
+                <EditText
+                    android:id="@+id/edtAddress"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="15dp"
+                    android:background="@drawable/edittext_search_style_round"
+                    android:hint="Tên đường/số nhà"
+                    android:inputType="textCapWords|textAutoCorrect|textAutoComplete"
+                    android:lines="1"
+                    android:padding="@dimen/padding"
+                    android:textColor="#636363" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="5dp"
+                    android:text="Xã phường"
+                    android:textColor="#636363"
+                    android:textSize="@dimen/text_size" />
+
+                <TextView
+                    android:id="@+id/tvWards"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="15dp"
+                    android:background="@drawable/edittext_search_style_round"
+                    android:hint="Xã phường"
+                    android:padding="@dimen/padding"
+                    android:textColor="#636363"
+                    android:textSize="18sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="5dp"
+                    android:text="Quận/Huyện"
+                    android:textColor="#636363"
+                    android:textSize="@dimen/text_size" />
+
+                <TextView
+                    android:id="@+id/tvDistrict"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="15dp"
+                    android:background="@drawable/edittext_search_style_round"
+                    android:hint="Quận/Huyện"
+                    android:padding="@dimen/padding"
+                    android:textColor="#636363"
+                    android:textSize="18sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="5dp"
+                    android:text="Tỉnh thành"
+                    android:textColor="#636363"
+                    android:textSize="@dimen/text_size" />
+
+                <TextView
+                    android:id="@+id/tvProvince"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="15dp"
+                    android:background="@drawable/edittext_search_style_round"
+                    android:hint="Tỉnh thành"
+                    android:padding="@dimen/padding"
+                    android:textColor="#636363"
+                    android:textSize="18sp" />
+
+                <Button
+                    android:id="@+id/btnConfirm"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginVertical="20dp"
+                    android:background="@drawable/button_style_info_gradient"
+                    android:padding="22.5dp"
+                    android:text="Xác nhận"
+                    android:textAllCaps="true"
+                    android:textColor="#FFF" />
+            </LinearLayout>
+        </ScrollView>
+    </LinearLayout>
+</RelativeLayout>

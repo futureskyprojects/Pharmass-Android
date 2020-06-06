@@ -33,7 +33,7 @@ data class User(
     @SerializedName("birthDay")
     var birthDay: String = "",
     @SerializedName("address")
-    var address: Any = Any(),
+    var address: UserAddress = UserAddress(),
     @SerializedName("coordinates")
     var coordinates: Any = Any(),
     @SerializedName("introduction")

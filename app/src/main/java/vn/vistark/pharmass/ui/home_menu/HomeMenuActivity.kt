@@ -32,9 +32,6 @@ class HomeMenuActivity : AppCompatActivity() {
             Constants.user.getAvatarFullAddress(),
             R.drawable.no_avatar
         )
-//        rlHomeMenuRoot.postDelayed({
-//            rlHomeMenuRoot.setBackgroundColor(Color.parseColor("#B2000000"))
-//        }, 500)
     }
 
     @SuppressLint("DefaultLocale")
@@ -67,6 +64,7 @@ class HomeMenuActivity : AppCompatActivity() {
                 setCancelButton("Không") {
                     it.dismissWithAnimation()
                 }
+                show()
             }
         }
     }
