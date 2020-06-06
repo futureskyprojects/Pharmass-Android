@@ -21,6 +21,7 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
         tools:replace="android:icon">
+        <activity android:name=".ui.address_updater.AddressUpdaterActivity"></activity>
         <activity android:name=".ui.update_profile.UpdateProfileActivity" />
         <activity
             android:name=".ui.register.RegisterActivity"

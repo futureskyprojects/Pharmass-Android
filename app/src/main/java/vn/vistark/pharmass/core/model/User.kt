@@ -2,6 +2,12 @@ package vn.vistark.pharmass.core.model
 
 
 import com.google.gson.annotations.SerializedName
+import vn.vistark.pharmass.core.api.APIUtils
+import vn.vistark.pharmass.core.api.RetrofitClient
+import vn.vistark.pharmass.core.constants.Constants
+import vn.vistark.pharmass.utils.GlideUtils
+import vn.vistark.pharmass.utils.RegexLibs
+import vn.vistark.pharmass.utils.UrlUtils
 
 data class User(
     @SerializedName("id")
@@ -40,4 +46,13 @@ data class User(
     var phoneNumber: String = "",
     @SerializedName("avatar")
     var avatar: String = ""
-)
+) {
+    fun getAvatarFullAddress(): String {
+        if (avatar.isEmpty())
+            return ""
+        if (avatar.contains(RegexLibs.url.toRegex()))
+            return avatar
+        else
+            return UrlUtils.standard("${RetrofitClient.BASE_URL}/$avatar")
+    }
+}

@@ -15,6 +15,7 @@ import kotlinx.android.synthetic.main.activity_home.*
 import kotlinx.android.synthetic.main.components_home_menu.*
 import kotlinx.android.synthetic.main.components_toolbar.*
 import vn.vistark.pharmass.R
+import vn.vistark.pharmass.core.constants.Constants
 import vn.vistark.pharmass.ui.about.AboutActivity
 import vn.vistark.pharmass.ui.home_menu.HomeMenuActivity
 import vn.vistark.pharmass.utils.DaySessionWelcome
@@ -43,6 +44,11 @@ class HomeActivity : AppCompatActivity() {
 
     private fun inits() {
         GlideUtils.loadWebp(ivExpandAuthorInfomation, R.raw.idle, R.drawable.logo_transparent_black)
+        GlideUtils.loadToImageViewWithPlaceHolder(
+            civUserAvatar,
+            Constants.user.getAvatarFullAddress(),
+            R.drawable.no_avatar
+        )
     }
 
 }

@@ -66,6 +66,7 @@
             </RelativeLayout>
 
             <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/civUserBigAvatar"
                 android:layout_width="160dp"
                 android:layout_height="160dp"
                 android:layout_gravity="center"
@@ -85,6 +86,7 @@
                 android:layout_marginHorizontal="@dimen/padding">
 
                 <TextView
+                    android:id="@+id/tvUserFullName"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:drawableStart="@drawable/ic_name"
@@ -92,7 +94,7 @@
                     android:ellipsize="end"
                     android:gravity="center"
                     android:lines="1"
-                    android:text="Nguyễn Trọng Nghĩa"
+                    android:text="@string/chua_cung_cap_ten"
                     android:textColor="#000"
                     android:textSize="@dimen/text_size"
                     android:textStyle="bold" />
@@ -128,6 +130,7 @@
                 android:layout_marginHorizontal="@dimen/padding">
 
                 <TextView
+                    android:id="@+id/tvUserGender"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:drawableStart="@drawable/ic_gender"
@@ -135,7 +138,7 @@
                     android:ellipsize="end"
                     android:gravity="center"
                     android:lines="1"
-                    android:text="Nam"
+                    android:text="@string/chua_chon_gioi_tinh"
                     android:textColor="#000"
                     android:textSize="@dimen/text_size"
                     android:textStyle="bold" />
@@ -171,6 +174,7 @@
                 android:layout_marginHorizontal="@dimen/padding">
 
                 <TextView
+                    android:id="@+id/tvUserEmail"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:drawableStart="@drawable/ic_at"
@@ -178,7 +182,7 @@
                     android:ellipsize="end"
                     android:gravity="center"
                     android:lines="1"
-                    android:text="projects.futuresky@gmail.com"
+                    android:text="@string/chua_nhap_email"
                     android:textColor="#000"
                     android:textSize="@dimen/text_size"
                     android:textStyle="bold" />
@@ -214,6 +218,7 @@
                 android:layout_marginHorizontal="@dimen/padding">
 
                 <TextView
+                    android:id="@+id/tvUserPhoneNumber"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:drawableStart="@drawable/ic_call"
@@ -221,7 +226,7 @@
                     android:ellipsize="end"
                     android:gravity="center"
                     android:lines="1"
-                    android:text="088 648 3147"
+                    android:text="@string/chua_nhap_so_dien_thoai"
                     android:textColor="#000"
                     android:textSize="@dimen/text_size"
                     android:textStyle="bold" />
@@ -257,6 +262,7 @@
                 android:layout_marginHorizontal="@dimen/padding">
 
                 <TextView
+                    android:id="@+id/tvUserIdentifyCardNumber"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:drawableStart="@drawable/ic_identification_card_with_picture"
@@ -264,7 +270,7 @@
                     android:ellipsize="end"
                     android:gravity="center"
                     android:lines="1"
-                    android:text="221465345"
+                    android:text="@string/chua_nhap_so_chung_minh_nhan_dan"
                     android:textColor="#000"
                     android:textSize="@dimen/text_size"
                     android:textStyle="bold" />
@@ -300,6 +306,7 @@
                 android:layout_marginHorizontal="@dimen/padding">
 
                 <TextView
+                    android:id="@+id/tvUserBirthDay"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:drawableStart="@drawable/ic_cake"
@@ -307,7 +314,7 @@
                     android:ellipsize="end"
                     android:gravity="center"
                     android:lines="1"
-                    android:text="Ngày 14 Tháng 3 Năm 1998"
+                    android:text="@string/chua_cho_biet_ngay_sinh"
                     android:textColor="#000"
                     android:textSize="@dimen/text_size"
                     android:textStyle="bold" />
@@ -375,12 +382,12 @@
             </RelativeLayout>
 
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginHorizontal="@dimen/padding"
                 android:gravity="center"
                 android:padding="10dp"
-                android:text="101 Mai Xuân Thưởng, Thành Phố Nha Trang, Tỉnh Khánh Hòa, Việt Nam"
+                android:text="@string/chua_cung_cap_dia_chi"
                 android:textColor="#000"
                 android:textSize="@dimen/text_size" />
 
@@ -441,6 +448,7 @@
                 android:layout_marginHorizontal="@dimen/padding">
 
                 <TextView
+                    android:id="@+id/tvUserIntroduction"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:drawableStart="@drawable/ic_information"
@@ -473,11 +481,11 @@
             </RelativeLayout>
 
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginHorizontal="@dimen/padding"
                 android:padding="10dp"
-                android:text="Là một chàng trai béo bụng da nâu thích lập trình"
+                android:text="@string/chua_cap_nhat_gioi_thieu"
                 android:textColor="#000"
                 android:textSize="@dimen/text_size" />
         </LinearLayout>

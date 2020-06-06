@@ -7,4 +7,12 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="chu_y">Chú ý</string>
+    <string name="chua_cung_cap_ten"><![CDATA[<Chưa cung cấp tên>]]></string>
+    <string name="chua_chon_gioi_tinh"><![CDATA[<Chưa chọn giới tính>]]></string>
+    <string name="chua_nhap_email"><![CDATA[<Chưa nhập email>]]></string>
+    <string name="chua_nhap_so_dien_thoai"><![CDATA[<Chưa nhập số điện thoại>]]></string>
+    <string name="chua_nhap_so_chung_minh_nhan_dan"><![CDATA[<Thiếu CMND>]]></string>
+    <string name="chua_cho_biet_ngay_sinh"><![CDATA[<Chưa cho biết ngày sinh>]]></string>
+    <string name="chua_cung_cap_dia_chi"><![CDATA[<Chưa cung cấp địa chỉ>]]></string>
+    <string name="chua_cap_nhat_gioi_thieu"><![CDATA[<Chưa cập nhật giới thiệu>]]></string>
 </resources>
