@@ -58,6 +58,8 @@ class HomeMenuActivity : AppCompatActivity() {
                     it.dismiss()
                     Constants.token = ""
                     val intent = Intent(this@HomeMenuActivity, LoginActivity::class.java)
+                    intent.flags =
+                        Intent.FLAG_ACTIVITY_SINGLE_TOP or Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
                     startActivity(intent)
                     finish()
                 }

@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import cn.pedant.SweetAlert.SweetAlertDialog
+import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.gson.Gson
 import kotlinx.android.synthetic.main.activity_login.*
 import vn.vistark.pharmass.R
@@ -18,6 +19,8 @@ import vn.vistark.pharmass.ui.home.HomeActivity
 import vn.vistark.pharmass.ui.pharmacy.PharmacyActivity
 import vn.vistark.pharmass.ui.register.RegisterActivity
 import vn.vistark.pharmass.utils.DialogNotify
+import vn.vistark.pharmass.utils.SimpfyLocationUtils
+import java.util.*
 
 class LoginActivity : AppCompatActivity() {
     lateinit var binding: ActivityLoginBinding
@@ -30,6 +33,8 @@ class LoginActivity : AppCompatActivity() {
         initEvents()
 //        startActivity(Intent(this, PharmacyActivity::class.java))
         autoLogin()
+        // Lấy vị trí lần đầu tiên
+        SimpfyLocationUtils.getLastLocation(FusedLocationProviderClient(this))
     }
 
     private fun inits() {

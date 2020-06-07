@@ -18,6 +18,8 @@ import vn.vistark.pharmass.R
 import vn.vistark.pharmass.core.api.request.BodyUpdateProfileRequest
 import vn.vistark.pharmass.core.constants.Constants
 import vn.vistark.pharmass.core.constants.Gender
+import vn.vistark.pharmass.core.constants.RequestCode.Companion.PICK_AVATAR
+import vn.vistark.pharmass.core.constants.RequestCode.Companion.REQUEST_ADDRESS_CODE
 import vn.vistark.pharmass.core.model.UserAddress
 import vn.vistark.pharmass.databinding.ActivityUpdateProfileBinding
 import vn.vistark.pharmass.processing.UpdateUserSelftProfileProcessing
@@ -28,10 +30,7 @@ import vn.vistark.pharmass.utils.GlideUtils
 import java.util.*
 
 class UpdateProfileActivity : AppCompatActivity() {
-
-    private val PICK_AVATAR = 1234
     lateinit var binding: ActivityUpdateProfileBinding
-    val REQUEST_ADDRESS_CODE = 4567
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -128,8 +127,7 @@ class UpdateProfileActivity : AppCompatActivity() {
         if (Constants.user.introduction.isNotEmpty())
             tvUserIntroduction.text = Constants.user.introduction
 
-        val userAddress =
-            "${Constants.user.address.address}, ${Constants.user.address.wards.name}, ${Constants.user.address.district.name}, ${Constants.user.address.province.name}"
+        val userAddress = Constants.user.address.toString()
         if (userAddress.length > 10) {
             tvUserAddress.text = userAddress
         }

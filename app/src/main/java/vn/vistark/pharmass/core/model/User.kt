@@ -22,8 +22,6 @@ data class User(
     var confirmed: Boolean = false,
     @SerializedName("blocked")
     var blocked: Boolean = false,
-    @SerializedName("role")
-    var role: Role = Role(),
     @SerializedName("created_at")
     var createdAt: String = "",
     @SerializedName("updated_at")
@@ -35,7 +33,7 @@ data class User(
     @SerializedName("address")
     var address: UserAddress = UserAddress(),
     @SerializedName("coordinates")
-    var coordinates: Any = Any(),
+    var coordinates: Coordinates = Coordinates(),
     @SerializedName("introduction")
     var introduction: String = "",
     @SerializedName("gender")

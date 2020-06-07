@@ -5,18 +5,43 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Gravity
 import android.view.View
+import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.android.synthetic.main.component_work_top_pharmacies.*
 import kotlinx.android.synthetic.main.components_search_bar.*
 import kotlinx.android.synthetic.main.components_toolbar.*
 import vn.vistark.pharmass.R
+import vn.vistark.pharmass.core.model.Pharmacy
+import vn.vistark.pharmass.processing.GetUserPharmaciesProcessing
 import vn.vistark.pharmass.ui.pharmacy_updater.PharmacyUpdaterActivity
 
 class WorkActivity : AppCompatActivity() {
+    val userPharmacies: ArrayList<Pharmacy> = ArrayList()
+    lateinit var userPharmaciesAdapter: CurrentUserPharmacyAdapter
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_work)
         inits()
         initEvents()
+        initListPharmacy()
+    }
+
+    private fun initListPharmacy() {
+        userPharmaciesAdapter = CurrentUserPharmacyAdapter(userPharmacies)
+
+        rvCurrentUserPharmacies.setHasFixedSize(true)
+        rvCurrentUserPharmacies.layoutManager = LinearLayoutManager(this)
+        rvCurrentUserPharmacies.adapter = userPharmaciesAdapter
+        GetUserPharmaciesProcessing(this).onFinished = {
+            loadingPharmaciesIcon.visibility = View.GONE
+            if (it != null) {
+                userPharmacies.addAll(it)
+                userPharmaciesAdapter.notifyDataSetChanged()
+            } else {
+
+            }
+        }
     }
 
     private fun initEvents() {
@@ -25,10 +50,6 @@ class WorkActivity : AppCompatActivity() {
         }
         lnCreateNewPharmacyButton.setOnClickListener {
             val intent = Intent(this, PharmacyUpdaterActivity::class.java)
-            intent.putExtra(
-                PharmacyUpdaterActivity::class.java.simpleName,
-                "CREATE"
-            )
             startActivity(intent)
         }
     }
