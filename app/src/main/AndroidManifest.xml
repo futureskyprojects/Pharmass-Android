@@ -23,6 +23,9 @@
         tools:replace="android:icon"
         tools:targetApi="n">
         <activity
+            android:name=".ui.pharmacy_detail.PharmacyDetailActivity"
+            android:theme="@style/AppTheme.Transparent" />
+        <activity
             android:name=".ui.address_updater.AddressUpdaterActivity"
             android:theme="@style/AppTheme.Transparent" />
         <activity android:name=".ui.update_profile.UpdateProfileActivity" />

@@ -13,7 +13,7 @@ android {
 
     defaultConfig {
         applicationId "vn.vistark.pharmass"
-        minSdkVersion 22
+        minSdkVersion 18
         targetSdkVersion 29
         versionCode 1
         versionName "1.0"
