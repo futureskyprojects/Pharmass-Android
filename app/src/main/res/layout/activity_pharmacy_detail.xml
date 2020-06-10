@@ -201,18 +201,25 @@
             android:layout_height="240dp"
             android:overScrollMode="never" />
 
-        <com.google.android.material.tabs.TabLayout
-            android:id="@+id/tabLayout"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
+            android:layout_height="wrap_content"
             android:background="@color/blue"
-            android:overScrollMode="never"
-            app:tabBackground="@drawable/background_tab"
-            app:tabGravity="fill"
-            app:tabIndicatorHeight="0dp"
-            app:tabMode="scrollable"
-            app:tabRippleColor="@android:color/transparent"
-            app:tabSelectedTextColor="@color/blue"
-            app:tabTextColor="#FFF" />
+            android:gravity="center">
+
+            <com.google.android.material.tabs.TabLayout
+                android:id="@+id/tabLayout"
+                android:layout_width="wrap_content"
+                android:layout_height="?attr/actionBarSize"
+                android:background="@color/blue"
+                android:overScrollMode="never"
+                app:tabBackground="@drawable/background_tab"
+                app:tabGravity="center"
+                app:tabIndicatorHeight="0dp"
+                app:tabMode="scrollable"
+                app:tabRippleColor="@android:color/transparent"
+                app:tabSelectedTextColor="@color/blue"
+                app:tabTextColor="#FFF" />
+        </LinearLayout>
     </LinearLayout>
 </RelativeLayout>

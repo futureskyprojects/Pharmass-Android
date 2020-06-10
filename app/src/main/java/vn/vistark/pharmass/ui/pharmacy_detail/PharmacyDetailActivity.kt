@@ -7,9 +7,14 @@ import android.os.Bundle
 import android.view.animation.AnimationUtils
 import android.widget.Toast
 import com.google.gson.Gson
+import kotlinx.android.synthetic.main.activity_pharmacy.*
 import kotlinx.android.synthetic.main.activity_pharmacy_detail.*
+import kotlinx.android.synthetic.main.activity_pharmacy_detail.tabLayout
+import kotlinx.android.synthetic.main.activity_pharmacy_detail.viewPager
 import vn.vistark.pharmass.R
 import vn.vistark.pharmass.core.model.Pharmacy
+import vn.vistark.pharmass.ui.pharmacy.PharmacyBottomMenu
+import vn.vistark.pharmass.ui.pharmacy.PharmacyPagerAdapter
 import vn.vistark.pharmass.utils.GlideUtils
 import java.lang.Exception
 
@@ -24,6 +29,16 @@ class PharmacyDetailActivity : AppCompatActivity() {
 
         initEvents()
         inits()
+        initBottomMenu()
+    }
+
+    private fun initBottomMenu() {
+        // Thêm các tab vào cho menu
+        PharmacyDetailBottomMenu.all(pharmacy).forEach {
+            tabLayout.addTab(tabLayout.newTab().setText(it.title))
+        }
+        viewPager.adapter = PharmacyDetailPagerAdapter(supportFragmentManager, pharmacy)
+        tabLayout.setupWithViewPager(viewPager)
     }
 
     @SuppressLint("SetTextI18n")
