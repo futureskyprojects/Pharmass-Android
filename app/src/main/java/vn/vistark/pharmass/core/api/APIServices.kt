@@ -8,11 +8,9 @@ import vn.vistark.pharmass.core.api.request.BodyLoginRequest
 import vn.vistark.pharmass.core.api.request.BodyRegisterRequest
 import vn.vistark.pharmass.core.api.request.BodyUpdateProfileRequest
 import vn.vistark.pharmass.core.api.response.BodyAuthenticationResponse
-import vn.vistark.pharmass.core.model.Pharmacy
 import vn.vistark.pharmass.core.api.response.BodyUploadFileResponse
 import vn.vistark.pharmass.core.constants.Constants
-import vn.vistark.pharmass.core.model.PharmacyStaff
-import vn.vistark.pharmass.core.model.User
+import vn.vistark.pharmass.core.model.*
 
 
 public interface APIServices {
@@ -46,4 +44,15 @@ public interface APIServices {
 
     @GET("/pharmacy-staffs")
     fun getPharmacyStaffs(@Query("pharmacy.id") id: Int): Call<List<PharmacyStaff>>
+
+    @GET("/goods-categories?pharmacy_null=true")
+    fun getDefaultGoodsCategory(): Call<List<GoodsCategory>>
+
+    @GET("/goods-categories?pharmacy_null=false")
+    fun getPharmacyGoodsCategory(@Query("pharmacy.id") id: Int): Call<List<GoodsCategory>>
+
+    // Chỉ dành cho mục đích phát triển
+    @POST("/medicine-categories")
+    fun createMedicineCategory(@Body medicineCategory: MedicineCategory): Call<MedicineCategory>
+
 }

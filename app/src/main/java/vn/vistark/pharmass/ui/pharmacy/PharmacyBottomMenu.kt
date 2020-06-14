@@ -13,7 +13,7 @@ data class PharmacyBottomMenu(var title: String, var fragment: Fragment?) {
             val pharmacyJson = Gson().toJson(pharmacy)
             return arrayOf(
                 PharmacyBottomMenu("Nhân viên", StaffFragment.newInstance(pharmacyJson)),
-                PharmacyBottomMenu("Mục sản phẩm", CategoryFragment.newInstance()),
+                PharmacyBottomMenu("Mục sản phẩm", CategoryFragment.newInstance(pharmacyJson)),
                 PharmacyBottomMenu("Kho", WareHouseFragment.newInstance()),
                 PharmacyBottomMenu("Khách hàng", CustomerFragment.newInstance()),
                 PharmacyBottomMenu("Đơn bán", BillFragment.newInstance()),

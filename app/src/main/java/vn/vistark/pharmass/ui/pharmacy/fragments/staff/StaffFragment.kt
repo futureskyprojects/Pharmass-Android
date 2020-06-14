@@ -23,7 +23,6 @@ import vn.vistark.pharmass.utils.DialogNotify
 
 class StaffFragment : Fragment() {
     private var pharmacyJson: String? = null
-
     var pharmacy: Pharmacy? = null
 
     lateinit var rvStaffs: RecyclerView
@@ -35,7 +34,7 @@ class StaffFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
-            pharmacyJson = it.getString(IntroductionFragment.ARG_PARAM1)
+            pharmacyJson = it.getString(ARG_PHARMACY_KEY)
             println("Đã nhận: $pharmacyJson")
         }
     }

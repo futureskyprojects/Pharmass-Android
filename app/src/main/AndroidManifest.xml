@@ -22,6 +22,7 @@
         android:theme="@style/AppTheme"
         tools:replace="android:icon"
         tools:targetApi="n">
+        <activity android:name=".ui.create_medicine_category.AddMedicineCategoryActivity"></activity>
         <activity
             android:name=".ui.pharmacy_detail.PharmacyDetailActivity"
             android:theme="@style/AppTheme.Transparent" />
