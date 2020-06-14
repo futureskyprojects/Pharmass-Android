@@ -34,7 +34,7 @@ data class BodyUpdateProfileRequest(
                 user.gender,
                 user.identifyCardNumber,
                 user.phoneNumber,
-                user.avatar
+                user.avatar ?: ""
             )
         }
     }

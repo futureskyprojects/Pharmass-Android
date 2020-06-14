@@ -43,13 +43,15 @@ data class User(
     @SerializedName("phoneNumber")
     var phoneNumber: String = "",
     @SerializedName("avatar")
-    var avatar: String = ""
+    var avatar: String? = ""
 ) {
     fun getAvatarFullAddress(): String {
-        if (avatar.isEmpty())
+        if (avatar == null)
             return ""
-        if (avatar.contains(RegexLibs.url.toRegex()))
-            return avatar
+        if (avatar!!.isEmpty())
+            return ""
+        if (avatar!!.contains(RegexLibs.url.toRegex()))
+            return avatar!!
         else
             return UrlUtils.standard("${RetrofitClient.BASE_URL}/$avatar")
     }

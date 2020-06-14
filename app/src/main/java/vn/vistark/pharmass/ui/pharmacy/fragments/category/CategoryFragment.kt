@@ -1,4 +1,4 @@
-package vn.vistark.pharmass.ui.pharmacy.fragments
+package vn.vistark.pharmass.ui.pharmacy.fragments.category
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment

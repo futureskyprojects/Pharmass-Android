@@ -1,15 +1,18 @@
-package vn.vistark.pharmass.core.api.request
+package vn.vistark.pharmass.core.api.response
 
 
 import androidx.databinding.BaseObservable
 import com.google.gson.annotations.SerializedName
 import vn.vistark.pharmass.core.api.RetrofitClient
 import vn.vistark.pharmass.core.model.Coordinates
+import vn.vistark.pharmass.core.model.User
 import vn.vistark.pharmass.core.model.UserAddress
 import vn.vistark.pharmass.utils.RegexLibs
 import vn.vistark.pharmass.utils.UrlUtils
 
-data class BodyCreatePharmacyRequest(
+data class PharmacyInStaffResponse(
+    @SerializedName("id")
+    var id: Int = 0,
     @SerializedName("logo")
     var logo: String = "",
     @SerializedName("featureImages")
@@ -29,19 +32,18 @@ data class BodyCreatePharmacyRequest(
     @SerializedName("blocked")
     var blocked: Boolean = false,
     @SerializedName("openTime")
-    var openTime: String = "07:00",
+    var openTime: String = "",
     @SerializedName("closeTime")
-    var closeTime: String = "22:00",
+    var closeTime: String = "",
+    @SerializedName("created_at")
+    var createdAt: String = "",
+    @SerializedName("updated_at")
+    var updatedAt: String = "",
     @SerializedName("dayInterval")
     var dayInterval: String = "",
     @SerializedName("owner")
-    var users: User = User()
+    var users: Int = -1
 ) : BaseObservable() {
-    data class User(
-        @SerializedName("id")
-        var id: Int = -1
-    )
-
     fun getFeatureImageFullAddress(): String {
         if (featureImages.isEmpty())
             return ""

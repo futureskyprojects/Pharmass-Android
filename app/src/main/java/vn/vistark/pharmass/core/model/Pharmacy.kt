@@ -41,8 +41,8 @@ data class Pharmacy(
     var updatedAt: String = "",
     @SerializedName("dayInterval")
     var dayInterval: String = "",
-    @SerializedName("users")
-    var users: List<User> = listOf()
+    @SerializedName("owner")
+    var users: User = User()
 ) : BaseObservable() {
     fun getFeatureImageFullAddress(): String {
         if (featureImages.isEmpty())

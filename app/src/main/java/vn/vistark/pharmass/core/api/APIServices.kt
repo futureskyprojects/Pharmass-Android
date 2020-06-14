@@ -11,6 +11,7 @@ import vn.vistark.pharmass.core.api.response.BodyAuthenticationResponse
 import vn.vistark.pharmass.core.model.Pharmacy
 import vn.vistark.pharmass.core.api.response.BodyUploadFileResponse
 import vn.vistark.pharmass.core.constants.Constants
+import vn.vistark.pharmass.core.model.PharmacyStaff
 import vn.vistark.pharmass.core.model.User
 
 
@@ -41,5 +42,8 @@ public interface APIServices {
     fun createPharmacy(@Body bodyCreatePharmacyRequest: BodyCreatePharmacyRequest): Call<Pharmacy>
 
     @GET("/pharmacies")
-    fun getPharmacyOfUser(@Query("users.id") id: Int = Constants.user.id): Call<List<Pharmacy>>
+    fun getPharmacyOfUser(@Query("owner.id") id: Int = Constants.user.id): Call<List<Pharmacy>>
+
+    @GET("/pharmacy-staffs")
+    fun getPharmacyStaffs(@Query("pharmacy.id") id: Int): Call<List<PharmacyStaff>>
 }

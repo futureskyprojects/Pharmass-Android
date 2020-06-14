@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.gson.Gson
 import vn.vistark.pharmass.R
 import vn.vistark.pharmass.core.model.Pharmacy
+import vn.vistark.pharmass.ui.pharmacy.PharmacyActivity
 import vn.vistark.pharmass.ui.pharmacy_detail.PharmacyDetailActivity
 import vn.vistark.pharmass.utils.GlideUtils
 
@@ -51,11 +52,18 @@ class CurrentUserPharmacyViewHolder(v: View) : RecyclerView.ViewHolder(v) {
         tvUserPharmacyShortDescription.text = pharmacy.shortDescription
         tvUserPharmacyShortDescription.isSelected = true
 
-        cvRootLayout.setOnClickListener {
+        cvRootLayout.setOnLongClickListener {
             val intent = Intent(cvRootLayout.context, PharmacyDetailActivity::class.java)
             intent.putExtra(PharmacyDetailActivity::class.java.simpleName, Gson().toJson(pharmacy))
-            cvRootLayout.context.startActivity(intent)
-            (cvRootLayout.context as AppCompatActivity).overridePendingTransition(0, 300);
+            it.context.startActivity(intent)
+            (it.context as AppCompatActivity).overridePendingTransition(0, 300);
+            return@setOnLongClickListener true
+        }
+
+        cvRootLayout.setOnClickListener {
+            val intent = Intent(cvRootLayout.context, PharmacyActivity::class.java)
+            intent.putExtra(PharmacyActivity::class.java.simpleName, Gson().toJson(pharmacy))
+            it.context.startActivity(intent)
         }
     }
 }

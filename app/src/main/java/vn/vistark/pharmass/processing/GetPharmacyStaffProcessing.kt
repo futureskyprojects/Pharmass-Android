@@ -12,28 +12,29 @@ import vn.vistark.pharmass.core.model.Pharmacy
 import vn.vistark.pharmass.core.api.response.Error400Response
 import vn.vistark.pharmass.core.api.response.Error401Response
 import vn.vistark.pharmass.core.constants.Constants
+import vn.vistark.pharmass.core.model.PharmacyStaff
 import vn.vistark.pharmass.utils.DialogNotify
 import java.lang.Exception
 
-class GetUserPharmaciesProcessing(
+class GetPharmacyStaffProcessing(
     context: Context,
-    userId: Int = Constants.user.id
+    pharmacyId: Int
 ) {
-    var onFinished: ((List<Pharmacy>?) -> Unit)? = null
+    var onFinished: ((List<PharmacyStaff>?) -> Unit)? = null
 
     init {
-        APIUtils.mAPIServices?.getPharmacyOfUser(userId)
-            ?.enqueue(object : Callback<List<Pharmacy>> {
-                override fun onFailure(call: Call<List<Pharmacy>>, t: Throwable) {
+        APIUtils.mAPIServices?.getPharmacyStaffs(pharmacyId)
+            ?.enqueue(object : Callback<List<PharmacyStaff>> {
+                override fun onFailure(call: Call<List<PharmacyStaff>>, t: Throwable) {
                     DialogNotify.error(
                         context,
-                        t.message ?: "Lỗi không xác định khi lấy danh sách nhà thuốc"
+                        t.message ?: "Lỗi không xác định khi lấy danh sách nhân viên"
                     )
                 }
 
                 override fun onResponse(
-                    call: Call<List<Pharmacy>>,
-                    response: Response<List<Pharmacy>>
+                    call: Call<List<PharmacyStaff>>,
+                    response: Response<List<PharmacyStaff>>
                 ) {
                     if (response.isSuccessful) {
                         // Khi thực hiện thành công

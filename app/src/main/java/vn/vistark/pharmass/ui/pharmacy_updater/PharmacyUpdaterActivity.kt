@@ -290,7 +290,7 @@ class PharmacyUpdaterActivity : AppCompatActivity() {
                     )
                 } else {
                     binding.requestCreatePharmacy?.users =
-                        listOf(BodyCreatePharmacyRequest.User(Constants.user.id))
+                        BodyCreatePharmacyRequest.User(Constants.user.id)
                     uploadFeatureImages()
                 }
             }
