@@ -1,0 +1,417 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="requestCreateGoods"
+            type="vn.vistark.pharmass.core.model.Goods" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#FFF"
+        android:fitsSystemWindows="true"
+        android:orientation="vertical"
+        tools:context=".ui.goods_updater.GoodUpdaterActivity">
+
+        <include layout="@layout/components_top_round_primary_dark" />
+
+        <include layout="@layout/components_toolbar" />
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:overScrollMode="never">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="10dp"
+                android:orientation="vertical"
+                android:padding="10dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="5dp"
+                    android:text="Ảnh (Không bắt buộc)"
+                    android:textColor="#636363"
+                    android:textSize="@dimen/text_size" />
+
+                <HorizontalScrollView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="15dp"
+                    android:overScrollMode="never">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        android:orientation="horizontal">
+
+                        <androidx.cardview.widget.CardView
+                            android:layout_width="100dp"
+                            android:layout_height="100dp"
+                            android:layout_gravity="center"
+                            android:layout_margin="10dp"
+                            android:layout_marginBottom="5dp"
+                            app:cardCornerRadius="@dimen/padding"
+                            app:cardElevation="0dp">
+
+                            <ImageView
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:scaleType="centerCrop"
+                                android:src="@drawable/no_logo" />
+                        </androidx.cardview.widget.CardView>
+
+                        <androidx.cardview.widget.CardView
+                            android:layout_width="100dp"
+                            android:layout_height="100dp"
+                            android:layout_gravity="center"
+                            android:layout_margin="10dp"
+                            android:layout_marginBottom="5dp"
+                            app:cardCornerRadius="@dimen/padding"
+                            app:cardElevation="0dp">
+
+                            <ImageView
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:scaleType="centerCrop"
+                                android:src="@drawable/no_logo" />
+                        </androidx.cardview.widget.CardView>
+
+                        <androidx.cardview.widget.CardView
+                            android:layout_width="100dp"
+                            android:layout_height="100dp"
+                            android:layout_gravity="center"
+                            android:layout_margin="10dp"
+                            android:layout_marginBottom="5dp"
+                            app:cardCornerRadius="@dimen/padding"
+                            app:cardElevation="0dp">
+
+                            <ImageView
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:scaleType="centerCrop"
+                                android:src="@drawable/no_logo" />
+                        </androidx.cardview.widget.CardView>
+                    </LinearLayout>
+                </HorizontalScrollView>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="5dp"
+                    android:text="Tên mặt hàng/thuốc (Bắt buộc)"
+                    android:textColor="#636363"
+                    android:textSize="@dimen/text_size" />
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="15dp"
+                    android:background="@drawable/edittext_search_style_round"
+                    android:hint="Tên thuốc"
+                    android:inputType="textAutoComplete|textAutoCorrect|textCapWords"
+                    android:lines="1"
+                    android:maxLength="255"
+                    android:padding="@dimen/padding" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="5dp"
+                    android:text="Tên viết tắt (Không bắt buộc)"
+                    android:textColor="#636363"
+                    android:textSize="@dimen/text_size" />
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="15dp"
+                    android:background="@drawable/edittext_search_style_round"
+                    android:hint="Tên viết tắt"
+                    android:inputType="textAutoComplete|textAutoCorrect|textCapWords"
+                    android:lines="1"
+                    android:maxLength="255"
+                    android:padding="@dimen/padding" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="5dp"
+                    android:text="Mã vạch (Không bắt buộc)"
+                    android:textColor="#636363"
+                    android:textSize="@dimen/text_size" />
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <EditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="5dp"
+                        android:layout_marginBottom="15dp"
+                        android:layout_toStartOf="@id/btnScanBarcode"
+                        android:background="@drawable/edittext_search_style_round"
+                        android:hint="Mã vạch"
+                        android:inputType="textAutoComplete|textAutoCorrect|textCapWords"
+                        android:lines="1"
+                        android:maxLength="255"
+                        android:padding="@dimen/padding" />
+
+                    <ImageView
+                        android:id="@+id/btnScanBarcode"
+                        android:layout_width="60dp"
+                        android:layout_height="60dp"
+                        android:layout_alignParentEnd="true"
+                        android:background="@drawable/button_style_info_gradient"
+                        android:padding="10dp"
+                        android:src="@drawable/ic_barcode_scanner"
+                        android:tint="#FFF" />
+                </RelativeLayout>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="5dp"
+                    android:text="Nước sản xuất (Không bắt buộc)"
+                    android:textColor="#636363"
+                    android:textSize="@dimen/text_size" />
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="15dp"
+                    android:background="@drawable/edittext_search_style_round"
+                    android:hint="Nước sản xuất"
+                    android:inputType="textAutoComplete|textAutoCorrect|textCapWords"
+                    android:lines="1"
+                    android:maxLength="255"
+                    android:padding="@dimen/padding" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="5dp"
+                    android:text="Mô tả (Không bắt buộc)"
+                    android:textColor="#636363"
+                    android:textSize="@dimen/text_size" />
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="15dp"
+                    android:background="@drawable/edittext_search_style_square_round"
+                    android:gravity="top"
+                    android:hint="Mô tả"
+                    android:lines="4"
+                    android:maxLength="3000"
+                    android:padding="@dimen/padding" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="5dp"
+                    android:text="Đơn vị (Bắt buộc)"
+                    android:textColor="#636363"
+                    android:textSize="@dimen/text_size" />
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="15dp"
+                    android:background="@drawable/edittext_search_style_round"
+                    android:hint="Đơn vị"
+                    android:inputType="textAutoComplete|textAutoCorrect|textCapWords"
+                    android:lines="1"
+                    android:maxLength="255"
+                    android:padding="@dimen/padding" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="5dp"
+                    android:text="Quy cách đóng gói (Không bắt buộc)"
+                    android:textColor="#636363"
+                    android:textSize="@dimen/text_size" />
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="15dp"
+                    android:background="@drawable/edittext_search_style_round"
+                    android:hint="Quy cách đóng gói"
+                    android:inputType="textAutoComplete|textAutoCorrect|textCapWords"
+                    android:lines="1"
+                    android:maxLength="255"
+                    android:padding="@dimen/padding" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="5dp"
+                    android:text="Đường dùng (Không bắt buộc)"
+                    android:textColor="#636363"
+                    android:textSize="@dimen/text_size" />
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="15dp"
+                    android:background="@drawable/edittext_search_style_round"
+                    android:hint="Đường dùng"
+                    android:inputType="textAutoComplete|textAutoCorrect|textCapWords"
+                    android:lines="1"
+                    android:maxLength="255"
+                    android:padding="@dimen/padding" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="5dp"
+                    android:text="Giá nhập (Bắt buộc)"
+                    android:textColor="#636363"
+                    android:textSize="@dimen/text_size" />
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="15dp"
+                    android:background="@drawable/edittext_search_style_round"
+                    android:hint="Giá nhập"
+                    android:inputType="textAutoComplete|textAutoCorrect|textCapWords"
+                    android:lines="1"
+                    android:maxLength="255"
+                    android:padding="@dimen/padding" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="5dp"
+                    android:text="Giá bán (Bắt buộc)"
+                    android:textColor="#636363"
+                    android:textSize="@dimen/text_size" />
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="15dp"
+                    android:background="@drawable/edittext_search_style_round"
+                    android:hint="Giá bán"
+                    android:inputType="textAutoComplete|textAutoCorrect|textCapWords"
+                    android:lines="1"
+                    android:maxLength="255"
+                    android:padding="@dimen/padding" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:weightSum="2">
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="5dp"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_marginBottom="5dp"
+                            android:text="Tồn ít nhất"
+                            android:textColor="#636363"
+                            android:textSize="@dimen/text_size" />
+
+                        <EditText
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="15dp"
+                            android:background="@drawable/edittext_search_style_round"
+                            android:gravity="center"
+                            android:hint="Tồn ít nhất"
+                            android:inputType="textAutoComplete|textAutoCorrect|textCapWords"
+                            android:lines="1"
+                            android:maxLength="255"
+                            android:padding="@dimen/padding"
+                            android:text="0" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="5dp"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_marginBottom="5dp"
+                            android:text="Tồn nhiều nhất"
+                            android:textColor="#636363"
+                            android:textSize="@dimen/text_size" />
+
+                        <EditText
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="15dp"
+                            android:background="@drawable/edittext_search_style_round"
+                            android:gravity="center"
+                            android:hint="Tồn nhiều nhất"
+                            android:inputType="textAutoComplete|textAutoCorrect|textCapWords"
+                            android:lines="1"
+                            android:maxLength="255"
+                            android:padding="@dimen/padding"
+                            android:text="99999" />
+                    </LinearLayout>
+                </LinearLayout>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="5dp"
+                    android:text="Số lượng (Bắt buộc)"
+                    android:textColor="#636363"
+                    android:textSize="@dimen/text_size" />
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="15dp"
+                    android:background="@drawable/edittext_search_style_round"
+                    android:hint="Số lượng"
+                    android:inputType="textAutoComplete|textAutoCorrect|textCapWords"
+                    android:lines="1"
+                    android:maxLength="255"
+                    android:padding="@dimen/padding" />
+
+                <Button
+                    android:id="@+id/btnCreatePharmacyConfirm"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="20dp"
+                    android:background="@drawable/button_style_success_gradient"
+                    android:padding="22.5dp"
+                    android:text="Cập nhật hàng"
+                    android:textAllCaps="true"
+                    android:textColor="#FFF"
+                    android:textStyle="bold" />
+
+            </LinearLayout>
+        </ScrollView>
+    </LinearLayout>
+</layout>
