@@ -1,8 +1,10 @@
 package vn.vistark.pharmass.core.model
 
 
+import androidx.databinding.BaseObservable
 import com.google.gson.annotations.SerializedName
 import vn.vistark.pharmass.core.api.response.GoodsCategorySimplePharmacy
+import vn.vistark.pharmass.core.api.response.PharmacySimpleOwner
 import vn.vistark.pharmass.core.api.response.SupplierSimplePharmacy
 
 data class Goods(
@@ -13,7 +15,7 @@ data class Goods(
     @SerializedName("abbreviation")
     var abbreviation: String = "",
     @SerializedName("images")
-    var images: Any = Any(),
+    var images: List<String> = emptyList(),
     @SerializedName("barcode")
     var barcode: String = "",
     @SerializedName("manufacturerCountry")
@@ -23,21 +25,21 @@ data class Goods(
     @SerializedName("unit")
     var unit: String = "",
     @SerializedName("weight")
-    var weight: Int = 0,
+    var weight: Float = 0F,
     @SerializedName("packing")
     var packing: String = "",
     @SerializedName("routeUsed")
     var routeUsed: String = "",
     @SerializedName("inventoryAtleast")
-    var inventoryAtleast: Int = 0,
+    var inventoryAtleast: Float = 0F,
     @SerializedName("inventoryMost")
-    var inventoryMost: Int = 0,
+    var inventoryMost: Float = 0F,
     @SerializedName("entryPrice")
-    var entryPrice: Int = 0,
+    var entryPrice: Double = 0.0,
     @SerializedName("exportPrice")
-    var exportPrice: Int = 0,
+    var exportPrice: Double = 0.0,
     @SerializedName("amount")
-    var amount: Int = 0,
+    var amount: Float = 0F,
     @SerializedName("created_at")
     var createdAt: String = "",
     @SerializedName("updated_at")
@@ -45,7 +47,9 @@ data class Goods(
     @SerializedName("supplier")
     var supplier: SupplierSimplePharmacy? = null,
     @SerializedName("goods_category")
-    var goodsCategory: GoodsCategorySimplePharmacy = GoodsCategorySimplePharmacy(),
+    var goodsCategory: GoodsCategorySimplePharmacy? = null,
     @SerializedName("medicine_category")
-    var medicineCategory: MedicineCategory? = null
-)
+    var medicineCategory: MedicineCategory? = null,
+    var isPublic: Boolean = true,
+    var pharmacy: PharmacySimpleOwner = PharmacySimpleOwner()
+) : BaseObservable()

@@ -51,8 +51,15 @@ public interface APIServices {
     @GET("/goods-categories?pharmacy_null=false")
     fun getPharmacyGoodsCategory(@Query("pharmacy.id") id: Int): Call<List<GoodsCategory>>
 
+    @GET("/goods/count")
+    fun getCountPharmacyGoodsInCategory(
+        @Query("goods_category.id") goodsCategoryId: Int,
+        @Query("pharmacy.id") pharmacyId: Int
+    ): Call<Int>
+
     // Chỉ dành cho mục đích phát triển
-    @POST("/medicine-categories")
+    @POST("/medicine-categories(BoQua)")
     fun createMedicineCategory(@Body medicineCategory: MedicineCategory): Call<MedicineCategory>
+
 
 }

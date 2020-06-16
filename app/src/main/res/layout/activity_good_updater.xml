@@ -176,6 +176,9 @@
                         android:layout_alignParentEnd="true"
                         android:background="@drawable/button_style_info_gradient"
                         android:padding="10dp"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:layout_centerVertical="true"
                         android:src="@drawable/ic_barcode_scanner"
                         android:tint="#FFF" />
                 </RelativeLayout>
@@ -398,6 +401,29 @@
                     android:lines="1"
                     android:maxLength="255"
                     android:padding="@dimen/padding" />
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginBottom="@dimen/padding">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="5dp"
+                        android:layout_toLeftOf="@id/swBtnIsPublic"
+                        android:text="Công khai để bán trực tuyến"
+                        android:textColor="#636363"
+                        android:textSize="@dimen/text_size" />
+
+                    <androidx.appcompat.widget.SwitchCompat
+                        android:id="@+id/swBtnIsPublic"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        />
+                </RelativeLayout>
 
                 <Button
                     android:id="@+id/btnCreatePharmacyConfirm"

@@ -1,5 +1,6 @@
 package vn.vistark.pharmass.ui.pharmacy.fragments.category
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -15,6 +16,7 @@ import vn.vistark.pharmass.R
 import vn.vistark.pharmass.core.model.GoodsCategory
 import vn.vistark.pharmass.core.model.Pharmacy
 import vn.vistark.pharmass.processing.GetPharmacyGoodsCategoryProcessing
+import vn.vistark.pharmass.ui.pharmacy_ware_house.PharmacyWareHouseActivity
 
 class CategoryFragment : Fragment() {
     private var pharmacyJson: String? = null
@@ -50,9 +52,6 @@ class CategoryFragment : Fragment() {
         rvCategories.layoutManager = LinearLayoutManager(context)
         rvCategories.setHasFixedSize(true)
 
-        adapter = PharmacyCategoryAdapter(goodsCategories)
-        rvCategories.adapter = adapter
-
         if (pharmacy == null) {
             SweetAlertDialog(context, SweetAlertDialog.ERROR_TYPE).apply {
                 titleText = "Không thể truy cập vào thông tin của nhà thuốc này"
@@ -68,6 +67,16 @@ class CategoryFragment : Fragment() {
             }
             return
         } else {
+            adapter = PharmacyCategoryAdapter(pharmacy!!, goodsCategories)
+            rvCategories.adapter = adapter
+            adapter.onClicked = {
+                val intent = Intent(context, PharmacyWareHouseActivity::class.java)
+                intent.putExtra(Pharmacy::class.java.simpleName, pharmacyJson)
+                intent.putExtra(GoodsCategory::class.java.simpleName, Gson().toJson(it))
+                startActivity(intent)
+            }
+
+            // Xu ly va lay du lieu
             GetPharmacyGoodsCategoryProcessing(context!!, pharmacy!!.id).onFinished = {
                 loadingIcon.visibility = View.GONE
                 if (it != null) {

@@ -14,7 +14,6 @@ data class PharmacyBottomMenu(var title: String, var fragment: Fragment?) {
             return arrayOf(
                 PharmacyBottomMenu("Nhân viên", StaffFragment.newInstance(pharmacyJson)),
                 PharmacyBottomMenu("Mục sản phẩm", CategoryFragment.newInstance(pharmacyJson)),
-                PharmacyBottomMenu("Kho", WareHouseFragment.newInstance()),
                 PharmacyBottomMenu("Khách hàng", CustomerFragment.newInstance()),
                 PharmacyBottomMenu("Đơn bán", BillFragment.newInstance()),
                 PharmacyBottomMenu("Thống kê", StatisticalFragment.newInstance())

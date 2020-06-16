@@ -15,7 +15,9 @@
         android:id="@+id/rlRoot"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#fff"
+        android:background="@drawable/background_default_white_effect"
+        android:clickable="true"
+        android:focusable="true"
         android:padding="10dp">
 
         <!--        <ImageView-->
@@ -46,6 +48,15 @@
             android:padding="10dp"
             android:text="(0)"
             android:textSize="@dimen/text_size"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            android:visibility="invisible" />
+
+        <ProgressBar
+            android:id="@+id/pbLoadingCount"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_centerVertical="true"
+            android:layout_margin="10dp"
+            android:layout_toRightOf="@id/tvCategoryName" />
     </RelativeLayout>
 </androidx.cardview.widget.CardView>

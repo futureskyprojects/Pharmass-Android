@@ -27,6 +27,8 @@ class PharmacyActivity : AppCompatActivity() {
             finish()
             return
         }
+
+        tvToolbarLabel.text = pharmacy!!.name
         inits()
         initBottomMenu()
         initEvents()
@@ -50,7 +52,6 @@ class PharmacyActivity : AppCompatActivity() {
     private fun inits() {
         ivExpandAuthorInfomation.visibility = View.GONE
         ivBackButton.visibility = View.VISIBLE
-        tvToolbarLabel.text = "Nhà thuốc Trọng Nghĩa"
         tvToolbarLabel.isSelected = true
         tvToolbarLabel.isAllCaps = false
         tvToolbarLabel.setPadding(
