@@ -20,13 +20,6 @@
         android:focusable="true"
         android:padding="10dp">
 
-        <!--        <ImageView-->
-        <!--            android:layout_width="match_parent"-->
-        <!--            android:layout_height="100dp"-->
-        <!--            android:alpha="0.3"-->
-        <!--            android:scaleType="centerCrop"-->
-        <!--            android:src="@drawable/red_img_background" />-->
-
         <TextView
             android:id="@+id/tvCategoryName"
             android:layout_width="match_parent"
