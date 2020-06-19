@@ -4,17 +4,25 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.gson.Gson
 import kotlinx.android.synthetic.main.activity_pharmacy_ware_house.*
 import kotlinx.android.synthetic.main.components_toolbar.*
 import vn.vistark.pharmass.R
+import vn.vistark.pharmass.core.model.Goods
 import vn.vistark.pharmass.core.model.GoodsCategory
 import vn.vistark.pharmass.core.model.Pharmacy
+import vn.vistark.pharmass.processing.GetPharmacyGoodsInCategoryProcessing
 import vn.vistark.pharmass.ui.pharmacy.PharmacyActivity
 
 class PharmacyWareHouseActivity : AppCompatActivity() {
+
     var pharmacy: Pharmacy? = null
     var goodsCategory: GoodsCategory? = null
+
+    val goodsList = ArrayList<Goods>()
+    lateinit var adapter: GoodsAdapter
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_pharmacy_ware_house)
@@ -29,6 +37,31 @@ class PharmacyWareHouseActivity : AppCompatActivity() {
         }
         inits()
         initEvents()
+        initRecyclerView()
+    }
+
+    private fun initRecyclerView() {
+        rvGoods.setHasFixedSize(true)
+        rvGoods.layoutManager = LinearLayoutManager(this)
+
+        adapter = GoodsAdapter(goodsList)
+        rvGoods.adapter = adapter
+
+        GetPharmacyGoodsInCategoryProcessing(this, pharmacy!!.id, goodsCategory!!.id).onFinished = {
+            loadingIcon.visibility = View.GONE
+            if (it != null) {
+                goodsList.clear()
+                goodsList.addAll(it)
+                adapter.notifyDataSetChanged()
+            } else {
+                Toast.makeText(
+                    this,
+                    "Hiện tại bạn chưa có nhân viên nào!",
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
+        }
+
     }
 
     private fun getPassingData(): Boolean {
@@ -69,6 +102,7 @@ class PharmacyWareHouseActivity : AppCompatActivity() {
             tvToolbarLabel.paddingRight,
             tvToolbarLabel.paddingBottom
         )
+        tvToolbarLabel.isAllCaps = false
         civUserAvatar.visibility = View.GONE
     }
 

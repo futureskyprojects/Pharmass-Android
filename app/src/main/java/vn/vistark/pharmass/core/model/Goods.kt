@@ -52,4 +52,5 @@ data class Goods(
     var medicineCategory: MedicineCategory? = null,
     var isPublic: Boolean = true,
     var pharmacy: PharmacySimpleOwner = PharmacySimpleOwner()
-) : BaseObservable()
+) : BaseObservable() {
+}
