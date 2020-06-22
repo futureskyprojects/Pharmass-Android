@@ -9,6 +9,9 @@ import vn.vistark.pharmass.core.model.User
 class Constants(context: Context) {
     companion object {
         val TAG = Constants::class.java.simpleName
+
+        const val MEDICINE_CATEGORY_CODE = "MEDICINE_CATEGORY"
+
         var sharedPreferences: SharedPreferences? = null
         var user: User
             @SuppressLint("DefaultLocale")

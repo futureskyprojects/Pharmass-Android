@@ -107,14 +107,16 @@
                 </HorizontalScrollView>
 
                 <TextView
+                    android:id="@+id/tvGoodsName"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="5dp"
-                    android:text="Tên mặt hàng/thuốc (Bắt buộc)"
+                    android:text="Tên sản phẩm (Bắt buộc)"
                     android:textColor="#636363"
                     android:textSize="@dimen/text_size" />
 
                 <EditText
+                    android:id="@+id/edtGoodsName"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="15dp"
@@ -123,7 +125,8 @@
                     android:inputType="textAutoComplete|textAutoCorrect|textCapWords"
                     android:lines="1"
                     android:maxLength="255"
-                    android:padding="@dimen/padding" />
+                    android:padding="@dimen/padding"
+                    android:text="@={requestCreateGoods.name}" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -142,7 +145,8 @@
                     android:inputType="textAutoComplete|textAutoCorrect|textCapWords"
                     android:lines="1"
                     android:maxLength="255"
-                    android:padding="@dimen/padding" />
+                    android:padding="@dimen/padding"
+                    android:text="@={requestCreateGoods.abbreviation}" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -164,26 +168,28 @@
                         android:layout_toStartOf="@id/btnScanBarcode"
                         android:background="@drawable/edittext_search_style_round"
                         android:hint="Mã vạch"
-                        android:inputType="textAutoComplete|textAutoCorrect|textCapWords"
+                        android:inputType="numberSigned"
                         android:lines="1"
                         android:maxLength="255"
-                        android:padding="@dimen/padding" />
+                        android:padding="@dimen/padding"
+                        android:text="@={requestCreateGoods.barcode}" />
 
                     <ImageView
                         android:id="@+id/btnScanBarcode"
                         android:layout_width="60dp"
                         android:layout_height="60dp"
                         android:layout_alignParentEnd="true"
+                        android:layout_centerVertical="true"
                         android:background="@drawable/button_style_info_gradient"
-                        android:padding="10dp"
                         android:clickable="true"
                         android:focusable="true"
-                        android:layout_centerVertical="true"
+                        android:padding="10dp"
                         android:src="@drawable/ic_barcode_scanner"
                         android:tint="#FFF" />
                 </RelativeLayout>
 
                 <TextView
+                    android:id="@+id/tvManufacturerCountry"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="5dp"
@@ -192,6 +198,7 @@
                     android:textSize="@dimen/text_size" />
 
                 <EditText
+                    android:id="@+id/edtManufacturerCountry"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="15dp"
@@ -200,7 +207,8 @@
                     android:inputType="textAutoComplete|textAutoCorrect|textCapWords"
                     android:lines="1"
                     android:maxLength="255"
-                    android:padding="@dimen/padding" />
+                    android:padding="@dimen/padding"
+                    android:text="@={requestCreateGoods.manufacturerCountry}" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -219,9 +227,11 @@
                     android:hint="Mô tả"
                     android:lines="4"
                     android:maxLength="3000"
-                    android:padding="@dimen/padding" />
+                    android:padding="@dimen/padding"
+                    android:text="@={requestCreateGoods.description}" />
 
                 <TextView
+                    android:id="@+id/tvUnit"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="5dp"
@@ -230,6 +240,7 @@
                     android:textSize="@dimen/text_size" />
 
                 <EditText
+                    android:id="@+id/edtUnit"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="15dp"
@@ -238,9 +249,11 @@
                     android:inputType="textAutoComplete|textAutoCorrect|textCapWords"
                     android:lines="1"
                     android:maxLength="255"
-                    android:padding="@dimen/padding" />
+                    android:padding="@dimen/padding"
+                    android:text="@={requestCreateGoods.unit}" />
 
                 <TextView
+                    android:id="@+id/tvPacking"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="5dp"
@@ -249,6 +262,7 @@
                     android:textSize="@dimen/text_size" />
 
                 <EditText
+                    android:id="@+id/edtPacking"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="15dp"
@@ -257,7 +271,8 @@
                     android:inputType="textAutoComplete|textAutoCorrect|textCapWords"
                     android:lines="1"
                     android:maxLength="255"
-                    android:padding="@dimen/padding" />
+                    android:padding="@dimen/padding"
+                    android:text="@={requestCreateGoods.packing}" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -276,7 +291,8 @@
                     android:inputType="textAutoComplete|textAutoCorrect|textCapWords"
                     android:lines="1"
                     android:maxLength="255"
-                    android:padding="@dimen/padding" />
+                    android:padding="@dimen/padding"
+                    android:text="@={requestCreateGoods.routeUsed}" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -292,10 +308,11 @@
                     android:layout_marginBottom="15dp"
                     android:background="@drawable/edittext_search_style_round"
                     android:hint="Giá nhập"
-                    android:inputType="textAutoComplete|textAutoCorrect|textCapWords"
+                    android:inputType="numberDecimal"
                     android:lines="1"
                     android:maxLength="255"
-                    android:padding="@dimen/padding" />
+                    android:padding="@dimen/padding"
+                    android:text="@={requestCreateGoods.entryPrice + ``}" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -311,10 +328,11 @@
                     android:layout_marginBottom="15dp"
                     android:background="@drawable/edittext_search_style_round"
                     android:hint="Giá bán"
-                    android:inputType="textAutoComplete|textAutoCorrect|textCapWords"
+                    android:inputType="numberDecimal"
                     android:lines="1"
                     android:maxLength="255"
-                    android:padding="@dimen/padding" />
+                    android:padding="@dimen/padding"
+                    android:text="@={requestCreateGoods.exportPrice + ``}" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -345,11 +363,11 @@
                             android:background="@drawable/edittext_search_style_round"
                             android:gravity="center"
                             android:hint="Tồn ít nhất"
-                            android:inputType="textAutoComplete|textAutoCorrect|textCapWords"
+                            android:inputType="numberDecimal"
                             android:lines="1"
                             android:maxLength="255"
                             android:padding="@dimen/padding"
-                            android:text="0" />
+                            android:text="@={requestCreateGoods.inventoryAtleast + ``}" />
                     </LinearLayout>
 
                     <LinearLayout
@@ -375,11 +393,11 @@
                             android:background="@drawable/edittext_search_style_round"
                             android:gravity="center"
                             android:hint="Tồn nhiều nhất"
-                            android:inputType="textAutoComplete|textAutoCorrect|textCapWords"
+                            android:inputType="numberDecimal"
                             android:lines="1"
                             android:maxLength="255"
                             android:padding="@dimen/padding"
-                            android:text="99999" />
+                            android:text="@={requestCreateGoods.inventoryMost + ``}" />
                     </LinearLayout>
                 </LinearLayout>
 
@@ -397,10 +415,11 @@
                     android:layout_marginBottom="15dp"
                     android:background="@drawable/edittext_search_style_round"
                     android:hint="Số lượng"
-                    android:inputType="textAutoComplete|textAutoCorrect|textCapWords"
+                    android:inputType="numberDecimal"
                     android:lines="1"
                     android:maxLength="255"
-                    android:padding="@dimen/padding" />
+                    android:padding="@dimen/padding"
+                    android:text="@={requestCreateGoods.amount + ``}" />
 
                 <RelativeLayout
                     android:layout_width="match_parent"
@@ -422,11 +441,11 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentEnd="true"
-                        />
+                        android:checked="@={requestCreateGoods.public}" />
                 </RelativeLayout>
 
                 <Button
-                    android:id="@+id/btnCreatePharmacyConfirm"
+                    android:id="@+id/btnGoodsUpdaterConfirm"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="20dp"

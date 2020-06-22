@@ -33,7 +33,7 @@ data class Goods(
     @SerializedName("inventoryAtleast")
     var inventoryAtleast: Float = 0F,
     @SerializedName("inventoryMost")
-    var inventoryMost: Float = 0F,
+    var inventoryMost: Float = 9999999F,
     @SerializedName("entryPrice")
     var entryPrice: Double = 0.0,
     @SerializedName("exportPrice")

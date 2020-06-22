@@ -17,6 +17,8 @@ import vn.vistark.pharmass.processing.GetPharmacyGoodsInCategoryProcessing
 import vn.vistark.pharmass.ui.goods_updater.GoodsUpdaterActivity
 
 class PharmacyWareHouseActivity : AppCompatActivity() {
+    var pharmacyJson: String = ""
+    var goodsCategoryJson: String = ""
 
     var pharmacy: Pharmacy? = null
     var goodsCategory: GoodsCategory? = null
@@ -67,7 +69,7 @@ class PharmacyWareHouseActivity : AppCompatActivity() {
 
     private fun getPassingData(): Boolean {
         // Tiến hành lấy thông tin nhà thuốc
-        val pharmacyJson = intent.getStringExtra(Pharmacy::class.java.simpleName) ?: ""
+        pharmacyJson = intent.getStringExtra(Pharmacy::class.java.simpleName) ?: ""
         pharmacy = Gson().fromJson(pharmacyJson, Pharmacy::class.java)
         if (pharmacyJson.isEmpty() || pharmacy == null) {
             Toast.makeText(
@@ -79,7 +81,7 @@ class PharmacyWareHouseActivity : AppCompatActivity() {
             return false
         }
         // Tiến hành lấy thông tin danh mục loại sản phẩm
-        val goodsCategoryJson = intent.getStringExtra(GoodsCategory::class.java.simpleName) ?: ""
+        goodsCategoryJson = intent.getStringExtra(GoodsCategory::class.java.simpleName) ?: ""
         goodsCategory = Gson().fromJson(goodsCategoryJson, GoodsCategory::class.java)
         if (goodsCategoryJson.isEmpty() || goodsCategory == null) {
             Toast.makeText(
@@ -113,6 +115,8 @@ class PharmacyWareHouseActivity : AppCompatActivity() {
         }
         lnCreateNewGoods.setOnClickListener {
             val intent = Intent(this, GoodsUpdaterActivity::class.java)
+            intent.putExtra(Pharmacy::class.java.simpleName, pharmacyJson)
+            intent.putExtra(GoodsCategory::class.java.simpleName, goodsCategoryJson)
             startActivity(intent)
         }
     }
