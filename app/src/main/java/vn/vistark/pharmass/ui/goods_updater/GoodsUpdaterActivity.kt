@@ -9,7 +9,7 @@ import vn.vistark.pharmass.R
 import vn.vistark.pharmass.core.model.Goods
 import vn.vistark.pharmass.databinding.ActivityGoodUpdaterBinding
 
-class GoodUpdaterActivity : AppCompatActivity() {
+class GoodsUpdaterActivity : AppCompatActivity() {
     lateinit var binding: ActivityGoodUpdaterBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

@@ -16,7 +16,7 @@
         android:background="#FFF"
         android:fitsSystemWindows="true"
         android:orientation="vertical"
-        tools:context=".ui.goods_updater.GoodUpdaterActivity">
+        tools:context=".ui.goods_updater.GoodsUpdaterActivity">
 
         <include layout="@layout/components_top_round_primary_dark" />
 

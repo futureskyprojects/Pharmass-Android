@@ -1,5 +1,6 @@
 package vn.vistark.pharmass.ui.pharmacy_ware_house
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
@@ -13,7 +14,7 @@ import vn.vistark.pharmass.core.model.Goods
 import vn.vistark.pharmass.core.model.GoodsCategory
 import vn.vistark.pharmass.core.model.Pharmacy
 import vn.vistark.pharmass.processing.GetPharmacyGoodsInCategoryProcessing
-import vn.vistark.pharmass.ui.pharmacy.PharmacyActivity
+import vn.vistark.pharmass.ui.goods_updater.GoodsUpdaterActivity
 
 class PharmacyWareHouseActivity : AppCompatActivity() {
 
@@ -109,6 +110,10 @@ class PharmacyWareHouseActivity : AppCompatActivity() {
     private fun initEvents() {
         ivBackButton.setOnClickListener {
             onBackPressed()
+        }
+        lnCreateNewGoods.setOnClickListener {
+            val intent = Intent(this, GoodsUpdaterActivity::class.java)
+            startActivity(intent)
         }
     }
 }
