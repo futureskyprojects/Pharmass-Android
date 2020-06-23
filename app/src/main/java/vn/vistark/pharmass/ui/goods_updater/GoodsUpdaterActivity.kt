@@ -1,11 +1,16 @@
 package vn.vistark.pharmass.ui.goods_updater
 
 import android.app.Activity
+import android.content.ContentValues
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
+import android.provider.MediaStore
 import android.text.InputType
 import android.view.View
+import android.widget.ImageView
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import com.google.gson.Gson
@@ -20,6 +25,7 @@ import vn.vistark.pharmass.core.model.MedicineCategory
 import vn.vistark.pharmass.core.model.Pharmacy
 import vn.vistark.pharmass.databinding.ActivityGoodUpdaterBinding
 import vn.vistark.pharmass.ui.medicine_category_picker.MedicineCategoryPickerActivity
+import vn.vistark.pharmass.utils.GlideUtils
 
 class GoodsUpdaterActivity : AppCompatActivity() {
     var pharmacyJson: String = ""
@@ -27,6 +33,11 @@ class GoodsUpdaterActivity : AppCompatActivity() {
 
     lateinit var pharmacy: Pharmacy
     lateinit var goodsCategory: GoodsCategory
+
+    var uri1: Uri? = null
+    var uri2: Uri? = null
+    var uri3: Uri? = null
+    var imageViewSelectedNumer = -1
 
     var medicineCategory: MedicineCategory? = null
 
@@ -112,6 +123,15 @@ class GoodsUpdaterActivity : AppCompatActivity() {
         btnGoodsUpdaterConfirm.setOnClickListener {
             println(Gson().toJson(binding.requestCreateGoods!!))
         }
+        ivGoodsImage1.setOnClickListener {
+            pickImage(1)
+        }
+        ivGoodsImage2.setOnClickListener {
+            pickImage(2)
+        }
+        ivGoodsImage3.setOnClickListener {
+            pickImage(3)
+        }
     }
 
     private fun inits() {
@@ -153,6 +173,92 @@ class GoodsUpdaterActivity : AppCompatActivity() {
                     edtPacking.visibility = View.VISIBLE
                     tvPacking.visibility = View.VISIBLE
                 }
+            }
+        } else if (requestCode == RequestCode.REQUEST_PICK_PHOTO && resultCode == Activity.RESULT_OK) {
+            val tempUri: Uri? = data?.data
+            if (tempUri == null) {
+                Toast.makeText(this, "Không lấy được ảnh chụp", Toast.LENGTH_SHORT).show()
+                return
+            }
+            processingSelectedUri(tempUri)
+        }
+    }
+
+
+    private fun pickImage(i: Int) {
+        imageViewSelectedNumer = i
+        val options =
+            arrayOf<CharSequence>(
+                "Chụp ảnh",
+                "Ảnh từ thư viện",
+                "Đóng"
+            )
+        val builder = AlertDialog.Builder(this)
+        builder.setTitle("Chọn hình ảnh")
+        builder.setItems(options) { dialog, index ->
+            when (index) {
+                0 -> {
+                    val values = ContentValues()
+                    values.put(
+                        MediaStore.Images.Media.TITLE,
+                        "Vistark_${System.currentTimeMillis()}"
+                    )
+                    values.put(
+                        MediaStore.Images.Media.DESCRIPTION,
+                        "Write new app? contact projects.futuresky@gmail.com"
+                    )
+                    val takePicture =
+                        Intent(MediaStore.ACTION_IMAGE_CAPTURE)
+                    val tempUri = contentResolver.insert(
+                        MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values
+                    )
+                    if (tempUri == null) {
+                        Toast.makeText(this, "Không lấy được ảnh chụp", Toast.LENGTH_SHORT).show()
+                        return@setItems
+                    }
+                    processingSelectedUri(tempUri)
+                    takePicture.putExtra(
+                        MediaStore.EXTRA_OUTPUT, tempUri
+                    )
+                    startActivityForResult(takePicture, RequestCode.REQUEST_TAKE_PHOTO)
+                }
+                1 -> {
+                    val pickPhoto = Intent(
+                        Intent.ACTION_PICK,
+                        MediaStore.Images.Media.EXTERNAL_CONTENT_URI
+                    )
+                    startActivityForResult(pickPhoto, RequestCode.REQUEST_PICK_PHOTO)
+                }
+                2 -> {
+                    dialog.dismiss()
+                }
+            }
+        }
+        builder.show()
+    }
+
+    private fun processingSelectedUri(tempUri: Uri) {
+        GlideUtils.loadToImageViewWithPlaceHolder(
+            findViewById(
+                resources.getIdentifier(
+                    "ivGoodsImage$imageViewSelectedNumer",
+                    "id",
+                    packageName
+                )
+            ),
+            tempUri,
+            R.drawable.no_image
+        )
+        when (imageViewSelectedNumer) {
+            1 -> {
+                uri1 = tempUri
+            }
+            2 -> {
+                uri2 = tempUri
+            }
+            else -> {
+                uri3 = tempUri
+
             }
         }
     }
