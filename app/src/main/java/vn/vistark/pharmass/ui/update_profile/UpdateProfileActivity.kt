@@ -88,15 +88,15 @@ class UpdateProfileActivity : AppCompatActivity() {
                 }, 1998, 3, 14
             ).show()
         }
-        rbMale.setOnCheckedChangeListener { buttonView, isChecked ->
+        rbMale.setOnCheckedChangeListener { _, isChecked ->
             if (isChecked)
                 binding.profileUpdateRequest!!.gender = Gender.MALE
         }
-        rbFemale.setOnCheckedChangeListener { buttonView, isChecked ->
+        rbFemale.setOnCheckedChangeListener { _, isChecked ->
             if (isChecked)
                 binding.profileUpdateRequest!!.gender = Gender.FEMALE
         }
-        rbSkip.setOnCheckedChangeListener { buttonView, isChecked ->
+        rbSkip.setOnCheckedChangeListener { _, isChecked ->
             if (isChecked)
                 binding.profileUpdateRequest!!.gender = Gender.SKIP
         }

@@ -47,7 +47,7 @@ class AddressUpdaterActivity : AppCompatActivity() {
                 vietnamAdministrativeUnits.forEach {
                     items += it.nameWithType
                 }
-                setItems(items) { d, pos ->
+                setItems(items) { _, pos ->
                     selectedProvince = vietnamAdministrativeUnits.get(pos)
                     selectedDistrict = null
                     selectedWards = null
@@ -68,7 +68,7 @@ class AddressUpdaterActivity : AppCompatActivity() {
                     selectedProvince?.quanHuyen?.forEach {
                         items += it.nameWithType
                     }
-                    setItems(items) { d, pos ->
+                    setItems(items) { _, pos ->
                         selectedDistrict = selectedProvince?.quanHuyen?.get(pos)
                         selectedWards = null
                         tvDistrict.text = selectedDistrict?.nameWithType
@@ -88,7 +88,7 @@ class AddressUpdaterActivity : AppCompatActivity() {
                     selectedDistrict?.xaPhuong?.forEach {
                         items += it.nameWithType
                     }
-                    setItems(items) { d, pos ->
+                    setItems(items) { _, pos ->
                         selectedWards = selectedDistrict?.xaPhuong?.get(pos)
                         tvWards.text = selectedWards?.nameWithType
                     }

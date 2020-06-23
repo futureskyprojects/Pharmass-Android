@@ -176,7 +176,7 @@ class PharmacyUpdaterActivity : AppCompatActivity() {
         tvPharmacyUpdaterOpenTime.setOnClickListener {
             TimePickerDialog(
                 this,
-                TimePickerDialog.OnTimeSetListener { view, hourOfDay, minute ->
+                TimePickerDialog.OnTimeSetListener { _, hourOfDay, minute ->
                     if (timePickerValidate()) {
                         tvPharmacyUpdaterOpenTime.text =
                             String.format("%02d:%02d", hourOfDay, minute)
@@ -189,7 +189,7 @@ class PharmacyUpdaterActivity : AppCompatActivity() {
         tvPharmacyUpdaterCloseTime.setOnClickListener {
             TimePickerDialog(
                 this,
-                TimePickerDialog.OnTimeSetListener { view, hourOfDay, minute ->
+                TimePickerDialog.OnTimeSetListener { _, hourOfDay, minute ->
                     if (timePickerValidate()) {
                         tvPharmacyUpdaterCloseTime.text =
                             String.format("%02d:%02d", hourOfDay, minute)
@@ -199,7 +199,7 @@ class PharmacyUpdaterActivity : AppCompatActivity() {
                 }, 22, 0, true
             ).show()
         }
-        rbPharmacyUpdaterMonday.setOnCheckedChangeListener { buttonView, isChecked ->
+        rbPharmacyUpdaterMonday.setOnCheckedChangeListener { _, _ ->
             if (!rbPharmacyUpdaterMonday.isChecked) {
                 workInWeek.remove("T2")
             } else {
@@ -207,7 +207,7 @@ class PharmacyUpdaterActivity : AppCompatActivity() {
             }
             generateWorkInWeekValues()
         }
-        rbPharmacyUpdaterTuesday.setOnCheckedChangeListener { buttonView, isChecked ->
+        rbPharmacyUpdaterTuesday.setOnCheckedChangeListener { _, _ ->
             if (!rbPharmacyUpdaterTuesday.isChecked) {
                 workInWeek.remove("T3")
             } else {
@@ -215,7 +215,7 @@ class PharmacyUpdaterActivity : AppCompatActivity() {
             }
             generateWorkInWeekValues()
         }
-        rbPharmacyUpdaterWednesday.setOnCheckedChangeListener { buttonView, isChecked ->
+        rbPharmacyUpdaterWednesday.setOnCheckedChangeListener { _, _ ->
             if (!rbPharmacyUpdaterWednesday.isChecked) {
                 workInWeek.remove("T4")
             } else {
@@ -223,7 +223,7 @@ class PharmacyUpdaterActivity : AppCompatActivity() {
             }
             generateWorkInWeekValues()
         }
-        rbPharmacyUpdaterThursday.setOnCheckedChangeListener { buttonView, isChecked ->
+        rbPharmacyUpdaterThursday.setOnCheckedChangeListener { _, _ ->
             if (!rbPharmacyUpdaterThursday.isChecked) {
                 workInWeek.remove("T5")
             } else {
@@ -231,7 +231,7 @@ class PharmacyUpdaterActivity : AppCompatActivity() {
             }
             generateWorkInWeekValues()
         }
-        rbPharmacyUpdaterFriday.setOnCheckedChangeListener { buttonView, isChecked ->
+        rbPharmacyUpdaterFriday.setOnCheckedChangeListener { _, _ ->
             if (!rbPharmacyUpdaterFriday.isChecked) {
                 workInWeek.remove("T6")
             } else {
@@ -239,7 +239,7 @@ class PharmacyUpdaterActivity : AppCompatActivity() {
             }
             generateWorkInWeekValues()
         }
-        rbPharmacyUpdaterSaturday.setOnCheckedChangeListener { buttonView, isChecked ->
+        rbPharmacyUpdaterSaturday.setOnCheckedChangeListener { _, _ ->
             if (!rbPharmacyUpdaterSaturday.isChecked) {
                 workInWeek.remove("T7")
             } else {
@@ -247,7 +247,7 @@ class PharmacyUpdaterActivity : AppCompatActivity() {
             }
             generateWorkInWeekValues()
         }
-        rbPharmacyUpdaterSunday.setOnCheckedChangeListener { buttonView, isChecked ->
+        rbPharmacyUpdaterSunday.setOnCheckedChangeListener { _, _ ->
             if (!rbPharmacyUpdaterSunday.isChecked) {
                 workInWeek.remove("CN")
             } else {

@@ -17,6 +17,7 @@ android {
         targetSdkVersion 29
         versionCode 1
         versionName "1.0"
+        multiDexEnabled true
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -53,9 +54,9 @@ dependencies {
 
     implementation 'com.github.f0ris.sweetalert:library:1.5.1'
 
-    implementation 'com.google.android.gms:play-services-basement:17.2.1'
+    implementation 'com.google.android.gms:play-services-basement:17.3.0'
 
-    implementation 'com.google.android.gms:play-services-base:17.2.1'
+    implementation 'com.google.android.gms:play-services-base:17.3.0'
 
     implementation 'com.google.android.gms:play-services-gcm:17.0.0'
 
@@ -76,4 +77,13 @@ dependencies {
     implementation 'com.github.bumptech.glide:glide:4.11.0'
     kapt 'com.github.bumptech.glide:compiler:4.11.0'
     implementation "com.zlc.glide:webpdecoder:1.7.4.11.0"
+
+    // https://viblo.asia/p/xay-dung-app-scan-qr-code-su-dung-google-mobile-vision-OeVKBYMJ5kW
+    //https://medium.com/@aniket93shetty/google-vision-api-bar-code-scanner-using-kotlin-e980988fdde3
+    implementation 'com.google.android.gms:play-services-vision:20.1.0'
+
+    // barcode reader library
+    implementation 'info.androidhive:barcode-reader:1.1.5'
+
+    implementation 'com.android.support:multidex:1.0.3'
 }

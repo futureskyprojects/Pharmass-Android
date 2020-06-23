@@ -12,6 +12,12 @@
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
+    <uses-feature android:name="android.hardware.camera.autofocus" />
+
+    <uses-feature
+        android:name="android.hardware.camera"
+        android:required="true" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -22,6 +28,7 @@
         android:theme="@style/AppTheme"
         tools:replace="android:icon"
         tools:targetApi="n">
+        <activity android:name=".ui.barcode_scanner.BarcodeScannerActivity" />
         <activity
             android:name=".ui.medicine_category_picker.MedicineCategoryPickerActivity"
             android:theme="@style/AppTheme.Transparent" />
@@ -45,6 +52,9 @@
             android:value="@integer/google_play_services_version" /> <!-- <meta-data -->
         <!-- android:name="com.google.android.maps.v2.API_KEY" -->
         <!-- android:value="@string/google_maps_key" /> -->
+        <meta-data
+            android:name="com.google.android.gms.vision.DEPENDENCIES"
+            android:value="barcode" /><!-- barcode,face,ocr make sure added-->
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyDPG4zVE7Xvk9OHwDEcaWoZygMNHo4fdJs" />

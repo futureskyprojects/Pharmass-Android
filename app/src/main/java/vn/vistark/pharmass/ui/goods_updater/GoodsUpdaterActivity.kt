@@ -24,6 +24,7 @@ import vn.vistark.pharmass.core.model.GoodsCategory
 import vn.vistark.pharmass.core.model.MedicineCategory
 import vn.vistark.pharmass.core.model.Pharmacy
 import vn.vistark.pharmass.databinding.ActivityGoodUpdaterBinding
+import vn.vistark.pharmass.ui.barcode_scanner.BarcodeScannerActivity
 import vn.vistark.pharmass.ui.medicine_category_picker.MedicineCategoryPickerActivity
 import vn.vistark.pharmass.utils.GlideUtils
 
@@ -131,6 +132,10 @@ class GoodsUpdaterActivity : AppCompatActivity() {
         }
         ivGoodsImage3.setOnClickListener {
             pickImage(3)
+        }
+        btnScanBarcode.setOnClickListener {
+            val intent = Intent(this, BarcodeScannerActivity::class.java)
+            startActivityForResult(intent, RequestCode.REQUEST_BARCODE_SCANNER)
         }
     }
 
