@@ -158,13 +158,14 @@
 
                 <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="15dp">
 
                     <EditText
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginRight="5dp"
-                        android:layout_marginBottom="15dp"
+                        android:layout_marginEnd="5dp"
+                        android:layout_centerVertical="true"
                         android:layout_toStartOf="@id/btnScanBarcode"
                         android:background="@drawable/edittext_search_style_round"
                         android:hint="Mã vạch"
@@ -184,6 +185,7 @@
                         android:clickable="true"
                         android:focusable="true"
                         android:padding="10dp"
+
                         android:src="@drawable/ic_barcode_scanner"
                         android:tint="#FFF" />
                 </RelativeLayout>

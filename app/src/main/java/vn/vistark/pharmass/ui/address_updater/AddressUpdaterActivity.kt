@@ -9,9 +9,6 @@ import android.view.animation.AnimationUtils
 import androidx.appcompat.app.AlertDialog
 import com.google.gson.Gson
 import kotlinx.android.synthetic.main.activity_address_updater.*
-import kotlinx.android.synthetic.main.activity_home_menu.*
-import kotlinx.android.synthetic.main.activity_home_menu.lnMenuContainer
-import kotlinx.android.synthetic.main.activity_home_menu.rlHomeMenuRoot
 import vn.vistark.pharmass.R
 import vn.vistark.pharmass.core.constants.Constants
 import vn.vistark.pharmass.core.constants.vietnam.*

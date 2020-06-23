@@ -1,5 +1,7 @@
 package vn.vistark.pharmass.ui.goods_updater
 
+import android.app.Activity
+import android.content.Intent
 import android.os.Bundle
 import android.text.InputType
 import android.view.View
@@ -11,10 +13,13 @@ import kotlinx.android.synthetic.main.activity_good_updater.*
 import kotlinx.android.synthetic.main.components_toolbar.*
 import vn.vistark.pharmass.R
 import vn.vistark.pharmass.core.constants.Constants
+import vn.vistark.pharmass.core.constants.RequestCode
 import vn.vistark.pharmass.core.model.Goods
 import vn.vistark.pharmass.core.model.GoodsCategory
+import vn.vistark.pharmass.core.model.MedicineCategory
 import vn.vistark.pharmass.core.model.Pharmacy
 import vn.vistark.pharmass.databinding.ActivityGoodUpdaterBinding
+import vn.vistark.pharmass.ui.medicine_category_picker.MedicineCategoryPickerActivity
 
 class GoodsUpdaterActivity : AppCompatActivity() {
     var pharmacyJson: String = ""
@@ -23,7 +28,10 @@ class GoodsUpdaterActivity : AppCompatActivity() {
     lateinit var pharmacy: Pharmacy
     lateinit var goodsCategory: GoodsCategory
 
+    var medicineCategory: MedicineCategory? = null
+
     lateinit var binding: ActivityGoodUpdaterBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 //        setContentView(R.layout.activity_good_updater)
@@ -50,7 +58,17 @@ class GoodsUpdaterActivity : AppCompatActivity() {
             edtPacking.visibility = View.GONE
 
             tvGoodsName.text = "Chọn tên thuốc (Bắt buộc)"
+            edtGoodsName.hint = "Chọn tên thuốc"
             edtGoodsName.inputType = InputType.TYPE_NULL
+            edtGoodsName.setOnClickListener {
+                val intent = Intent(this, MedicineCategoryPickerActivity::class.java)
+                intent.putExtra(
+                    MedicineCategory::class.java.simpleName,
+                    Gson().toJson(medicineCategory)
+                )
+                startActivityForResult(intent, RequestCode.REQUEST_MEDICINE_CATEGORY_CODE)
+                this.overridePendingTransition(0, 300);
+            }
         } else {
             // Nếu danh mục sản phẩm khôn phải thuốc
         }
@@ -107,5 +125,35 @@ class GoodsUpdaterActivity : AppCompatActivity() {
             tvToolbarLabel.paddingBottom
         )
         civUserAvatar.visibility = View.GONE
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == RequestCode.REQUEST_MEDICINE_CATEGORY_CODE && resultCode == Activity.RESULT_OK && data != null) {
+            val medicineCategoryJson =
+                data.getStringExtra(MedicineCategory::class.java.simpleName) ?: ""
+            medicineCategory = Gson().fromJson(medicineCategoryJson, MedicineCategory::class.java)
+            if (medicineCategory != null && medicineCategoryJson.isNotEmpty()) {
+                edtGoodsName.setText(medicineCategory!!.name)
+                if (medicineCategory!!.unit.isNotEmpty()) {
+                    edtUnit.setText(medicineCategory!!.unit)
+                } else {
+                    edtUnit.visibility = View.VISIBLE
+                    tvUnit.visibility = View.VISIBLE
+                }
+                if (medicineCategory!!.manufacturerCountry.isNotEmpty()) {
+                    edtManufacturerCountry.setText(medicineCategory!!.manufacturerCountry)
+                } else {
+                    edtManufacturerCountry.visibility = View.VISIBLE
+                    tvManufacturerCountry.visibility = View.VISIBLE
+                }
+                if (medicineCategory!!.packing.isNotEmpty()) {
+                    edtPacking.setText(medicineCategory!!.packing)
+                } else {
+                    edtPacking.visibility = View.VISIBLE
+                    tvPacking.visibility = View.VISIBLE
+                }
+            }
+        }
     }
 }

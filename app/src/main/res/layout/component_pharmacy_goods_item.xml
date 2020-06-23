@@ -14,14 +14,16 @@
         android:id="@+id/rlRoot"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#fff">
+        android:background="@drawable/background_default_white_effect"
+        android:clickable="true"
+        android:focusable="true">
 
-<!--        <ImageView-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="100dp"-->
-<!--            android:alpha="0.3"-->
-<!--            android:scaleType="centerCrop"-->
-<!--            android:src="@drawable/red_img_background" />-->
+        <!--        <ImageView-->
+        <!--            android:layout_width="match_parent"-->
+        <!--            android:layout_height="100dp"-->
+        <!--            android:alpha="0.3"-->
+        <!--            android:scaleType="centerCrop"-->
+        <!--            android:src="@drawable/red_img_background" />-->
 
         <RelativeLayout
             android:layout_width="match_parent"

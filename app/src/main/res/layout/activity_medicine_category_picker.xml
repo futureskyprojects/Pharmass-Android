@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/rlHomeMenuRoot"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#B2000000"
+    android:clickable="true"
+    android:focusable="true"
+    tools:context=".ui.medicine_category_picker.MedicineCategoryPickerActivity">
+
+    <ImageView
+        android:id="@+id/ivCloseButton"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:layout_above="@id/lnMenuContainer"
+        android:layout_centerInParent="true"
+        android:background="@drawable/button_style_white_round"
+        android:src="@drawable/ic_close" />
+
+    <LinearLayout
+        android:id="@+id/lnMenuContainer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/background_bottom_sheet_white"
+        android:clickable="true"
+        android:focusable="true"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tvAdressUpdaterHint"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginHorizontal="@dimen/padding"
+            android:layout_marginTop="@dimen/padding"
+            android:layout_marginBottom="10dp"
+            android:gravity="center"
+            android:text="Tìm kiếm thuốc trong danh mục thuốc của cục quản lý dược quốc gia"
+            android:textColor="#424242"
+            android:textSize="@dimen/text_size"
+            android:textStyle="bold" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="10dp"
+            android:layout_marginBottom="@dimen/padding"
+            android:orientation="vertical"
+            android:paddingTop="@dimen/padding">
+
+            <EditText
+                android:id="@+id/edtAddress"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/padding"
+                android:layout_marginBottom="15dp"
+                android:background="@drawable/edittext_search_style_round"
+                android:hint="Tên thuốc"
+                android:inputType="textCapWords|textAutoCorrect|textAutoComplete"
+                android:lines="1"
+                android:padding="@dimen/padding"
+                android:textColor="#636363" />
+
+            <TextView
+                android:id="@+id/tvSelectMedicicecategory"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center_vertical"
+                android:layout_marginHorizontal="@dimen/padding"
+                android:gravity="center"
+                android:paddingHorizontal="10dp"
+                android:paddingBottom="10dp"
+                android:text="Nhấp vào danh sách bên dưới để chọn loại thuốc tương ứng"
+                android:textStyle="italic" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rvMedicinceCategories"
+                    android:layout_width="match_parent"
+                    android:layout_height="400dp"
+                    android:overScrollMode="never" />
+
+                <com.github.ybq.android.spinkit.SpinKitView
+                    android:id="@+id/loadingIcon"
+                    style="@style/SpinKitView.Large.Wave"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:layout_gravity="center"
+                    android:layout_margin="20dp"
+                    android:visibility="gone"
+                    app:SpinKit_Color="@color/colorAccent" />
+            </RelativeLayout>
+        </LinearLayout>
+    </LinearLayout>
+</RelativeLayout>

@@ -72,6 +72,9 @@ public interface APIServices {
     // Chỉ dành cho mục đích phát triển
     @POST("/medicine-categories(BoQua)")
     fun createMedicineCategory(@Body medicineCategory: MedicineCategory): Call<MedicineCategory>
+    //=====================================================
 
+    @GET("/medicine-categories?_limit=-1")
+    fun findMedicineCategoryByName(@Query("name_contains") name: String): Call<List<MedicineCategory>>
 
 }
