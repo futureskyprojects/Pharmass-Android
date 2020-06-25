@@ -53,4 +53,12 @@ data class Goods(
     var isPublic: Boolean = true,
     var pharmacy: PharmacySimpleOwner = PharmacySimpleOwner()
 ) : BaseObservable() {
+    fun validate(): String {
+        if (name.isEmpty()) {
+            return "Vui lòng nhập tên sản phẩm hoặc chọn tên thuốc"
+        } else if (unit.isEmpty()) {
+            return "Vui lòng nhập đơn vị"
+        }
+        return ""
+    }
 }

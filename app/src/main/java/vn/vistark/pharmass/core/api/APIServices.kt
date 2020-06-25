@@ -68,6 +68,9 @@ public interface APIServices {
         @Query("pharmacy.id") pharmacyId: Int
     ): Call<List<Goods>>
 
+    @POST("/goods")
+    fun createPharmacyGoodsInCategory(@Body goods: Goods): Call<Goods>
+
 
     // Chỉ dành cho mục đích phát triển
     @POST("/medicine-categories(BoQua)")
@@ -76,5 +79,4 @@ public interface APIServices {
 
     @GET("/medicine-categories?_limit=-1")
     fun findMedicineCategoryByName(@Query("name_contains") name: String): Call<List<MedicineCategory>>
-
 }

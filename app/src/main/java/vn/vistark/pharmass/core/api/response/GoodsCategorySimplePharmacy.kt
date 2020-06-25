@@ -2,6 +2,7 @@ package vn.vistark.pharmass.core.api.response
 
 import com.google.gson.annotations.SerializedName
 import vn.vistark.pharmass.core.api.response.PharmacySimpleOwner
+import vn.vistark.pharmass.core.model.GoodsCategory
 
 data class GoodsCategorySimplePharmacy(
     var id: Int = -1,
@@ -13,4 +14,16 @@ data class GoodsCategorySimplePharmacy(
     @SerializedName("updated_at")
     var updatedAt: String = ""
 ) {
+    companion object {
+        fun fromGoodsCategory(goodsCategory: GoodsCategory): GoodsCategorySimplePharmacy {
+            return GoodsCategorySimplePharmacy(
+                goodsCategory.id,
+                goodsCategory.name,
+                goodsCategory.description,
+                goodsCategory.pharmacy.id,
+                goodsCategory.createdAt,
+                goodsCategory.updatedAt
+            )
+        }
+    }
 }

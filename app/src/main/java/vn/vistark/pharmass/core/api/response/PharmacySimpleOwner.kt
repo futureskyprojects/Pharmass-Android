@@ -5,6 +5,7 @@ import androidx.databinding.BaseObservable
 import com.google.gson.annotations.SerializedName
 import vn.vistark.pharmass.core.api.RetrofitClient
 import vn.vistark.pharmass.core.model.Coordinates
+import vn.vistark.pharmass.core.model.Pharmacy
 import vn.vistark.pharmass.core.model.User
 import vn.vistark.pharmass.core.model.UserAddress
 import vn.vistark.pharmass.utils.RegexLibs
@@ -44,6 +45,29 @@ data class PharmacySimpleOwner(
     @SerializedName("owner")
     var users: Int = -1
 ) : BaseObservable() {
+    companion object {
+        fun fromPharmacy(pharmacy: Pharmacy): PharmacySimpleOwner {
+            return PharmacySimpleOwner(
+                pharmacy.id,
+                pharmacy.logo,
+                pharmacy.featureImages,
+                pharmacy.name,
+                pharmacy.shortDescription,
+                pharmacy.introduction,
+                pharmacy.address,
+                pharmacy.coordinates,
+                pharmacy.confirmed,
+                pharmacy.blocked,
+                pharmacy.openTime,
+                pharmacy.closeTime,
+                pharmacy.createdAt,
+                pharmacy.updatedAt,
+                pharmacy.dayInterval,
+                pharmacy.users.id
+            )
+        }
+    }
+
     fun getFeatureImageFullAddress(): String {
         if (featureImages.isEmpty())
             return ""

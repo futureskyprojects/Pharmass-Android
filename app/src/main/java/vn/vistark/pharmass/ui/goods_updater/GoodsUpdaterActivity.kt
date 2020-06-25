@@ -17,6 +17,8 @@ import com.google.gson.Gson
 import kotlinx.android.synthetic.main.activity_good_updater.*
 import kotlinx.android.synthetic.main.components_toolbar.*
 import vn.vistark.pharmass.R
+import vn.vistark.pharmass.core.api.response.GoodsCategorySimplePharmacy
+import vn.vistark.pharmass.core.api.response.PharmacySimpleOwner
 import vn.vistark.pharmass.core.constants.Constants
 import vn.vistark.pharmass.core.constants.RequestCode
 import vn.vistark.pharmass.core.model.Goods
@@ -24,8 +26,11 @@ import vn.vistark.pharmass.core.model.GoodsCategory
 import vn.vistark.pharmass.core.model.MedicineCategory
 import vn.vistark.pharmass.core.model.Pharmacy
 import vn.vistark.pharmass.databinding.ActivityGoodUpdaterBinding
+import vn.vistark.pharmass.processing.CreatePharmacyGoodsInCategoryProcessing
+import vn.vistark.pharmass.processing.UserUploadImageProcessing
 import vn.vistark.pharmass.ui.barcode_scanner.BarcodeScannerActivity
 import vn.vistark.pharmass.ui.medicine_category_picker.MedicineCategoryPickerActivity
+import vn.vistark.pharmass.utils.DialogNotify
 import vn.vistark.pharmass.utils.GlideUtils
 
 class GoodsUpdaterActivity : AppCompatActivity() {
@@ -35,9 +40,8 @@ class GoodsUpdaterActivity : AppCompatActivity() {
     lateinit var pharmacy: Pharmacy
     lateinit var goodsCategory: GoodsCategory
 
-    var uri1: Uri? = null
-    var uri2: Uri? = null
-    var uri3: Uri? = null
+    val uriArrList = arrayListOf<Uri?>(null, null, null)
+
     var imageViewSelectedNumer = -1
 
     var medicineCategory: MedicineCategory? = null
@@ -50,6 +54,7 @@ class GoodsUpdaterActivity : AppCompatActivity() {
         binding = DataBindingUtil.setContentView(this, R.layout.activity_good_updater)
         binding.requestCreateGoods = Goods()
 
+        setResult(Activity.RESULT_CANCELED)
 
         if (!getPassingData()) {
             // Bỏ qua các phương thức khởi tạo bên dưới và kết thúc màn hình này
@@ -114,6 +119,10 @@ class GoodsUpdaterActivity : AppCompatActivity() {
             finish()
             return false
         }
+        // Gán vào binding
+        binding.requestCreateGoods!!.pharmacy = PharmacySimpleOwner.fromPharmacy(pharmacy)
+        binding.requestCreateGoods!!.goodsCategory =
+            GoodsCategorySimplePharmacy.fromGoodsCategory(goodsCategory)
         return true
     }
 
@@ -136,6 +145,49 @@ class GoodsUpdaterActivity : AppCompatActivity() {
         btnScanBarcode.setOnClickListener {
             val intent = Intent(this, BarcodeScannerActivity::class.java)
             startActivityForResult(intent, RequestCode.REQUEST_BARCODE_SCANNER)
+        }
+
+        btnGoodsUpdaterConfirm.setOnClickListener {
+            val validateMessage = binding.requestCreateGoods!!.validate()
+            if (validateMessage.isEmpty()) {
+                // Không có lỗi nào trong quá trình nhập form, tiến hành upload
+                updateProcessing(0)
+            } else {
+                DialogNotify.missingInput(this, validateMessage)
+            }
+        }
+    }
+
+    private fun updateProcessing(i: Int) {
+        if (i < uriArrList.size) {
+            // Tiến hành upload ảnh
+            if (uriArrList[i] != null) {
+                UserUploadImageProcessing(this, uriArrList[i]!!).onFinished = {
+                    if (it != null) {
+                        binding.requestCreateGoods!!.images =
+                            binding.requestCreateGoods!!.images.plus(it)
+                    }
+                }
+            } else {
+                updateProcessing(i + 1)
+            }
+        } else {
+            // Tiến hành cập nhật sản phẩm
+            CreatePharmacyGoodsInCategoryProcessing(this, binding.requestCreateGoods!!)
+                .onFinished = {
+                if (it != null) {
+                    val data = Intent()
+                    data.putExtra(Goods::class.java.simpleName, Gson().toJson(it))
+                    setResult(Activity.RESULT_OK, data)
+                    finish()
+                } else {
+                    Toast.makeText(
+                        this,
+                        "Có lỗi khi lấy thông tin sản phẩm vừa cập nhật, vui lòng thử lại",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+            }
         }
     }
 
@@ -178,6 +230,8 @@ class GoodsUpdaterActivity : AppCompatActivity() {
                     edtPacking.visibility = View.VISIBLE
                     tvPacking.visibility = View.VISIBLE
                 }
+                // Gán danh mục thuốc lấy được vào binding
+                binding.requestCreateGoods!!.medicineCategory = medicineCategory
             }
         } else if (requestCode == RequestCode.REQUEST_PICK_PHOTO && resultCode == Activity.RESULT_OK) {
             val tempUri: Uri? = data?.data
@@ -254,17 +308,6 @@ class GoodsUpdaterActivity : AppCompatActivity() {
             tempUri,
             R.drawable.no_image
         )
-        when (imageViewSelectedNumer) {
-            1 -> {
-                uri1 = tempUri
-            }
-            2 -> {
-                uri2 = tempUri
-            }
-            else -> {
-                uri3 = tempUri
-
-            }
-        }
+        uriArrList[imageViewSelectedNumer - 1] = tempUri
     }
 }
