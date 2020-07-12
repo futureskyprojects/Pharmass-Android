@@ -3,9 +3,12 @@ package vn.vistark.pharmass.core.model
 
 import androidx.databinding.BaseObservable
 import com.google.gson.annotations.SerializedName
+import vn.vistark.pharmass.core.api.RetrofitClient
 import vn.vistark.pharmass.core.api.response.GoodsCategorySimplePharmacy
 import vn.vistark.pharmass.core.api.response.PharmacySimpleOwner
 import vn.vistark.pharmass.core.api.response.SupplierSimplePharmacy
+import vn.vistark.pharmass.utils.UrlUtils
+import java.lang.Exception
 
 data class Goods(
     @SerializedName("id")
@@ -53,6 +56,19 @@ data class Goods(
     var isPublic: Boolean = true,
     var pharmacy: PharmacySimpleOwner = PharmacySimpleOwner()
 ) : BaseObservable() {
+
+    fun getImageRandom(): String {
+        try {
+            val s: String? = images.random()
+            return if (s == null)
+                ""
+            else
+                UrlUtils.standard("${RetrofitClient.BASE_URL}/$s")
+        } catch (e: Exception) {
+            return ""
+        }
+    }
+
     fun validate(): String {
         if (name.isEmpty()) {
             return "Vui lòng nhập tên sản phẩm hoặc chọn tên thuốc"

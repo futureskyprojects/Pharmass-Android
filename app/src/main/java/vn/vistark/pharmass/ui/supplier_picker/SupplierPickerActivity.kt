@@ -1,4 +1,4 @@
-package vn.vistark.pharmass.ui.medicine_category_picker
+package vn.vistark.pharmass.ui.supplier_picker
 
 import android.app.Activity
 import android.content.Intent
@@ -12,21 +12,24 @@ import android.view.animation.AnimationUtils
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.gson.Gson
-import kotlinx.android.synthetic.main.activity_medicine_category_picker.*
+import kotlinx.android.synthetic.main.activity_supplier_picker.*
 import vn.vistark.pharmass.R
 import vn.vistark.pharmass.core.model.MedicineCategory
+import vn.vistark.pharmass.core.model.Supplier
 import vn.vistark.pharmass.processing.GetMedicineCategoryByNameProcessing
+import vn.vistark.pharmass.processing.GetSupplierByNameProcessing
+import vn.vistark.pharmass.ui.medicine_category_picker.SupplierPickerAdapter
 
-class MedicineCategoryPickerActivity : AppCompatActivity() {
+class SupplierPickerActivity : AppCompatActivity() {
 
-    val medicineCateories = ArrayList<MedicineCategory>()
+    val suppliers = ArrayList<Supplier>()
 
-    lateinit var adapter: MedicineCategoryAdapter
+    lateinit var adapter: SupplierPickerAdapter
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_medicine_category_picker)
+        setContentView(R.layout.activity_supplier_picker)
         inits()
         initEvents()
         onTextChange()
@@ -39,8 +42,7 @@ class MedicineCategoryPickerActivity : AppCompatActivity() {
                 if (s != null) {
                     val name = s.toString()
                     if (name.length > 2) {
-                        println(name)
-                        loadMedicineCategoryByName(name)
+                        loadSupplierByName(name)
                     }
                 }
             }
@@ -53,13 +55,13 @@ class MedicineCategoryPickerActivity : AppCompatActivity() {
         })
     }
 
-    private fun loadMedicineCategoryByName(name: String) {
+    private fun loadSupplierByName(name: String) {
         loadingIcon.visibility = View.VISIBLE
-        GetMedicineCategoryByNameProcessing(this, name).onFinished = {
+        GetSupplierByNameProcessing(this, name).onFinished = {
             loadingIcon.visibility = View.GONE
             if (it != null) {
-                medicineCateories.clear()
-                medicineCateories.addAll(it)
+                suppliers.clear()
+                suppliers.addAll(it)
                 adapter.notifyDataSetChanged()
             } else {
                 Toast.makeText(
@@ -88,7 +90,7 @@ class MedicineCategoryPickerActivity : AppCompatActivity() {
 
         selectMedicineCategoryHintControl()
 
-        adapter = MedicineCategoryAdapter(medicineCateories)
+        adapter = SupplierPickerAdapter(suppliers)
         rvSupplier.adapter = adapter
 
         adapter.onClicked = {
@@ -100,7 +102,7 @@ class MedicineCategoryPickerActivity : AppCompatActivity() {
     }
 
     private fun selectMedicineCategoryHintControl() {
-        if (medicineCateories.size > 0) {
+        if (suppliers.size > 0) {
             tvSelectMedicicecategory.visibility = View.VISIBLE
             rvSupplier.visibility = View.VISIBLE
         } else {

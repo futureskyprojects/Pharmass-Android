@@ -27,6 +27,7 @@ class HomeActivity : AppCompatActivity() {
         setContentView(R.layout.activity_home)
         inits()
         initEvents()
+        window.decorView.clearFocus()
     }
 
     private fun initEvents() {

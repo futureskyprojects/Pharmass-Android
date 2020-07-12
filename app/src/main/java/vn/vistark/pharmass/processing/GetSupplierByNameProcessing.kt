@@ -12,30 +12,34 @@ import vn.vistark.pharmass.core.model.Pharmacy
 import vn.vistark.pharmass.core.api.response.Error400Response
 import vn.vistark.pharmass.core.api.response.Error401Response
 import vn.vistark.pharmass.core.constants.Constants
+import vn.vistark.pharmass.core.model.MedicineCategory
+import vn.vistark.pharmass.core.model.PharmacyStaff
+import vn.vistark.pharmass.core.model.Supplier
 import vn.vistark.pharmass.utils.DialogNotify
 import java.lang.Exception
 
-class GetUserPharmaciesProcessing(
+class GetSupplierByNameProcessing(
     context: Context,
-    userId: Int = Constants.user.id
+    name: String
 ) {
-    var onFinished: ((List<Pharmacy>?) -> Unit)? = null
+    var onFinished: ((List<Supplier>?) -> Unit)? = null
 
     init {
-        APIUtils.mAPIServices?.getPharmacyOfUser(userId)
-            ?.enqueue(object : Callback<List<Pharmacy>> {
-                override fun onFailure(call: Call<List<Pharmacy>>, t: Throwable) {
+        APIUtils.mAPIServices?.findSupplierByName(name)
+            ?.enqueue(object : Callback<List<Supplier>> {
+                override fun onFailure(call: Call<List<Supplier>>, t: Throwable) {
                     DialogNotify.error(
                         context,
-                        t.message ?: "Lỗi không xác định khi lấy danh sách nhà thuốc"
+                        t.message ?: "Lỗi không xác định khi lấy danh sách nhà cung cấp"
                     )
                 }
 
                 override fun onResponse(
-                    call: Call<List<Pharmacy>>,
-                    response: Response<List<Pharmacy>>
+                    call: Call<List<Supplier>>,
+                    response: Response<List<Supplier>>
                 ) {
                     if (response.isSuccessful) {
+                        // Khi thực hiện thành công
                         onFinished?.invoke(response.body())
                         return
                     } else if (response.code() == 400) {

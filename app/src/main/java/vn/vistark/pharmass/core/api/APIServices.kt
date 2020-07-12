@@ -79,4 +79,7 @@ public interface APIServices {
 
     @GET("/medicine-categories?_limit=-1")
     fun findMedicineCategoryByName(@Query("name_contains") name: String): Call<List<MedicineCategory>>
+
+    @GET("/suppliers?_limit=-1")
+    fun findSupplierByName(@Query("name_contains") name: String): Call<List<Supplier>>
 }

@@ -7,17 +7,9 @@
     android:layout_height="match_parent"
     android:background="#B2000000"
     android:clickable="true"
+    android:focusableInTouchMode="true"
     android:focusable="true"
     tools:context=".ui.home_menu.HomeMenuActivity">
-
-    <ImageView
-        android:id="@+id/ivCloseButton"
-        android:layout_width="32dp"
-        android:layout_height="32dp"
-        android:layout_above="@id/lnMenuContainer"
-        android:layout_centerInParent="true"
-        android:background="@drawable/button_style_white_round"
-        android:src="@drawable/ic_close" />
 
     <LinearLayout
         android:id="@+id/lnMenuContainer"
@@ -30,18 +22,48 @@
         android:focusable="true"
         android:orientation="vertical">
 
-        <TextView
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginHorizontal="@dimen/padding"
-            android:layout_marginTop="@dimen/padding"
-            android:layout_marginBottom="10dp"
-            android:gravity="center"
-            android:text="Bạn đang cần thao tác nào?"
-            android:textColor="#424242"
-            android:textSize="@dimen/text_size"
-            android:textStyle="bold" />
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/ivCloseButton"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="10dp"
+                android:background="@drawable/button_style_white_round"
+                android:src="@drawable/ic_close" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_gravity="center"
+                android:layout_marginHorizontal="@dimen/padding"
+                android:layout_marginTop="@dimen/padding"
+                android:layout_marginBottom="10dp"
+                android:layout_toStartOf="@id/btnLogOut"
+                android:layout_toEndOf="@id/ivCloseButton"
+                android:gravity="center"
+                android:text="Bạn đang cần thao tác nào?"
+                android:textColor="#424242"
+                android:textSize="@dimen/text_size"
+                android:textStyle="bold" />
+
+            <ImageView
+                android:id="@+id/btnLogOut"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="10dp"
+                android:background="@drawable/button_style_red_round"
+                android:paddingHorizontal="5dp"
+                android:paddingBottom="5dp"
+                android:src="@drawable/ic_shutdown"
+                android:tint="#FFF" />
+        </RelativeLayout>
 
         <ScrollView
             android:layout_width="match_parent"
@@ -236,7 +258,7 @@
                     android:layout_marginLeft="10dp"
                     android:layout_marginTop="5dp"
                     android:layout_marginRight="10dp"
-                    android:layout_marginBottom="5dp"
+                    android:layout_marginBottom="15dp"
                     app:cardCornerRadius="15dp"
                     app:cardElevation="0dp">
 
@@ -284,20 +306,6 @@
                     </RelativeLayout>
                 </androidx.cardview.widget.CardView>
                 <!--  End bác/dược sỹ đã gọi -->
-
-                <!--  Đăng xuất  -->
-                <Button
-                    android:id="@+id/btnLogOut"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="10dp"
-                    android:layout_marginVertical="20dp"
-                    android:background="@drawable/button_style_error_gradient"
-                    android:padding="22.5dp"
-                    android:text="Đăng xuất"
-                    android:textAllCaps="true"
-                    android:textColor="#FFF" />
-                <!--  End Đăng xuất  -->
                 <!--  =============================================  -->
                 <RelativeLayout
                     android:layout_width="match_parent"

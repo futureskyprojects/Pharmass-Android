@@ -39,7 +39,6 @@ class UserUploadImageProcessing(val context: Context, val fUri: Uri) :
                 bitmap
             ) ?: return null
             if (!f.exists()) {
-                println("Tệp tin không tồn tại")
                 return null
             }
             APIUtils.mAPIServices?.uploadFile(
@@ -56,8 +55,6 @@ class UserUploadImageProcessing(val context: Context, val fUri: Uri) :
                     f.deleteOnExit()
                     return this.body()?.firstOrNull()?.url
                 }
-                println(this?.message())
-                println(Gson().toJson(this?.errorBody()))
             }
             return null
         }

@@ -150,6 +150,7 @@ class GoodsUpdaterActivity : AppCompatActivity() {
         btnGoodsUpdaterConfirm.setOnClickListener {
             val validateMessage = binding.requestCreateGoods!!.validate()
             if (validateMessage.isEmpty()) {
+                println("Check OK hết!")
                 // Không có lỗi nào trong quá trình nhập form, tiến hành upload
                 updateProcessing(0)
             } else {
@@ -162,11 +163,15 @@ class GoodsUpdaterActivity : AppCompatActivity() {
         if (i < uriArrList.size) {
             // Tiến hành upload ảnh
             if (uriArrList[i] != null) {
-                UserUploadImageProcessing(this, uriArrList[i]!!).onFinished = {
-                    if (it != null) {
-                        binding.requestCreateGoods!!.images =
-                            binding.requestCreateGoods!!.images.plus(it)
+                UserUploadImageProcessing(this, uriArrList[i]!!).apply {
+                    onFinished = {
+                        if (it != null) {
+                            binding.requestCreateGoods!!.images =
+                                binding.requestCreateGoods!!.images.plus(it)
+                        }
+                        updateProcessing(i + 1)
                     }
+                    execute()
                 }
             } else {
                 updateProcessing(i + 1)

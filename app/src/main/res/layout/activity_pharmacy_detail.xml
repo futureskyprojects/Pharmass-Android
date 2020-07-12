@@ -199,7 +199,8 @@
             android:id="@+id/viewPager"
             android:layout_width="match_parent"
             android:layout_height="240dp"
-            android:overScrollMode="never" />
+            android:overScrollMode="never"
+            tools:targetApi="lollipop" />
 
         <LinearLayout
             android:layout_width="match_parent"

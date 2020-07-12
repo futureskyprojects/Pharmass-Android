@@ -7,6 +7,9 @@
     android:background="@drawable/background_white_gradient"
     android:fitsSystemWindows="true"
     android:orientation="vertical"
+    android:clickable="true"
+    android:focusableInTouchMode="true"
+    android:focusable="true"
     tools:context=".ui.home.HomeActivity">
 
     <include layout="@layout/components_top_round_primary_dark" />

@@ -8,7 +8,7 @@
     android:background="#B2000000"
     android:clickable="true"
     android:focusable="true"
-    tools:context=".ui.medicine_category_picker.MedicineCategoryPickerActivity">
+    tools:context=".ui.supplier_picker.SupplierPickerActivity">
 
     <ImageView
         android:id="@+id/ivCloseButton"
@@ -39,7 +39,7 @@
             android:layout_marginTop="@dimen/padding"
             android:layout_marginBottom="10dp"
             android:gravity="center"
-            android:text="Tìm kiếm thuốc trong danh mục thuốc của cục quản lý dược quốc gia"
+            android:text="Tìm kiếm nhà cung cấp"
             android:textColor="#424242"
             android:textSize="@dimen/text_size"
             android:textStyle="bold" />
@@ -59,7 +59,7 @@
                 android:layout_marginHorizontal="@dimen/padding"
                 android:layout_marginBottom="15dp"
                 android:background="@drawable/edittext_search_style_round"
-                android:hint="Tên thuốc"
+                android:hint="Tên nhà cung cấp"
                 android:inputType="textCapWords|textAutoCorrect|textAutoComplete"
                 android:lines="1"
                 android:padding="@dimen/padding"
@@ -74,7 +74,7 @@
                 android:gravity="center"
                 android:paddingHorizontal="10dp"
                 android:paddingBottom="10dp"
-                android:text="Nhấp vào danh sách bên dưới để chọn loại thuốc tương ứng"
+                android:text="Nhấp vào danh sách bên dưới để chọn nhà cung cấp tương ứng"
                 android:textStyle="italic" />
 
             <RelativeLayout

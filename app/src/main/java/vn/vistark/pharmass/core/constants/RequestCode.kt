@@ -2,6 +2,7 @@ package vn.vistark.pharmass.core.constants
 
 class RequestCode {
     companion object {
+        val PERMISSION_REQUEST_ALL = 4572
         val REQUEST_BARCODE_SCANNER = 4571
         val REQUEST_PICK_PHOTO = 4570
         val REQUEST_TAKE_PHOTO = 4569

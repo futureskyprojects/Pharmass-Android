@@ -8,6 +8,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import vn.vistark.pharmass.R
 import vn.vistark.pharmass.core.model.Goods
+import vn.vistark.pharmass.utils.GlideUtils
 import vn.vistark.pharmass.utils.NumberUtils.Companion.removeUnMean
 
 class GoodsViewHolder(v: View) : RecyclerView.ViewHolder(v) {
@@ -20,6 +21,12 @@ class GoodsViewHolder(v: View) : RecyclerView.ViewHolder(v) {
     fun bind(goods: Goods) {
         tvGoodsName.text = goods.name
         tvGoodsName.isSelected = true
+
+        GlideUtils.loadToImageViewWithPlaceHolder(
+            ivGoodsImage,
+            goods.getImageRandom(),
+            R.drawable.no_image
+        )
 
         val unit = if (goods.medicineCategory == null) goods.unit else goods.medicineCategory?.unit
 

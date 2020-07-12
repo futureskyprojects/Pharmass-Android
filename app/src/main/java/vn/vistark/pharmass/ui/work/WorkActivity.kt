@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.view.Gravity
 import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.gson.Gson
 import kotlinx.android.synthetic.main.component_work_top_pharmacies.*
 import kotlinx.android.synthetic.main.components_search_bar.*
 import kotlinx.android.synthetic.main.components_toolbar.*
@@ -25,6 +26,7 @@ class WorkActivity : AppCompatActivity() {
         inits()
         initEvents()
         initListPharmacy()
+        window.decorView.clearFocus()
     }
 
     private fun initListPharmacy() {
@@ -36,8 +38,10 @@ class WorkActivity : AppCompatActivity() {
         GetUserPharmaciesProcessing(this).onFinished = {
             loadingPharmaciesIcon.visibility = View.GONE
             if (it != null) {
-                userPharmacies.addAll(it)
-                userPharmaciesAdapter.notifyDataSetChanged()
+                it.forEach {
+                    userPharmacies.add(it)
+                    userPharmaciesAdapter.notifyDataSetChanged()
+                }
             } else {
 
             }

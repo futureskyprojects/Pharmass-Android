@@ -5,6 +5,7 @@ import android.content.Intent
 import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.WindowManager
 import android.view.animation.AnimationUtils
 import cn.pedant.SweetAlert.SweetAlertDialog
 import kotlinx.android.synthetic.main.activity_home_menu.*
@@ -19,9 +20,11 @@ class HomeMenuActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+//        this.window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
         setContentView(R.layout.activity_home_menu)
         inits()
         initEvents()
+        window.decorView.clearFocus()
     }
 
     private fun inits() {
@@ -40,6 +43,11 @@ class HomeMenuActivity : AppCompatActivity() {
             rlHomeMenuRoot.setBackgroundColor(Color.TRANSPARENT)
             onBackPressed()
         }
+
+        ivCloseButton.setOnClickListener {
+            rlHomeMenuRoot.performClick()
+        }
+
         rlBtnWork.setOnClickListener {
             val intent = Intent(this, WorkActivity::class.java)
             startActivity(intent)
