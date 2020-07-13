@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.gson.Gson
 import kotlinx.android.synthetic.main.activity_supplier_picker.*
 import vn.vistark.pharmass.R
+import vn.vistark.pharmass.core.api.response.SupplierSimplePharmacy
 import vn.vistark.pharmass.core.model.MedicineCategory
 import vn.vistark.pharmass.core.model.Supplier
 import vn.vistark.pharmass.processing.GetMedicineCategoryByNameProcessing
@@ -95,7 +96,18 @@ class SupplierPickerActivity : AppCompatActivity() {
 
         adapter.onClicked = {
             val intent = Intent()
-            intent.putExtra(MedicineCategory::class.java.simpleName, Gson().toJson(it))
+            var supplierSimplePharmacy = SupplierSimplePharmacy()
+            supplierSimplePharmacy =
+                supplierSimplePharmacy.copy(
+                    id = it.id,
+                    createdAt = it.createdAt,
+                    updatedAt = it.updatedAt,
+                    name = it.name,
+                    address = it.address,
+                    phoneNumber = it.phoneNumber,
+                    pharmacy = it.pharmacy.id
+                )
+            intent.putExtra(Supplier::class.java.simpleName, Gson().toJson(supplierSimplePharmacy))
             setResult(Activity.RESULT_OK, intent)
             finish()
         }

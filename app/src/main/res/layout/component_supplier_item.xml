@@ -29,7 +29,7 @@
             android:gravity="center_vertical"
             android:marqueeRepeatLimit="marquee_forever"
             android:singleLine="true"
-            android:text="<Chưa có tên>"
+            android:text="(Chưa có tên)"
             android:textColor="#000"
             android:textStyle="bold" />
 
@@ -58,7 +58,7 @@
                 android:gravity="center_vertical"
                 android:marqueeRepeatLimit="marquee_forever"
                 android:singleLine="true"
-                android:text="<Chưa cập nhật>" />
+                android:text="(Chưa cập nhật)" />
         </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
@@ -85,7 +85,7 @@
                 android:gravity="center_vertical"
                 android:marqueeRepeatLimit="marquee_forever"
                 android:singleLine="true"
-                android:text="<Không xác định>" />
+                android:text="(Không xác định)" />
         </LinearLayout>
 
         <LinearLayout

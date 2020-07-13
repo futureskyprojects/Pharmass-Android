@@ -19,17 +19,16 @@ import kotlinx.android.synthetic.main.components_toolbar.*
 import vn.vistark.pharmass.R
 import vn.vistark.pharmass.core.api.response.GoodsCategorySimplePharmacy
 import vn.vistark.pharmass.core.api.response.PharmacySimpleOwner
+import vn.vistark.pharmass.core.api.response.SupplierSimplePharmacy
 import vn.vistark.pharmass.core.constants.Constants
 import vn.vistark.pharmass.core.constants.RequestCode
-import vn.vistark.pharmass.core.model.Goods
-import vn.vistark.pharmass.core.model.GoodsCategory
-import vn.vistark.pharmass.core.model.MedicineCategory
-import vn.vistark.pharmass.core.model.Pharmacy
+import vn.vistark.pharmass.core.model.*
 import vn.vistark.pharmass.databinding.ActivityGoodUpdaterBinding
 import vn.vistark.pharmass.processing.CreatePharmacyGoodsInCategoryProcessing
 import vn.vistark.pharmass.processing.UserUploadImageProcessing
 import vn.vistark.pharmass.ui.barcode_scanner.BarcodeScannerActivity
 import vn.vistark.pharmass.ui.medicine_category_picker.MedicineCategoryPickerActivity
+import vn.vistark.pharmass.ui.supplier_picker.SupplierPickerActivity
 import vn.vistark.pharmass.utils.DialogNotify
 import vn.vistark.pharmass.utils.GlideUtils
 
@@ -62,6 +61,7 @@ class GoodsUpdaterActivity : AppCompatActivity() {
             return
         }
 
+        edtSupplier.inputType = InputType.TYPE_NULL
         // Xử lý phân biệt đối với thuốc và các sản phẩm không phải là thuốc
         if (goodsCategory.code == Constants.MEDICINE_CATEGORY_CODE) {
             // Nếu danh mục sản phẩm là thuốc
@@ -150,12 +150,21 @@ class GoodsUpdaterActivity : AppCompatActivity() {
         btnGoodsUpdaterConfirm.setOnClickListener {
             val validateMessage = binding.requestCreateGoods!!.validate()
             if (validateMessage.isEmpty()) {
-                println("Check OK hết!")
                 // Không có lỗi nào trong quá trình nhập form, tiến hành upload
                 updateProcessing(0)
             } else {
                 DialogNotify.missingInput(this, validateMessage)
             }
+        }
+
+        edtSupplier.setOnClickListener {
+            val intent = Intent(this, SupplierPickerActivity::class.java)
+            intent.putExtra(
+                MedicineCategory::class.java.simpleName,
+                Gson().toJson(binding.requestCreateGoods!!.supplier)
+            )
+            startActivityForResult(intent, RequestCode.REQUEST_SUPPLIER_PICKER_CODE)
+            this.overridePendingTransition(0, 300)
         }
     }
 
@@ -245,6 +254,13 @@ class GoodsUpdaterActivity : AppCompatActivity() {
                 return
             }
             processingSelectedUri(tempUri)
+        } else if (requestCode == RequestCode.REQUEST_SUPPLIER_PICKER_CODE && resultCode == Activity.RESULT_OK && data != null) {
+            val supplierJson =
+                data.getStringExtra(Supplier::class.java.simpleName) ?: ""
+            binding.requestCreateGoods!!.supplier = Gson().fromJson(supplierJson, SupplierSimplePharmacy::class.java)
+            if (binding.requestCreateGoods!!.supplier != null && supplierJson.isNotEmpty()) {
+                edtSupplier.setText(binding.requestCreateGoods!!.supplier!!.name)
+            }
         }
     }
 

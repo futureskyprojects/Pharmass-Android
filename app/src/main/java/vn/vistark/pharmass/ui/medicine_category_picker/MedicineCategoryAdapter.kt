@@ -7,21 +7,21 @@ import vn.vistark.pharmass.R
 import vn.vistark.pharmass.core.model.MedicineCategory
 
 class MedicineCategoryAdapter(val medicineCategories: ArrayList<MedicineCategory>) :
-    RecyclerView.Adapter<SupplierPickerViewHolder>() {
+    RecyclerView.Adapter<MedicineCategoryViewHolder>() {
 
     var onClicked: ((MedicineCategory) -> Unit)? = null
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SupplierPickerViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MedicineCategoryViewHolder {
         val v = LayoutInflater.from(parent.context)
             .inflate(R.layout.component_medicine_category_item, parent, false)
-        return SupplierPickerViewHolder(v)
+        return MedicineCategoryViewHolder(v)
     }
 
     override fun getItemCount(): Int {
         return medicineCategories.size
     }
 
-    override fun onBindViewHolder(holder: SupplierPickerViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: MedicineCategoryViewHolder, position: Int) {
         val medicineCategory = medicineCategories[position]
         holder.bind(medicineCategory)
         holder.lnRoot.setOnClickListener {
