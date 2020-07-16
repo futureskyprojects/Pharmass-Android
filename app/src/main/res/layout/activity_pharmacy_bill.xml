@@ -35,28 +35,18 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="5dp"
-                android:text="Tên sản phẩm (Bắt buộc)"
+                android:text="Nhấp để chọn người mua"
                 android:textColor="#636363"
                 android:textSize="@dimen/text_size" />
 
-            <EditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="15dp"
-                android:background="@drawable/edittext_search_style_round"
-                android:hint="Tên thuốc"
-                android:inputType="textAutoComplete|textAutoCorrect|textCapWords"
-                android:lines="1"
-                android:maxLength="255"
-                android:padding="@dimen/padding"
-                android:text="@={requestCreateGoods.name}" />
+            <include layout="@layout/component_bill_patient_item"/>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:layout_marginBottom="5dp"
-                android:text="Ảnh (Không bắt buộc)"
+                android:text="Ảnh đơn thuốc/chứng từ (Nếu có)"
                 android:textColor="#636363"
                 android:textSize="@dimen/text_size" />
 
@@ -131,7 +121,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="5dp"
-                android:text="Tên sản phẩm (Bắt buộc)"
+                android:text="Kết luận chẩn đoán"
                 android:textColor="#636363"
                 android:textSize="@dimen/text_size" />
 
@@ -140,10 +130,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="15dp"
-                android:background="@drawable/edittext_search_style_round"
-                android:hint="Tên thuốc"
-                android:inputType="textAutoComplete|textAutoCorrect|textCapWords"
-                android:lines="1"
+                android:background="@drawable/edittext_search_style_square_round"
+                android:hint="Kết luận chẩn đoán"
+                android:lines="4"
+                android:gravity="top"
                 android:maxLength="255"
                 android:padding="@dimen/padding"
                 android:text="@={requestCreateGoods.name}" />
@@ -152,7 +142,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="5dp"
-                android:text="Tên viết tắt (Không bắt buộc)"
+                android:text="Ghi chú (Không bắt buộc)"
                 android:textColor="#636363"
                 android:textSize="@dimen/text_size" />
 
@@ -160,13 +150,12 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="15dp"
-                android:background="@drawable/edittext_search_style_round"
-                android:hint="Tên viết tắt"
-                android:inputType="textAutoComplete|textAutoCorrect|textCapWords"
-                android:lines="1"
+                android:background="@drawable/edittext_search_style_square_round"
+                android:hint="Ghi chú"
+                android:gravity="top"
+                android:lines="4"
                 android:maxLength="255"
-                android:padding="@dimen/padding"
-                android:text="@={requestCreateGoods.abbreviation}" />
+                android:padding="@dimen/padding" />
 
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
