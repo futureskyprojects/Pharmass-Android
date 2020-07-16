@@ -11,8 +11,8 @@
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-feature android:name="android.hardware.camera.autofocus" />
 
+    <uses-feature android:name="android.hardware.camera.autofocus" />
     <uses-feature
         android:name="android.hardware.camera"
         android:required="true" />
@@ -27,6 +27,7 @@
         android:theme="@style/AppTheme"
         tools:replace="android:icon"
         tools:targetApi="n">
+        <activity android:name=".ui.pharmacy_bill.PharmacyBillActivity"></activity>
         <activity android:name=".ui.barcode_scanner.BarcodeScannerActivity" />
         <activity
             android:name=".ui.medicine_category_picker.MedicineCategoryPickerActivity"
@@ -56,7 +57,7 @@
         <!-- android:value="@string/google_maps_key" /> -->
         <meta-data
             android:name="com.google.android.gms.vision.DEPENDENCIES"
-            android:value="barcode" /><!-- barcode,face,ocr make sure added-->
+            android:value="barcode" /> <!-- barcode,face,ocr make sure added -->
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyDPG4zVE7Xvk9OHwDEcaWoZygMNHo4fdJs" />
