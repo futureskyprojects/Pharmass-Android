@@ -82,4 +82,7 @@ public interface APIServices {
 
     @GET("/suppliers?_limit=-1")
     fun findSupplierByName(@Query("name_contains") name: String): Call<List<Supplier>>
+
+    @GET("/users?_limit=30")
+    fun findUserByPhoneNumber(@Query("phoneNumber_contains") phone: String): Call<List<User>>
 }

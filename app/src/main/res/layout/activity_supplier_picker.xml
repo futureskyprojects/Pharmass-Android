@@ -53,7 +53,7 @@
             android:paddingTop="@dimen/padding">
 
             <EditText
-                android:id="@+id/edtAddress"
+                android:id="@+id/edtPhone"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="@dimen/padding"

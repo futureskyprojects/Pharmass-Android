@@ -12,6 +12,7 @@
     app:cardElevation="3dp">
 
     <RelativeLayout
+        android:id="@+id/rlBillPatientItem"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/background_default_white_effect"
@@ -55,7 +56,6 @@
                     android:gravity="center_vertical"
                     android:marqueeRepeatLimit="marquee_forever"
                     android:singleLine="true"
-                    android:text="Chưa xác định"
                     android:textColor="#000"
                     android:textStyle="bold" />
 

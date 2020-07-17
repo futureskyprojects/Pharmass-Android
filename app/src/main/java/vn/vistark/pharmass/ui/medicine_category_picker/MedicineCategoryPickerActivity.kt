@@ -34,7 +34,7 @@ class MedicineCategoryPickerActivity : AppCompatActivity() {
     }
 
     private fun onTextChange() {
-        edtAddress.addTextChangedListener(object : TextWatcher {
+        edtPhone.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {
                 if (s != null) {
                     val name = s.toString()

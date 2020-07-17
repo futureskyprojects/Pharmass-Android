@@ -1,5 +1,6 @@
 package vn.vistark.pharmass.ui.pharmacy
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
@@ -9,6 +10,7 @@ import kotlinx.android.synthetic.main.activity_pharmacy.*
 import kotlinx.android.synthetic.main.components_toolbar.*
 import vn.vistark.pharmass.R
 import vn.vistark.pharmass.core.model.Pharmacy
+import vn.vistark.pharmass.ui.pharmacy_bill.PharmacyBillActivity
 import vn.vistark.pharmass.utils.GlideUtils
 
 class PharmacyActivity : AppCompatActivity() {
@@ -37,6 +39,10 @@ class PharmacyActivity : AppCompatActivity() {
     private fun initEvents() {
         ivBackButton.setOnClickListener {
             onBackPressed()
+        }
+        civUserAvatar.setOnClickListener {
+            val intent = Intent(this, PharmacyBillActivity::class.java)
+            startActivity(intent)
         }
     }
 

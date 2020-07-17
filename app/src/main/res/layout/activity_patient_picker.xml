@@ -8,8 +8,7 @@
     android:background="#B2000000"
     android:clickable="true"
     android:focusable="true"
-    tools:context=".ui.medicine_category_picker.MedicineCategoryPickerActivity">
-
+    tools:context=".ui.patient_picker.PatientPickerActivity">
     <ImageView
         android:id="@+id/ivCloseButton"
         android:layout_width="32dp"
@@ -39,7 +38,7 @@
             android:layout_marginTop="@dimen/padding"
             android:layout_marginBottom="10dp"
             android:gravity="center"
-            android:text="Tìm kiếm thuốc trong danh mục thuốc của cục quản lý dược quốc gia"
+            android:text="Tìm kiếm người mua"
             android:textColor="#424242"
             android:textSize="@dimen/text_size"
             android:textStyle="bold" />
@@ -59,8 +58,8 @@
                 android:layout_marginHorizontal="@dimen/padding"
                 android:layout_marginBottom="15dp"
                 android:background="@drawable/edittext_search_style_round"
-                android:hint="Tên thuốc"
-                android:inputType="textCapWords|textAutoCorrect|textAutoComplete"
+                android:hint="Số điện thoại"
+                android:inputType="phone"
                 android:lines="1"
                 android:padding="@dimen/padding"
                 android:textColor="#636363" />
@@ -74,7 +73,7 @@
                 android:gravity="center"
                 android:paddingHorizontal="10dp"
                 android:paddingBottom="10dp"
-                android:text="Nhấp vào danh sách bên dưới để chọn loại thuốc tương ứng"
+                android:text="Nhấp vào danh sách bên dưới để chọn người mua tương ứng"
                 android:textStyle="italic" />
 
             <RelativeLayout
@@ -82,7 +81,7 @@
                 android:layout_height="wrap_content">
 
                 <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/rvSupplier"
+                    android:id="@+id/rvPatient"
                     android:layout_width="match_parent"
                     android:layout_height="400dp"
                     android:overScrollMode="never" />

@@ -15,9 +15,7 @@ import com.google.gson.Gson
 import kotlinx.android.synthetic.main.activity_supplier_picker.*
 import vn.vistark.pharmass.R
 import vn.vistark.pharmass.core.api.response.SupplierSimplePharmacy
-import vn.vistark.pharmass.core.model.MedicineCategory
 import vn.vistark.pharmass.core.model.Supplier
-import vn.vistark.pharmass.processing.GetMedicineCategoryByNameProcessing
 import vn.vistark.pharmass.processing.GetSupplierByNameProcessing
 import vn.vistark.pharmass.ui.medicine_category_picker.SupplierPickerAdapter
 
@@ -38,7 +36,7 @@ class SupplierPickerActivity : AppCompatActivity() {
     }
 
     private fun onTextChange() {
-        edtAddress.addTextChangedListener(object : TextWatcher {
+        edtPhone.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {
                 if (s != null) {
                     val name = s.toString()

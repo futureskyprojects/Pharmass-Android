@@ -84,7 +84,7 @@ class GoodsUpdaterActivity : AppCompatActivity() {
                     Gson().toJson(medicineCategory)
                 )
                 startActivityForResult(intent, RequestCode.REQUEST_MEDICINE_CATEGORY_CODE)
-                this.overridePendingTransition(0, 300);
+                this.overridePendingTransition(0, 300)
             }
         } else {
             // Nếu danh mục sản phẩm khôn phải thuốc
@@ -129,9 +129,6 @@ class GoodsUpdaterActivity : AppCompatActivity() {
     private fun initEvents() {
         ivBackButton.setOnClickListener {
             onBackPressed()
-        }
-        btnGoodsUpdaterConfirm.setOnClickListener {
-            println(Gson().toJson(binding.requestCreateGoods!!))
         }
         ivGoodsImage1.setOnClickListener {
             pickImage(1)

@@ -27,7 +27,10 @@
         android:theme="@style/AppTheme"
         tools:replace="android:icon"
         tools:targetApi="n">
-        <activity android:name=".ui.pharmacy_bill.PharmacyBillActivity"></activity>
+        <activity
+            android:name=".ui.patient_picker.PatientPickerActivity"
+            android:theme="@style/AppTheme.Transparent" />
+        <activity android:name=".ui.pharmacy_bill.PharmacyBillActivity" />
         <activity android:name=".ui.barcode_scanner.BarcodeScannerActivity" />
         <activity
             android:name=".ui.medicine_category_picker.MedicineCategoryPickerActivity"

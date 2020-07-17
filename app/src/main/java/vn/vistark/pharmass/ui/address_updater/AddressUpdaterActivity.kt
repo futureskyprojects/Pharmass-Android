@@ -10,12 +10,9 @@ import androidx.appcompat.app.AlertDialog
 import com.google.gson.Gson
 import kotlinx.android.synthetic.main.activity_address_updater.*
 import vn.vistark.pharmass.R
-import vn.vistark.pharmass.core.constants.Constants
 import vn.vistark.pharmass.core.constants.vietnam.*
-import vn.vistark.pharmass.core.model.User
 import vn.vistark.pharmass.core.model.UserAddress
 import vn.vistark.pharmass.utils.DialogNotify
-import vn.vistark.pharmass.utils.GlideUtils
 import java.io.InputStreamReader
 
 class AddressUpdaterActivity : AppCompatActivity() {
@@ -96,7 +93,7 @@ class AddressUpdaterActivity : AppCompatActivity() {
             }
         }
         btnConfirm.setOnClickListener {
-            if (edtAddress.text.isEmpty()) {
+            if (edtPhone.text.isEmpty()) {
                 DialogNotify.missingInput(this, "Vui lòng cho biết số nhà/tên đường")
             } else if (selectedProvince == null) {
                 DialogNotify.missingInput(this, "Vui lòng chọn tỉnh thành")
@@ -106,7 +103,7 @@ class AddressUpdaterActivity : AppCompatActivity() {
                 DialogNotify.missingInput(this, "Vui lòng chọn xã phường")
             } else {
                 val userAddress = UserAddress()
-                userAddress.address = edtAddress.text.toString()
+                userAddress.address = edtPhone.text.toString()
                 userAddress.wards =
                     BaseVietnamUnit(selectedWards!!.code, selectedWards!!.nameWithType)
                 userAddress.district =
@@ -141,7 +138,7 @@ class AddressUpdaterActivity : AppCompatActivity() {
         if (userAddressJson.length > 10) {
             userAddress = Gson().fromJson(userAddressJson, UserAddress::class.java)
             if (userAddress != null) {
-                edtAddress.setText(userAddress!!.address)
+                edtPhone.setText(userAddress!!.address)
                 tvProvince.text = userAddress!!.province.name
                 vietnamAdministrativeUnits.forEach {
                     if (it.code == userAddress!!.province.code) {
