@@ -7,7 +7,7 @@
 
         <variable
             name="billItem"
-            type="vn.vistark.pharmass.core.model.BillItem" />
+            type="vn.vistark.pharmass.core.model.SimpleBillItem" />
     </data>
 
     <RelativeLayout

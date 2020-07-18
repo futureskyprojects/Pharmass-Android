@@ -4,14 +4,13 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import vn.vistark.pharmass.R
-import vn.vistark.pharmass.core.model.BillItem
-import vn.vistark.pharmass.core.model.Goods
+import vn.vistark.pharmass.core.model.SimpleBillItem
 
-class BillItemAdapter(val billItems: ArrayList<BillItem>) :
+class BillItemAdapter(val simpleBillItems: ArrayList<SimpleBillItem>) :
     RecyclerView.Adapter<BillItemViewHolder>() {
 
-    var onClicked: ((BillItem) -> Unit)? = null
-    var onItemLongClicked: ((BillItem) -> Unit)? = null
+    var onClicked: ((SimpleBillItem) -> Unit)? = null
+    var onItemLongClicked: ((SimpleBillItem) -> Unit)? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BillItemViewHolder {
         val v = LayoutInflater.from(parent.context).inflate(
@@ -23,11 +22,11 @@ class BillItemAdapter(val billItems: ArrayList<BillItem>) :
     }
 
     override fun getItemCount(): Int {
-        return billItems.size
+        return simpleBillItems.size
     }
 
     override fun onBindViewHolder(holder: BillItemViewHolder, position: Int) {
-        val billItem = billItems[position]
+        val billItem = simpleBillItems[position]
         holder.bind(billItem)
         holder.rlRoot.setOnClickListener {
             onClicked?.invoke(billItem)

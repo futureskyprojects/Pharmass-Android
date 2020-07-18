@@ -98,4 +98,19 @@ public interface APIServices {
 
     @GET("/users?_limit=30")
     fun findUserByPhoneNumber(@Query("phoneNumber_contains") phone: String): Call<List<User>>
+
+    @POST("/bill-items")
+    fun createBillItem(@Body simpleBillItem: SimpleBillItem): Call<BillItem>
+
+    @PUT("/bill-items")
+    fun updateBillItem(@Path("id") id: Int, @Body simpleBillItem: SimpleBillItem): Call<BillItem>
+
+    @GET("/bill-items")
+    fun getBillItemById(@Query("id") id: Int): Call<List<SimpleBillItem>>
+
+    @POST("/bills")
+    fun createBill(@Body bill: Bill): Call<Bill>
+
+    @GET("/bills")
+    fun getBillById(@Query("id") id: Int): Call<List<Bill>>
 }

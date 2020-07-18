@@ -21,5 +21,5 @@ data class Bill(
     @SerializedName("updated_at")
     var updatedAt: String = "",
     @SerializedName("bill_items")
-    var billItems: List<BillItem> = listOf()
+    var simpleBillItems: List<SimpleBillItem> = listOf()
 )

@@ -3,7 +3,7 @@ package vn.vistark.pharmass.core.model
 
 import com.google.gson.annotations.SerializedName
 
-data class BillItem(
+data class SimpleBillItem(
     @SerializedName("id")
     var id: Int = 0,
     @SerializedName("dosage")
@@ -15,5 +15,6 @@ data class BillItem(
     @SerializedName("updated_at")
     var updatedAt: String = "",
     @SerializedName("goods")
-    var goods: SimpleGoods = SimpleGoods()
+    var goods: Int = 0,
+    var tempGoods: Goods? = Goods()
 )

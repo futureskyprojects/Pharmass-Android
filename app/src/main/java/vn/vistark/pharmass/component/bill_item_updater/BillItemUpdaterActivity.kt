@@ -9,19 +9,15 @@ import android.view.View
 import android.view.animation.AnimationUtils
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.gson.Gson
 import kotlinx.android.synthetic.main.activity_bill_item_updater.*
-import kotlinx.android.synthetic.main.activity_goods_picker.*
 import kotlinx.android.synthetic.main.activity_goods_picker.lnMenuContainer
 import kotlinx.android.synthetic.main.activity_goods_picker.rlHomeMenuRoot
 import kotlinx.android.synthetic.main.component_pharmacy_goods_item.*
 import vn.vistark.pharmass.R
-import vn.vistark.pharmass.core.model.BillItem
+import vn.vistark.pharmass.core.model.SimpleBillItem
 import vn.vistark.pharmass.core.model.Goods
-import vn.vistark.pharmass.core.model.Pharmacy
 import vn.vistark.pharmass.databinding.ActivityBillItemUpdaterBinding
-import vn.vistark.pharmass.ui.pharmacy_ware_house.GoodsAdapter
 import vn.vistark.pharmass.utils.DialogNotify
 import vn.vistark.pharmass.utils.GlideUtils
 import vn.vistark.pharmass.utils.NumberUtils
@@ -36,7 +32,7 @@ class BillItemUpdaterActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
 //        setContentView(R.layout.activity_bill_item_updater)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_bill_item_updater)
-        binding.billItem = BillItem()
+        binding.billItem = SimpleBillItem()
 
         setResult(Activity.RESULT_CANCELED)
         if (getPassingData()) {
@@ -91,7 +87,7 @@ class BillItemUpdaterActivity : AppCompatActivity() {
                 binding.billItem!!.goods = goods.id
                 binding.billItem!!.tempGoods = goods
                 val intent = Intent()
-                intent.putExtra(BillItem::class.java.simpleName, Gson().toJson(binding.billItem!!))
+                intent.putExtra(SimpleBillItem::class.java.simpleName, Gson().toJson(binding.billItem!!))
                 setResult(Activity.RESULT_OK, intent)
                 finish()
             }

@@ -1,6 +1,5 @@
 package vn.vistark.pharmass.ui.pharmacy_bill
 
-import android.media.Image
 import android.view.View
 import android.widget.ImageView
 import android.widget.RelativeLayout
@@ -8,8 +7,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.github.ybq.android.spinkit.SpinKitView
 import vn.vistark.pharmass.R
-import vn.vistark.pharmass.core.model.BillItem
-import vn.vistark.pharmass.core.model.Goods
+import vn.vistark.pharmass.core.model.SimpleBillItem
 import vn.vistark.pharmass.processing.GetGoodsByIdProcessing
 import vn.vistark.pharmass.utils.GlideUtils
 import vn.vistark.pharmass.utils.NumberUtils.Companion.convertToVietNamCurrentcy
@@ -28,10 +26,10 @@ class BillItemViewHolder(v: View) : RecyclerView.ViewHolder(v) {
     val loadindForGoodsItem: SpinKitView = v.findViewById(R.id.loadindForGoodsItem)
     val rlGoodsItemVisible: RelativeLayout = v.findViewById(R.id.rlGoodsItemVisible)
 
-    fun bind(billItem: BillItem) {
+    fun bind(simpleBillItem: SimpleBillItem) {
         loadindForGoodsItem.visibility = View.VISIBLE
         rlGoodsItemVisible.visibility = View.GONE
-        GetGoodsByIdProcessing(rlRoot.context, billItem.goods).onFinished = { goods ->
+        GetGoodsByIdProcessing(rlRoot.context, simpleBillItem.goods).onFinished = { goods ->
             if (goods != null) {
                 loadindForGoodsItem.visibility = View.GONE
                 rlGoodsItemVisible.visibility = View.VISIBLE
@@ -49,15 +47,15 @@ class BillItemViewHolder(v: View) : RecyclerView.ViewHolder(v) {
                     if (goods.medicineCategory == null) goods.unit else goods.medicineCategory?.unit
 
                 tvAmount.text =
-                    "Số lượng: ${removeUnMean(billItem.dosage.toDouble())} ($unit)"
+                    "Số lượng: ${removeUnMean(simpleBillItem.dosage.toDouble())} ($unit)"
                 tvLimit.text =
-                    billItem.direction
+                    simpleBillItem.direction
                 tvLimit.isSelected = true
 
                 tvGoodsPrice.text = "${convertToVietNamCurrentcy(goods.exportPrice)}đ"
                 tvGoodsPrice.isSelected = true
             } else {
-                bind(billItem)
+                bind(simpleBillItem)
             }
         }
     }

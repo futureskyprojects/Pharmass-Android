@@ -20,11 +20,13 @@ import kotlinx.android.synthetic.main.components_toolbar.*
 import vn.vistark.pharmass.R
 import vn.vistark.pharmass.component.bill_item_updater.BillItemUpdaterActivity
 import vn.vistark.pharmass.component.goods_picker.GoodsPickerActivity
-import vn.vistark.pharmass.component.medicine_category_picker.MedicineCategoryPickerActivity
 import vn.vistark.pharmass.core.constants.RequestCode
-import vn.vistark.pharmass.databinding.ActivityPharmacyBillBinding
 import vn.vistark.pharmass.component.patient_picker.PatientPickerActivity
 import vn.vistark.pharmass.core.model.*
+import vn.vistark.pharmass.databinding.ActivityPharmacyBillBinding
+import vn.vistark.pharmass.processing.CreateOrUpdateBillItemProcessing
+import vn.vistark.pharmass.processing.CreateBillProcessing
+import vn.vistark.pharmass.processing.UserUploadImageProcessing
 import vn.vistark.pharmass.utils.DialogNotify
 import vn.vistark.pharmass.utils.GlideUtils
 import vn.vistark.pharmass.utils.NumberUtils
@@ -39,7 +41,7 @@ class PharmacyBillActivity : AppCompatActivity() {
     val uriArrList = arrayListOf<Uri?>(null, null, null)
     var imageViewSelectedNumer = -1
 
-    val billItems = ArrayList<BillItem>()
+    val billItems = ArrayList<SimpleBillItem>()
     lateinit var adapter: BillItemAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -115,7 +117,29 @@ class PharmacyBillActivity : AppCompatActivity() {
             this.overridePendingTransition(0, 300)
         }
         civUserAvatar.setOnClickListener {
-            postBill()
+            if (billItems.isEmpty()) {
+                DialogNotify.warning(this, "Đơn bán này chưa có sản phẩm nào được chọn")
+            } else if (binding.bill!!.conclude.isEmpty()) {
+                DialogNotify.missingInput(this, "Vui lòng cung cấp chẩn đoán cho người mua")
+            } else if (binding.bill!!.patient == null) {
+                // Có chắc ẩn danh người mua này
+                SweetAlertDialog(this).apply {
+                    titleText =
+                        "Vẫn chưa chọn khách hàng mua, việc này sẽ khó phân loại khách hàng sau này. Bạn vẫn muốn tiếp tục tạo đơn bán?"
+                    contentText = "THIẾU NGƯỜI MUA"
+                    setConfirmButton("Tiếp tục") {
+                        it.dismiss()
+                        postBillItems()
+                    }
+
+                    setCancelButton("Quay lại") {
+                        it.dismiss()
+                    }
+                    show()
+                }
+            } else {
+                postBillItems()
+            }
         }
     }
 
@@ -225,8 +249,8 @@ class PharmacyBillActivity : AppCompatActivity() {
             }
         } else if (requestCode == RequestCode.REQUEST_BILL_ITEM_DETAILS_CODE && resultCode == Activity.RESULT_OK && data != null) {
             val billItemJson =
-                data.getStringExtra(BillItem::class.java.simpleName) ?: ""
-            val billItem = Gson().fromJson(billItemJson, BillItem::class.java)
+                data.getStringExtra(SimpleBillItem::class.java.simpleName) ?: ""
+            val billItem = Gson().fromJson(billItemJson, SimpleBillItem::class.java)
             if (billItem != null && billItemJson.isNotEmpty()) {
                 // Cập nhật sản phẩm vào danh sách
                 val bi = billItems.filter { bi -> bi.goods == billItem.goods }
@@ -309,7 +333,68 @@ class PharmacyBillActivity : AppCompatActivity() {
     }
 
     //=========== Khu vực xử lý và gửi dữ liệu đơn bán lên server ==========//
-    private fun postBill() {
+    private fun postBillItems(index: Int = 0) {
+        // Nếu chưa chọn sản phẩm nào để bán thì tiến hàn thông báo và trở lên
+        if (billItems.size < 0) {
+            DialogNotify.warning(this, "Đơn bán này chưa có sản phẩm nào được chọn")
+            return
+        }
 
+        if (index >= billItems.size) {
+            // Đến đây, tức là đã cập nhật tất cả các sản phẩm vào đơn bán.
+            // Tiến hành gửi ảnh đơn bán nếu có
+            updateImageProcessing()
+        } else {
+            // Nếu đã có sản phẩm, tiến hành thêm và cập nhật vào đơn bán hiện tại từng cái một
+            CreateOrUpdateBillItemProcessing(this, billItems[index]).onFinished = {
+                if (it == null) {
+                    // Tiến hành cập nhật lại sản phẩm lỗi vừa rồi
+                    postBillItems(index)
+                } else {
+                    binding.bill!!.simpleBillItems += SimpleBillItem().copy(
+                        id = it.id,
+                        dosage = it.dosage,
+                        direction = it.direction,
+                        createdAt = it.createdAt,
+                        updatedAt = it.updatedAt,
+                        goods = it.goods.id
+                    )
+                    // Cập nhật sản phẩm tiếp theo vào đơn bán
+                    postBillItems(index + 1)
+                }
+            }
+        }
+    }
+
+
+    private fun updateImageProcessing(i: Int = 0) {
+        if (i < uriArrList.size) {
+            if (uriArrList[i] != null) {
+                UserUploadImageProcessing(this, uriArrList[i]!!).apply {
+                    onFinished = {
+                        if (it != null) {
+                            binding.bill!!.images += it
+                        }
+                        updateImageProcessing(i + 1)
+                    }
+                    execute()
+                }
+            } else {
+                updateImageProcessing(i + 1)
+            }
+        } else {
+            updateBill()
+        }
+    }
+
+    private fun updateBill() {
+        CreateBillProcessing(this, binding.bill!!).onFinished = {
+            if (it != null) {
+                Toast.makeText(this, "Cập nhật đơn bán thành công", Toast.LENGTH_SHORT).show()
+                finish()
+            } else {
+                DialogNotify.error(this, "Cập nhật đơn bán không thành công!")
+            }
+        }
     }
 }
