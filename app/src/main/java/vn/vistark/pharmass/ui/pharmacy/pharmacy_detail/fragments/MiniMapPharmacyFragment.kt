@@ -1,4 +1,4 @@
-package vn.vistark.pharmass.ui.pharmacy_detail.fragments
+package vn.vistark.pharmass.ui.pharmacy.pharmacy_detail.fragments
 
 import android.Manifest
 import android.content.pm.PackageManager
@@ -113,7 +113,8 @@ class MiniMapPharmacyFragment : Fragment() {
 
         @JvmStatic
         fun newInstance(param1: String) =
-            MiniMapPharmacyFragment().apply {
+            MiniMapPharmacyFragment()
+                .apply {
                 arguments = Bundle().apply {
                     putString(ARG_PARAM1, param1)
                 }

@@ -11,7 +11,7 @@ import kotlinx.android.synthetic.main.components_toolbar.*
 import vn.vistark.pharmass.R
 import vn.vistark.pharmass.core.model.Pharmacy
 import vn.vistark.pharmass.core.model.User
-import vn.vistark.pharmass.ui.pharmacy_bill.PharmacyBillActivity
+import vn.vistark.pharmass.ui.pharmacy.pharmacy_bill.PharmacyBillActivity
 import vn.vistark.pharmass.utils.GlideUtils
 
 class PharmacyActivity : AppCompatActivity() {

@@ -45,6 +45,9 @@ public interface APIServices {
     @GET("/pharmacy-staffs")
     fun getPharmacyStaffs(@Query("pharmacy.id") id: Int): Call<List<PharmacyStaff>>
 
+    @POST("/pharmacy-staffs")
+    fun createPharmacyStaffs(@Body simplePharmacyStaff: SimplePharmacyStaff): Call<PharmacyStaff>
+
     @GET("/goods-categories?pharmacy_null=true")
     fun getDefaultGoodsCategory(): Call<List<GoodsCategory>>
 
@@ -99,6 +102,9 @@ public interface APIServices {
     @GET("/users?_limit=30")
     fun findUserByPhoneNumber(@Query("phoneNumber_contains") phone: String): Call<List<User>>
 
+    @GET("/users")
+    fun findUserById(@Query("id") id: Int): Call<List<User>>
+
     @POST("/bill-items")
     fun createBillItem(@Body simpleBillItem: SimpleBillItem): Call<BillItem>
 
@@ -106,11 +112,17 @@ public interface APIServices {
     fun updateBillItem(@Path("id") id: Int, @Body simpleBillItem: SimpleBillItem): Call<BillItem>
 
     @GET("/bill-items")
-    fun getBillItemById(@Query("id") id: Int): Call<List<SimpleBillItem>>
+    fun getBillItemById(@Query("id") id: Int): Call<List<BillItem>>
+
+    @GET("/bill-items")
+    fun getBillItemById(@QueryMap id: Map<String, String>): Call<List<BillItem>>
 
     @POST("/bills")
     fun createBill(@Body bill: Bill): Call<Bill>
 
     @GET("/bills")
     fun getBillById(@Query("id") id: Int): Call<List<Bill>>
+
+    @GET("/bills")
+    fun getBillByPharmacyId(@Query("pharmacy_staff.pharmacy") id: Int): Call<List<Bill>>
 }

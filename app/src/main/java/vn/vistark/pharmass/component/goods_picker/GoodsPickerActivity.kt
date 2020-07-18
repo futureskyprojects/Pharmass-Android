@@ -17,7 +17,7 @@ import vn.vistark.pharmass.R
 import vn.vistark.pharmass.core.model.Goods
 import vn.vistark.pharmass.core.model.Pharmacy
 import vn.vistark.pharmass.processing.GetPharmacyGoodsByNameProcessing
-import vn.vistark.pharmass.ui.pharmacy_ware_house.GoodsAdapter
+import vn.vistark.pharmass.ui.pharmacy.pharmacy_ware_house.GoodsAdapter
 
 class GoodsPickerActivity : AppCompatActivity() {
 

@@ -1,4 +1,4 @@
-package vn.vistark.pharmass.ui.pharmacy_bill
+package vn.vistark.pharmass.ui.pharmacy.pharmacy_bill
 
 import android.view.View
 import android.widget.ImageView

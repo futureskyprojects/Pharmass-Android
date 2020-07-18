@@ -8,7 +8,7 @@
     android:background="#B2000000"
     android:clickable="true"
     android:focusable="true"
-    tools:context=".ui.pharmacy_detail.PharmacyDetailActivity">
+    tools:context=".ui.pharmacy.pharmacy_detail.PharmacyDetailActivity">
 
     <ImageView
         android:id="@+id/ivCloseButton"

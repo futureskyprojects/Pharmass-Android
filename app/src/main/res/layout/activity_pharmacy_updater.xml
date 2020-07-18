@@ -16,7 +16,7 @@
         android:background="#FFF"
         android:fitsSystemWindows="true"
         android:orientation="vertical"
-        tools:context=".ui.pharmacy_updater.PharmacyUpdaterActivity">
+        tools:context=".ui.pharmacy.pharmacy_updater.PharmacyUpdaterActivity">
 
         <include layout="@layout/components_top_round_primary_dark" />
 

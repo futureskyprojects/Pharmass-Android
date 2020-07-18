@@ -12,7 +12,7 @@ import com.google.gson.Gson
 import vn.vistark.pharmass.R
 import vn.vistark.pharmass.core.model.Pharmacy
 import vn.vistark.pharmass.ui.pharmacy.PharmacyActivity
-import vn.vistark.pharmass.ui.pharmacy_detail.PharmacyDetailActivity
+import vn.vistark.pharmass.ui.pharmacy.pharmacy_detail.PharmacyDetailActivity
 import vn.vistark.pharmass.utils.GlideUtils
 
 class CurrentUserPharmacyViewHolder(v: View) : RecyclerView.ViewHolder(v) {

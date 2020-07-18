@@ -1,4 +1,4 @@
-package vn.vistark.pharmass.ui.pharmacy_updater
+package vn.vistark.pharmass.ui.pharmacy.pharmacy_updater
 
 import android.Manifest
 import android.app.Activity

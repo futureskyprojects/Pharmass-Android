@@ -3,17 +3,22 @@ package vn.vistark.pharmass.ui.work
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.Gravity
 import android.view.View
+import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.google.gson.Gson
 import kotlinx.android.synthetic.main.component_work_top_pharmacies.*
 import kotlinx.android.synthetic.main.components_search_bar.*
 import kotlinx.android.synthetic.main.components_toolbar.*
 import vn.vistark.pharmass.R
+import vn.vistark.pharmass.core.constants.Constants
+import vn.vistark.pharmass.core.constants.PharmacyStaffPostion
 import vn.vistark.pharmass.core.model.Pharmacy
+import vn.vistark.pharmass.core.model.SimplePharmacyStaff
+import vn.vistark.pharmass.processing.CreateBillProcessing
+import vn.vistark.pharmass.processing.CreatePharmacyStaffProcessing
+import vn.vistark.pharmass.processing.GetPharmacyStaffProcessing
 import vn.vistark.pharmass.processing.GetUserPharmaciesProcessing
-import vn.vistark.pharmass.ui.pharmacy_updater.PharmacyUpdaterActivity
+import vn.vistark.pharmass.ui.pharmacy.pharmacy_updater.PharmacyUpdaterActivity
 
 class WorkActivity : AppCompatActivity() {
     val userPharmacies: ArrayList<Pharmacy> = ArrayList()
@@ -41,9 +46,45 @@ class WorkActivity : AppCompatActivity() {
                 it.forEach {
                     userPharmacies.add(it)
                     userPharmaciesAdapter.notifyDataSetChanged()
+                    updateOwner(it)
                 }
-            } else {
+            }
+        }
+    }
 
+    private fun updateOwner(pharmacy: Pharmacy) {
+        // Cập nhật chủ sở hữu nếu chưa có
+        GetPharmacyStaffProcessing(this, pharmacy.id).onFinished = { pharmacyStaffs ->
+            if (pharmacyStaffs != null) {
+                var isFound = false
+                for (ps in pharmacyStaffs) {
+                    if (ps.user.id == pharmacy.users.id && ps.positionCode ==
+                        PharmacyStaffPostion.OWNER
+                    ) {
+                        isFound = true
+                    }
+                }
+
+                // Nếu đã duyệt và chưa có chủ sở hữu cho nhà thuốc này, tiến hành cập nhật
+                if (!isFound) {
+                    val pharmacyStaff =
+                        SimplePharmacyStaff(
+                            user = Constants.user.id,
+                            pharmacy = pharmacy.id,
+                            positionCode = PharmacyStaffPostion.OWNER
+                        )
+                    CreatePharmacyStaffProcessing(this, pharmacyStaff).onFinished = {
+                        if (it != null) {
+                            Toast.makeText(
+                                this,
+                                "Đã cập nhật xong nhân viên bị thiếu cho [${pharmacy.name}]",
+                                Toast.LENGTH_SHORT
+                            ).show()
+                        } else {
+                            updateOwner(pharmacy)
+                        }
+                    }
+                }
             }
         }
     }

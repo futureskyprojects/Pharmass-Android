@@ -34,7 +34,7 @@
         <activity
             android:name=".component.patient_picker.PatientPickerActivity"
             android:theme="@style/AppTheme.Transparent" />
-        <activity android:name=".ui.pharmacy_bill.PharmacyBillActivity" />
+        <activity android:name=".ui.pharmacy.pharmacy_bill.PharmacyBillActivity" />
         <activity android:name=".component.barcode_scanner.BarcodeScannerActivity" />
         <activity
             android:name=".component.medicine_category_picker.MedicineCategoryPickerActivity"
@@ -42,11 +42,11 @@
         <activity
             android:name=".component.supplier_picker.SupplierPickerActivity"
             android:theme="@style/AppTheme.Transparent" />
-        <activity android:name=".ui.pharmacy_ware_house.PharmacyWareHouseActivity" />
+        <activity android:name=".ui.pharmacy.pharmacy_ware_house.PharmacyWareHouseActivity" />
         <activity android:name=".ui.goods_updater.GoodsUpdaterActivity" />
         <activity android:name=".ui.create_medicine_category.AddMedicineCategoryActivity" />
         <activity
-            android:name=".ui.pharmacy_detail.PharmacyDetailActivity"
+            android:name=".ui.pharmacy.pharmacy_detail.PharmacyDetailActivity"
             android:theme="@style/AppTheme.Transparent" />
         <activity
             android:name=".component.address_picker.AddressPickerActivity"
@@ -69,7 +69,7 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyDPG4zVE7Xvk9OHwDEcaWoZygMNHo4fdJs" />
 
-        <activity android:name=".ui.pharmacy_updater.PharmacyUpdaterActivity" />
+        <activity android:name=".ui.pharmacy.pharmacy_updater.PharmacyUpdaterActivity" />
         <activity android:name=".ui.work.WorkActivity" />
         <activity
             android:name=".ui.home_menu.HomeMenuActivity"

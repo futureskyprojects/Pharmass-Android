@@ -1,4 +1,4 @@
-package vn.vistark.pharmass.ui.pharmacy_ware_house
+package vn.vistark.pharmass.ui.pharmacy.pharmacy_ware_house
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
@@ -47,7 +47,10 @@ class PharmacyWareHouseActivity : AppCompatActivity() {
         rvGoods.setHasFixedSize(true)
         rvGoods.layoutManager = LinearLayoutManager(this)
 
-        adapter = GoodsAdapter(goodsList)
+        adapter =
+            GoodsAdapter(
+                goodsList
+            )
         rvGoods.adapter = adapter
 
         GetPharmacyGoodsInCategoryProcessing(this, pharmacy!!.id, goodsCategory!!.id).onFinished = {

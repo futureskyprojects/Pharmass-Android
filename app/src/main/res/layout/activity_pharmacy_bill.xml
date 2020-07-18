@@ -16,7 +16,7 @@
         android:background="#FFF"
         android:fitsSystemWindows="true"
         android:orientation="vertical"
-        tools:context=".ui.pharmacy_bill.PharmacyBillActivity">
+        tools:context=".ui.pharmacy.pharmacy_bill.PharmacyBillActivity">
 
         <include layout="@layout/components_top_round_primary_dark" />
 

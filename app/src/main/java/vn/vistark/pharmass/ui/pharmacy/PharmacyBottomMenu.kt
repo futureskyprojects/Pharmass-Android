@@ -4,7 +4,9 @@ import androidx.fragment.app.Fragment
 import com.google.gson.Gson
 import vn.vistark.pharmass.core.model.Pharmacy
 import vn.vistark.pharmass.ui.pharmacy.fragments.*
+import vn.vistark.pharmass.ui.pharmacy.fragments.bill.BillFragment
 import vn.vistark.pharmass.ui.pharmacy.fragments.category.CategoryFragment
+import vn.vistark.pharmass.ui.pharmacy.fragments.customer.CustomerFragment
 import vn.vistark.pharmass.ui.pharmacy.fragments.staff.StaffFragment
 
 data class PharmacyBottomMenu(var title: String, var fragment: Fragment?) {
@@ -14,8 +16,8 @@ data class PharmacyBottomMenu(var title: String, var fragment: Fragment?) {
             return arrayOf(
                 PharmacyBottomMenu("Nhân viên", StaffFragment.newInstance(pharmacyJson)),
                 PharmacyBottomMenu("Mục sản phẩm", CategoryFragment.newInstance(pharmacyJson)),
-                PharmacyBottomMenu("Khách hàng", CustomerFragment.newInstance()),
-                PharmacyBottomMenu("Đơn bán", BillFragment.newInstance()),
+                PharmacyBottomMenu("Khách hàng", CustomerFragment.newInstance(pharmacyJson)),
+                PharmacyBottomMenu("Đơn bán", BillFragment.newInstance(pharmacyJson)),
                 PharmacyBottomMenu("Thống kê", StatisticalFragment.newInstance())
             )
         }

@@ -1,4 +1,4 @@
-package vn.vistark.pharmass.ui.pharmacy_ware_house
+package vn.vistark.pharmass.ui.pharmacy.pharmacy_ware_house
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -16,7 +16,9 @@ class GoodsAdapter(val goodsList: ArrayList<Goods>) : RecyclerView.Adapter<Goods
             parent,
             false
         )
-        return GoodsViewHolder(v)
+        return GoodsViewHolder(
+            v
+        )
     }
 
     override fun getItemCount(): Int {

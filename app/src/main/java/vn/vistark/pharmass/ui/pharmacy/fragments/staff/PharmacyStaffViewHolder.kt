@@ -27,7 +27,7 @@ class PharmacyStaffViewHolder(v: View) : RecyclerView.ViewHolder(v) {
         }
         tvStaffFullName.isSelected = true
         tvStaffAddress.text = if (staff.user.getAvatarFullAddress().isNotEmpty()) {
-            staff.user.getAvatarFullAddress()
+            staff.user.address.toString()
         } else {
             "Không có địa chỉ"
         }

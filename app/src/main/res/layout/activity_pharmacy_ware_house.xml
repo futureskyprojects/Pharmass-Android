@@ -7,7 +7,7 @@
     android:background="#FFF"
     android:fitsSystemWindows="true"
     android:orientation="vertical"
-    tools:context=".ui.pharmacy_ware_house.PharmacyWareHouseActivity">
+    tools:context=".ui.pharmacy.pharmacy_ware_house.PharmacyWareHouseActivity">
 
     <include layout="@layout/components_top_round_primary_dark" />
 

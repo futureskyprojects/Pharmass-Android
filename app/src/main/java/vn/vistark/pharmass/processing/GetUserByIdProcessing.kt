@@ -7,39 +7,42 @@ import retrofit2.Callback
 import retrofit2.Response
 import vn.vistark.pharmass.core.api.APIUtils
 import vn.vistark.pharmass.core.api.ErrorLibrary
+import vn.vistark.pharmass.core.api.request.BodyCreatePharmacyRequest
+import vn.vistark.pharmass.core.model.Pharmacy
 import vn.vistark.pharmass.core.api.response.Error400Response
 import vn.vistark.pharmass.core.api.response.Error401Response
 import vn.vistark.pharmass.core.constants.Constants
-import vn.vistark.pharmass.core.model.BillItem
-import vn.vistark.pharmass.core.model.SimpleBillItem
+import vn.vistark.pharmass.core.model.MedicineCategory
+import vn.vistark.pharmass.core.model.PharmacyStaff
+import vn.vistark.pharmass.core.model.User
 import vn.vistark.pharmass.utils.DialogNotify
 import java.lang.Exception
 
-class GetBillItemByIdProcessing(
+class GetUserByIdProcessing(
     context: Context,
     id: Int,
     hideNotify: Boolean = false
 ) {
-    var onFinished: ((BillItem?) -> Unit)? = null
+    var onFinished: ((List<User>?) -> Unit)? = null
 
     init {
-        APIUtils.mAPIServices?.getBillItemById(id)
-            ?.enqueue(object : Callback<List<BillItem>> {
-                override fun onFailure(call: Call<List<BillItem>>, t: Throwable) {
+        APIUtils.mAPIServices?.findUserById(id)
+            ?.enqueue(object : Callback<List<User>> {
+                override fun onFailure(call: Call<List<User>>, t: Throwable) {
                     if (!hideNotify)
                         DialogNotify.error(
                             context,
-                            t.message ?: "Lỗi không xác định khi lấy sản phẩm của đơn bán hiện tại"
+                            t.message ?: "Lỗi không xác định khi tìm người dùng này"
                         )
                 }
 
                 override fun onResponse(
-                    call: Call<List<BillItem>>,
-                    response: Response<List<BillItem>>
+                    call: Call<List<User>>,
+                    response: Response<List<User>>
                 ) {
                     if (response.isSuccessful) {
                         // Khi thực hiện thành công
-                        onFinished?.invoke(response.body()?.first())
+                        onFinished?.invoke(response.body())
                         return
                     } else if (response.code() == 400) {
                         try {

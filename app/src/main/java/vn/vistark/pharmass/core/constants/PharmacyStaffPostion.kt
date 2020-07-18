@@ -2,6 +2,7 @@ package vn.vistark.pharmass.core.constants
 
 data class PharmacyStaffPostion(val code: String, val name: String) {
     companion object {
+        val OWNER = "OWNER"
         val NO_POSITION = "NO_POSITION"
         val SELLER = "SELLER"
         val MANAGER = "MANAGER"

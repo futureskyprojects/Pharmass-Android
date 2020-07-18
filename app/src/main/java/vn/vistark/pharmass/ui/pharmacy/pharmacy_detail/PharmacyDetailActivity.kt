@@ -1,4 +1,4 @@
-package vn.vistark.pharmass.ui.pharmacy_detail
+package vn.vistark.pharmass.ui.pharmacy.pharmacy_detail
 
 import android.annotation.SuppressLint
 import android.graphics.Color
@@ -34,10 +34,16 @@ class PharmacyDetailActivity : AppCompatActivity() {
 
     private fun initBottomMenu() {
         // Thêm các tab vào cho menu
-        PharmacyDetailBottomMenu.all(pharmacy).forEach {
+        PharmacyDetailBottomMenu.all(
+            pharmacy
+        ).forEach {
             tabLayout.addTab(tabLayout.newTab().setText(it.title))
         }
-        viewPager.adapter = PharmacyDetailPagerAdapter(supportFragmentManager, pharmacy)
+        viewPager.adapter =
+            PharmacyDetailPagerAdapter(
+                supportFragmentManager,
+                pharmacy
+            )
         tabLayout.setupWithViewPager(viewPager)
     }
 

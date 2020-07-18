@@ -18,7 +18,7 @@ import vn.vistark.pharmass.R
 import vn.vistark.pharmass.core.model.Pharmacy
 import vn.vistark.pharmass.core.model.PharmacyStaff
 import vn.vistark.pharmass.processing.GetPharmacyStaffProcessing
-import vn.vistark.pharmass.ui.pharmacy_detail.fragments.IntroductionFragment
+import vn.vistark.pharmass.ui.pharmacy.pharmacy_detail.fragments.IntroductionFragment
 import vn.vistark.pharmass.utils.DialogNotify
 
 class StaffFragment : Fragment() {

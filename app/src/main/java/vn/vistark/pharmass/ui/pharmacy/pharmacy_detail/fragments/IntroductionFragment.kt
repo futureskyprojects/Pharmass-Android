@@ -1,4 +1,4 @@
-package vn.vistark.pharmass.ui.pharmacy_detail.fragments
+package vn.vistark.pharmass.ui.pharmacy.pharmacy_detail.fragments
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -43,7 +43,8 @@ class IntroductionFragment : Fragment() {
 
         @JvmStatic
         fun newInstance(param1: String) =
-            IntroductionFragment().apply {
+            IntroductionFragment()
+                .apply {
                 arguments = Bundle().apply {
                     putString(ARG_PARAM1, param1)
                 }

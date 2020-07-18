@@ -16,7 +16,7 @@ import vn.vistark.pharmass.R
 import vn.vistark.pharmass.core.model.GoodsCategory
 import vn.vistark.pharmass.core.model.Pharmacy
 import vn.vistark.pharmass.processing.GetPharmacyGoodsCategoryProcessing
-import vn.vistark.pharmass.ui.pharmacy_ware_house.PharmacyWareHouseActivity
+import vn.vistark.pharmass.ui.pharmacy.pharmacy_ware_house.PharmacyWareHouseActivity
 
 class CategoryFragment : Fragment() {
     private var pharmacyJson: String? = null

@@ -1,4 +1,4 @@
-package vn.vistark.pharmass.ui.pharmacy_ware_house
+package vn.vistark.pharmass.ui.pharmacy.pharmacy_ware_house
 
 import android.media.Image
 import android.view.View

@@ -1,4 +1,4 @@
-package vn.vistark.pharmass.ui.pharmacy_bill
+package vn.vistark.pharmass.ui.pharmacy.pharmacy_bill
 
 import android.app.Activity
 import android.content.ContentValues
@@ -160,7 +160,9 @@ class PharmacyBillActivity : AppCompatActivity() {
         rvBillItems.setHasFixedSize(true)
         rvBillItems.layoutManager = LinearLayoutManager(this)
 
-        adapter = BillItemAdapter(billItems)
+        adapter = BillItemAdapter(
+            billItems
+        )
         adapter.onItemLongClicked = { billItem ->
             SweetAlertDialog(this).apply {
                 titleText = "Thực sụ muốn xóa sản phẩm này khỏi danh sách hàng khách mua?"
