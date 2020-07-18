@@ -11,6 +11,7 @@ class BillItemAdapter(val billItems: ArrayList<BillItem>) :
     RecyclerView.Adapter<BillItemViewHolder>() {
 
     var onClicked: ((BillItem) -> Unit)? = null
+    var onItemLongClicked: ((BillItem) -> Unit)? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BillItemViewHolder {
         val v = LayoutInflater.from(parent.context).inflate(
@@ -30,6 +31,10 @@ class BillItemAdapter(val billItems: ArrayList<BillItem>) :
         holder.bind(billItem)
         holder.rlRoot.setOnClickListener {
             onClicked?.invoke(billItem)
+        }
+        holder.rlRoot.setOnLongClickListener {
+            onItemLongClicked?.invoke(billItem)
+            return@setOnLongClickListener true
         }
     }
 

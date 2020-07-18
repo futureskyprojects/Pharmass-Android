@@ -25,8 +25,8 @@ class GetGoodsByIdProcessing(
 
     init {
         APIUtils.mAPIServices?.getGoodsById(id)
-            ?.enqueue(object : Callback<Goods> {
-                override fun onFailure(call: Call<Goods>, t: Throwable) {
+            ?.enqueue(object : Callback<List<Goods>> {
+                override fun onFailure(call: Call<List<Goods>>, t: Throwable) {
                     DialogNotify.error(
                         context,
                         t.message ?: "Lỗi không xác định khi lấy hàng"
@@ -34,12 +34,12 @@ class GetGoodsByIdProcessing(
                 }
 
                 override fun onResponse(
-                    call: Call<Goods>,
-                    response: Response<Goods>
+                    call: Call<List<Goods>>,
+                    response: Response<List<Goods>>
                 ) {
                     if (response.isSuccessful) {
                         // Khi thực hiện thành công
-                        onFinished?.invoke(response.body())
+                        onFinished?.invoke(response.body()?.first())
                         return
                     } else if (response.code() == 400) {
                         try {

@@ -12,6 +12,7 @@ import vn.vistark.pharmass.core.model.BillItem
 import vn.vistark.pharmass.core.model.Goods
 import vn.vistark.pharmass.processing.GetGoodsByIdProcessing
 import vn.vistark.pharmass.utils.GlideUtils
+import vn.vistark.pharmass.utils.NumberUtils.Companion.convertToVietNamCurrentcy
 import vn.vistark.pharmass.utils.NumberUtils.Companion.removeUnMean
 
 class BillItemViewHolder(v: View) : RecyclerView.ViewHolder(v) {
@@ -20,6 +21,8 @@ class BillItemViewHolder(v: View) : RecyclerView.ViewHolder(v) {
     val tvAmount: TextView = v.findViewById(R.id.tvAmount)
     val tvLimit: TextView = v.findViewById(R.id.tvLimit)
     val ivGoodsImage: ImageView = v.findViewById(R.id.ivGoodsImage)
+    val tvGoodsPrice: TextView = v.findViewById(R.id.tvGoodsPrice)
+
     val ivS2Icon: ImageView = v.findViewById(R.id.ivS2Icon)
 
     val loadindForGoodsItem: SpinKitView = v.findViewById(R.id.loadindForGoodsItem)
@@ -50,6 +53,9 @@ class BillItemViewHolder(v: View) : RecyclerView.ViewHolder(v) {
                 tvLimit.text =
                     billItem.direction
                 tvLimit.isSelected = true
+
+                tvGoodsPrice.text = "${convertToVietNamCurrentcy(goods.exportPrice)}đ"
+                tvGoodsPrice.isSelected = true
             } else {
                 bind(billItem)
             }

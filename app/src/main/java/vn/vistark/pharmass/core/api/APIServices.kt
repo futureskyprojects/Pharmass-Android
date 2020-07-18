@@ -65,7 +65,7 @@ public interface APIServices {
     @GET("/goods")
     fun getGoodsById(
         @Query("id") id: Int
-    ): Call<Goods>
+    ): Call<List<Goods>>
 
     @GET("/goods")
     fun getPharmacyGoodsInCategory(

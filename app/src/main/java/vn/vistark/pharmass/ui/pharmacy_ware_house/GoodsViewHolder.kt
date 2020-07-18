@@ -9,6 +9,8 @@ import androidx.recyclerview.widget.RecyclerView
 import vn.vistark.pharmass.R
 import vn.vistark.pharmass.core.model.Goods
 import vn.vistark.pharmass.utils.GlideUtils
+import vn.vistark.pharmass.utils.NumberUtils
+import vn.vistark.pharmass.utils.NumberUtils.Companion.convertToVietNamCurrentcy
 import vn.vistark.pharmass.utils.NumberUtils.Companion.removeUnMean
 
 class GoodsViewHolder(v: View) : RecyclerView.ViewHolder(v) {
@@ -17,6 +19,7 @@ class GoodsViewHolder(v: View) : RecyclerView.ViewHolder(v) {
     val tvAmount: TextView = v.findViewById(R.id.tvAmount)
     val tvLimit: TextView = v.findViewById(R.id.tvLimit)
     val ivGoodsImage: ImageView = v.findViewById(R.id.ivGoodsImage)
+    val tvGoodsPrice: TextView = v.findViewById(R.id.tvGoodsPrice)
 
     fun bind(goods: Goods) {
         tvGoodsName.text = goods.name
@@ -35,5 +38,8 @@ class GoodsViewHolder(v: View) : RecyclerView.ViewHolder(v) {
         tvLimit.text =
             "Giới hạn tồn: ${removeUnMean(goods.inventoryAtleast.toDouble())} - ${removeUnMean(goods.inventoryMost.toDouble())} ($unit)"
         tvLimit.isSelected = true
+
+        tvGoodsPrice.text = "${convertToVietNamCurrentcy(goods.exportPrice)}đ"
+        tvGoodsPrice.isSelected = true
     }
 }

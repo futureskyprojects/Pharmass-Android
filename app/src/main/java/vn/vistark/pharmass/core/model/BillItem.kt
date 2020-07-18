@@ -15,5 +15,6 @@ data class BillItem(
     @SerializedName("updated_at")
     var updatedAt: String = "",
     @SerializedName("goods")
-    var goods: Int = 0
+    var goods: Int = 0,
+    var tempGoods: Goods? = Goods()
 )

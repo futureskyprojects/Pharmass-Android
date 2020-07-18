@@ -36,6 +36,7 @@ class GoodsPickerActivity : AppCompatActivity() {
             inits()
             initEvents()
             onTextChange()
+            loadMedicineCategoryByName("")
         } else {
             Toast.makeText(
                 this,

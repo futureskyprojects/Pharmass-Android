@@ -12,6 +12,7 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.LinearLayoutManager
+import cn.pedant.SweetAlert.SweetAlertDialog
 import com.google.gson.Gson
 import kotlinx.android.synthetic.main.activity_pharmacy_bill.*
 import kotlinx.android.synthetic.main.component_bill_patient_item.*
@@ -24,7 +25,9 @@ import vn.vistark.pharmass.core.constants.RequestCode
 import vn.vistark.pharmass.databinding.ActivityPharmacyBillBinding
 import vn.vistark.pharmass.component.patient_picker.PatientPickerActivity
 import vn.vistark.pharmass.core.model.*
+import vn.vistark.pharmass.utils.DialogNotify
 import vn.vistark.pharmass.utils.GlideUtils
+import vn.vistark.pharmass.utils.NumberUtils
 
 class PharmacyBillActivity : AppCompatActivity() {
 
@@ -111,7 +114,11 @@ class PharmacyBillActivity : AppCompatActivity() {
             startActivityForResult(intent, RequestCode.REQUEST_GOODS_PICKER_CODE)
             this.overridePendingTransition(0, 300)
         }
+        civUserAvatar.setOnClickListener {
+            postBill()
+        }
     }
+
 
     private fun inits() {
         ivExpandAuthorInfomation.visibility = View.GONE
@@ -130,7 +137,39 @@ class PharmacyBillActivity : AppCompatActivity() {
         rvBillItems.layoutManager = LinearLayoutManager(this)
 
         adapter = BillItemAdapter(billItems)
+        adapter.onItemLongClicked = { billItem ->
+            SweetAlertDialog(this).apply {
+                titleText = "Thực sụ muốn xóa sản phẩm này khỏi danh sách hàng khách mua?"
+                contentText = "Xóa sản phẩm"
+                setConfirmButton("Xóa") {
+                    it.dismiss()
+                    val temp = billItems.filter { bi -> bi.goods != billItem.goods }
+                    billItems.clear()
+                    billItems.addAll(temp)
+
+                    billLayoutUpdater()
+                }
+                setCancelButton("Không xóa") {
+                    it.dismiss()
+                }
+                show()
+            }
+        }
         rvBillItems.adapter = adapter
+    }
+
+    private fun billLayoutUpdater() {
+        if (billItems.size > 0) {
+            tvNoGoodsSelected.visibility = View.GONE
+            var totalMoney = 0.0
+            billItems.forEach {
+                totalMoney += it.tempGoods!!.exportPrice
+            }
+            tvBillTotalMoney.text = "${NumberUtils.convertToVietNamCurrentcy(totalMoney)} (VNĐ)"
+        } else {
+            tvNoGoodsSelected.visibility = View.VISIBLE
+            tvBillTotalMoney.text = "0 (VNĐ)"
+        }
     }
 
     fun bind(user: User?) {
@@ -147,7 +186,7 @@ class PharmacyBillActivity : AppCompatActivity() {
         } else {
             ivRemoveUserBtn.visibility = View.GONE
             tvPatientFullname.text = ""
-            tvPatientPhoneNumner.text = "Chưa chọn ngườ mua"
+            tvPatientPhoneNumner.text = "Chưa chọn người mua"
             tvPatientAccountState.text = "Chưa xác nhận"
             ivPatientAvatar.setImageResource(R.drawable.no_avatar)
         }
@@ -181,8 +220,8 @@ class PharmacyBillActivity : AppCompatActivity() {
                     Goods::class.java.simpleName,
                     Gson().toJson(g)
                 )
-                startActivityForResult(intent, RequestCode.REQUEST_BILL_ITEM_DETAILS_CODE)
                 this.overridePendingTransition(0, 300)
+                startActivityForResult(intent, RequestCode.REQUEST_BILL_ITEM_DETAILS_CODE)
             }
         } else if (requestCode == RequestCode.REQUEST_BILL_ITEM_DETAILS_CODE && resultCode == Activity.RESULT_OK && data != null) {
             val billItemJson =
@@ -190,8 +229,14 @@ class PharmacyBillActivity : AppCompatActivity() {
             val billItem = Gson().fromJson(billItemJson, BillItem::class.java)
             if (billItem != null && billItemJson.isNotEmpty()) {
                 // Cập nhật sản phẩm vào danh sách
-                billItems.add(billItem)
-                adapter.notifyDataSetChanged()
+                val bi = billItems.filter { bi -> bi.goods == billItem.goods }
+                if (bi.isNotEmpty()) {
+                    DialogNotify.error(this, "Sản phẩm đã tồn tại")
+                } else {
+                    billItems.add(billItem)
+                    adapter.notifyDataSetChanged()
+                }
+                billLayoutUpdater()
             }
         }
     }
@@ -261,5 +306,10 @@ class PharmacyBillActivity : AppCompatActivity() {
             R.drawable.no_image
         )
         uriArrList[imageViewSelectedNumer - 1] = tempUri
+    }
+
+    //=========== Khu vực xử lý và gửi dữ liệu đơn bán lên server ==========//
+    private fun postBill() {
+
     }
 }

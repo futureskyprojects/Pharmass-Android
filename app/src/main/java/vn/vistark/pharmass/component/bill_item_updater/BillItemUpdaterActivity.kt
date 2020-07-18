@@ -89,6 +89,7 @@ class BillItemUpdaterActivity : AppCompatActivity() {
                 )
             } else {
                 binding.billItem!!.goods = goods.id
+                binding.billItem!!.tempGoods = goods
                 val intent = Intent()
                 intent.putExtra(BillItem::class.java.simpleName, Gson().toJson(binding.billItem!!))
                 setResult(Activity.RESULT_OK, intent)
