@@ -1,4 +1,4 @@
-package vn.vistark.pharmass.ui.barcode_scanner
+package vn.vistark.pharmass.component.barcode_scanner
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle

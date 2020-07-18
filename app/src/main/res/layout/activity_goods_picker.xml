@@ -8,7 +8,8 @@
     android:background="#B2000000"
     android:clickable="true"
     android:focusable="true"
-    tools:context=".component.patient_picker.PatientPickerActivity">
+    tools:context=".component.goods_picker.GoodsPickerActivity">
+
     <ImageView
         android:id="@+id/ivCloseButton"
         android:layout_width="32dp"
@@ -30,7 +31,7 @@
         android:orientation="vertical">
 
         <TextView
-            android:id="@+id/tvAdressUpdaterHint"
+            android:id="@+id/tvTheHint"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
@@ -38,7 +39,7 @@
             android:layout_marginTop="@dimen/padding"
             android:layout_marginBottom="10dp"
             android:gravity="center"
-            android:text="Tìm kiếm người mua"
+            android:text="Tìm kiếm sản phẩm"
             android:textColor="#424242"
             android:textSize="@dimen/text_size"
             android:textStyle="bold" />
@@ -52,20 +53,20 @@
             android:paddingTop="@dimen/padding">
 
             <EditText
-                android:id="@+id/edtPhone"
+                android:id="@+id/edtGoodsName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="@dimen/padding"
                 android:layout_marginBottom="15dp"
                 android:background="@drawable/edittext_search_style_round"
-                android:hint="Số điện thoại"
-                android:inputType="phone"
+                android:hint="Tên sản phẩm"
+                android:inputType="textCapWords|textAutoCorrect|textAutoComplete"
                 android:lines="1"
                 android:padding="@dimen/padding"
                 android:textColor="#636363" />
 
             <TextView
-                android:id="@+id/tvSelectMedicicecategory"
+                android:id="@+id/tvHintForSelect"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_gravity="center_vertical"
@@ -73,7 +74,7 @@
                 android:gravity="center"
                 android:paddingHorizontal="10dp"
                 android:paddingBottom="10dp"
-                android:text="Nhấp vào danh sách bên dưới để chọn người mua tương ứng"
+                android:text="Nhấp vào danh sách bên dưới để chọn sản phẩm tương ứng"
                 android:textStyle="italic" />
 
             <RelativeLayout
@@ -81,7 +82,7 @@
                 android:layout_height="wrap_content">
 
                 <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/rvPatient"
+                    android:id="@+id/rvGoods"
                     android:layout_width="match_parent"
                     android:layout_height="400dp"
                     android:overScrollMode="never" />

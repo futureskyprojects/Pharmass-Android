@@ -1,4 +1,4 @@
-package vn.vistark.pharmass.ui.supplier_picker
+package vn.vistark.pharmass.component.supplier_picker
 
 import android.app.Activity
 import android.content.Intent

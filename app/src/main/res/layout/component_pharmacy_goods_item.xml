@@ -18,14 +18,9 @@
         android:clickable="true"
         android:focusable="true">
 
-        <!--        <ImageView-->
-        <!--            android:layout_width="match_parent"-->
-        <!--            android:layout_height="100dp"-->
-        <!--            android:alpha="0.3"-->
-        <!--            android:scaleType="centerCrop"-->
-        <!--            android:src="@drawable/red_img_background" />-->
 
         <RelativeLayout
+            android:id="@+id/rlGoodsItemVisible"
             android:layout_width="match_parent"
             android:layout_height="80dp"
             android:layout_margin="10dp">
@@ -100,6 +95,7 @@
                     android:orientation="horizontal">
 
                     <ImageView
+                        android:id="@+id/ivS2Icon"
                         android:layout_width="16dp"
                         android:layout_height="16dp"
                         android:layout_gravity="center"
@@ -120,5 +116,17 @@
                 </LinearLayout>
             </LinearLayout>
         </RelativeLayout>
+
+        <com.github.ybq.android.spinkit.SpinKitView
+            android:id="@+id/loadindForGoodsItem"
+            style="@style/SpinKitView.Large.DoubleBounce"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:layout_gravity="center"
+            android:layout_margin="20dp"
+            android:visibility="gone"
+            app:SpinKit_Color="@color/colorAccent" />
     </RelativeLayout>
 </androidx.cardview.widget.CardView>

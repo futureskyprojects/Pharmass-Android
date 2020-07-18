@@ -10,6 +10,7 @@ import kotlinx.android.synthetic.main.activity_pharmacy.*
 import kotlinx.android.synthetic.main.components_toolbar.*
 import vn.vistark.pharmass.R
 import vn.vistark.pharmass.core.model.Pharmacy
+import vn.vistark.pharmass.core.model.User
 import vn.vistark.pharmass.ui.pharmacy_bill.PharmacyBillActivity
 import vn.vistark.pharmass.utils.GlideUtils
 
@@ -42,6 +43,10 @@ class PharmacyActivity : AppCompatActivity() {
         }
         civUserAvatar.setOnClickListener {
             val intent = Intent(this, PharmacyBillActivity::class.java)
+            intent.putExtra(
+                Pharmacy::class.java.simpleName,
+                Gson().toJson(pharmacy)
+            )
             startActivity(intent)
         }
     }

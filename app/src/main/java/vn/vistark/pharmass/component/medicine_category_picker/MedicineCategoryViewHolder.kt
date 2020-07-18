@@ -1,4 +1,4 @@
-package vn.vistark.pharmass.ui.medicine_category_picker
+package vn.vistark.pharmass.component.medicine_category_picker
 
 import android.view.View
 import android.widget.LinearLayout

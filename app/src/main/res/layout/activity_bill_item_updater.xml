@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="billItem"
+            type="vn.vistark.pharmass.core.model.BillItem" />
+    </data>
+
+    <RelativeLayout
+        android:id="@+id/rlHomeMenuRoot"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#B2000000"
+        android:clickable="true"
+        android:focusable="true"
+        tools:context=".component.bill_item_updater.BillItemUpdaterActivity">
+
+        <ImageView
+            android:id="@+id/ivCloseButton"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_above="@id/lnMenuContainer"
+            android:layout_centerInParent="true"
+            android:background="@drawable/button_style_white_round"
+            android:src="@drawable/ic_close" />
+
+        <LinearLayout
+            android:id="@+id/lnMenuContainer"
+            android:layout_width="match_parent"
+            android:layout_height="450dp"
+            android:layout_alignParentBottom="true"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/background_bottom_sheet_white"
+            android:clickable="true"
+            android:focusable="true"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tvTheHint"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginHorizontal="@dimen/padding"
+                android:layout_marginTop="@dimen/padding"
+                android:layout_marginBottom="10dp"
+                android:gravity="center"
+                android:text="Chi tiết hướng dẫn"
+                android:textColor="#424242"
+                android:textSize="@dimen/text_size"
+                android:textStyle="bold" />
+
+            <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/padding"
+                    android:orientation="vertical">
+
+                    <include layout="@layout/component_pharmacy_goods_item" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="@dimen/padding"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginBottom="5dp"
+                        android:text="Số lượng"
+                        android:textColor="#636363"
+                        android:textSize="@dimen/text_size" />
+
+                    <EditText
+                        android:id="@+id/edtBillItemDosage"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="@dimen/padding"
+                        android:layout_marginBottom="15dp"
+                        android:background="@drawable/edittext_search_style_square_round"
+                        android:gravity="top"
+                        android:hint="Số lượng"
+                        android:inputType="number"
+                        android:lines="1"
+                        android:padding="@dimen/padding"
+                        android:text="@={billItem.dosage + ``}" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="@dimen/padding"
+                        android:layout_marginBottom="5dp"
+                        android:text="Hướng dẫn/Liều dùng"
+                        android:textColor="#636363"
+                        android:textSize="@dimen/text_size" />
+
+                    <EditText
+                        android:id="@+id/edtBillItemDirection"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="@dimen/padding"
+                        android:layout_marginBottom="15dp"
+                        android:background="@drawable/edittext_search_style_square_round"
+                        android:gravity="top"
+                        android:hint="Hướng dẫn/Liều dùng"
+                        android:lines="4"
+                        android:maxLength="255"
+                        android:padding="@dimen/padding"
+                        android:text="@={billItem.direction}" />
+
+                    <Button
+                        android:id="@+id/btnConfirm"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="@dimen/padding"
+                        android:layout_marginVertical="20dp"
+                        android:background="@drawable/button_style_info_gradient"
+                        android:padding="22.5dp"
+                        android:text="Xác nhận"
+                        android:textAllCaps="true"
+                        android:textColor="#FFF" />
+                </LinearLayout>
+            </ScrollView>
+
+        </LinearLayout>
+    </RelativeLayout>
+</layout>

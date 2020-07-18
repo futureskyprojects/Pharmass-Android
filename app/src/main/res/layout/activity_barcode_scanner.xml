@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="#FFF"
     android:orientation="vertical"
-    tools:context=".ui.barcode_scanner.BarcodeScannerActivity">
+    tools:context=".component.barcode_scanner.BarcodeScannerActivity">
 
     <include layout="@layout/components_top_round_primary_dark" />
 

@@ -2,6 +2,8 @@ package vn.vistark.pharmass.core.constants
 
 class RequestCode {
     companion object {
+        val REQUEST_BILL_ITEM_DETAILS_CODE = 4576
+        val REQUEST_GOODS_PICKER_CODE = 4575
         val REQUEST_USER_PICKER_CODE = 4574
         val REQUEST_SUPPLIER_PICKER_CODE = 4573
         val PERMISSION_REQUEST_ALL = 4572

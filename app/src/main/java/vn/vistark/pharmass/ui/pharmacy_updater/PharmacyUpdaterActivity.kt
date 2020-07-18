@@ -32,7 +32,7 @@ import vn.vistark.pharmass.core.model.UserAddress
 import vn.vistark.pharmass.databinding.ActivityPharmacyUpdaterBinding
 import vn.vistark.pharmass.processing.CreatePharmacyProcessing
 import vn.vistark.pharmass.processing.UserUploadImageProcessing
-import vn.vistark.pharmass.ui.address_updater.AddressUpdaterActivity
+import vn.vistark.pharmass.component.address_picker.AddressPickerActivity
 import vn.vistark.pharmass.utils.DialogNotify
 import vn.vistark.pharmass.utils.GlideUtils
 import vn.vistark.pharmass.utils.SimpfyLocationUtils
@@ -165,9 +165,9 @@ class PharmacyUpdaterActivity : AppCompatActivity() {
             )
         }
         tvPharmacyUpdaterAddress.setOnClickListener {
-            val intent = Intent(this, AddressUpdaterActivity::class.java)
+            val intent = Intent(this, AddressPickerActivity::class.java)
             intent.putExtra(
-                AddressUpdaterActivity::class.java.simpleName,
+                AddressPickerActivity::class.java.simpleName,
                 Gson().toJson(binding.requestCreatePharmacy!!.address)
             )
             startActivityForResult(intent, RequestCode.REQUEST_ADDRESS_CODE)
@@ -383,7 +383,7 @@ class PharmacyUpdaterActivity : AppCompatActivity() {
         // Kết quả trả về từ màn hình chọn địa điểm
         if (requestCode == RequestCode.REQUEST_ADDRESS_CODE && resultCode == Activity.RESULT_OK && data != null) {
             val userAddressJson =
-                data.getStringExtra(AddressUpdaterActivity::class.java.simpleName) ?: ""
+                data.getStringExtra(AddressPickerActivity::class.java.simpleName) ?: ""
             if (userAddressJson.length > 10) {
                 val userAddress =
                     Gson().fromJson(userAddressJson, UserAddress::class.java) ?: return

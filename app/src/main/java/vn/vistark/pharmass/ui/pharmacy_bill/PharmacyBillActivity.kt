@@ -4,41 +4,76 @@ import android.app.Activity
 import android.content.ContentValues
 import android.content.Intent
 import android.net.Uri
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.MediaStore
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.app.AppCompatActivity
+import androidx.databinding.DataBindingUtil
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.gson.Gson
-import kotlinx.android.synthetic.main.activity_good_updater.*
 import kotlinx.android.synthetic.main.activity_pharmacy_bill.*
-import kotlinx.android.synthetic.main.activity_pharmacy_bill.edtGoodsName
 import kotlinx.android.synthetic.main.component_bill_patient_item.*
 import kotlinx.android.synthetic.main.components_toolbar.*
 import vn.vistark.pharmass.R
-import vn.vistark.pharmass.core.api.response.SupplierSimplePharmacy
+import vn.vistark.pharmass.component.bill_item_updater.BillItemUpdaterActivity
+import vn.vistark.pharmass.component.goods_picker.GoodsPickerActivity
+import vn.vistark.pharmass.component.medicine_category_picker.MedicineCategoryPickerActivity
 import vn.vistark.pharmass.core.constants.RequestCode
-import vn.vistark.pharmass.core.model.MedicineCategory
-import vn.vistark.pharmass.core.model.Supplier
-import vn.vistark.pharmass.core.model.User
-import vn.vistark.pharmass.ui.patient_picker.PatientPickerActivity
+import vn.vistark.pharmass.databinding.ActivityPharmacyBillBinding
+import vn.vistark.pharmass.component.patient_picker.PatientPickerActivity
+import vn.vistark.pharmass.core.model.*
 import vn.vistark.pharmass.utils.GlideUtils
 
 class PharmacyBillActivity : AppCompatActivity() {
 
-    var patient: User? = null
+    lateinit var binding: ActivityPharmacyBillBinding
+
+    var pharmacyJson: String = ""
+    lateinit var pharmacy: Pharmacy
 
     val uriArrList = arrayListOf<Uri?>(null, null, null)
     var imageViewSelectedNumer = -1
 
+    val billItems = ArrayList<BillItem>()
+    lateinit var adapter: BillItemAdapter
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_pharmacy_bill)
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_pharmacy_bill)
+//        setContentView(R.layout.activity_pharmacy_bill)
+        binding.bill = Bill()
 
-        tvToolbarLabel.text = "Tạo mới đơn bán"
-        inits()
-        initEvents()
+
+        if (getPassingData()) {
+            tvToolbarLabel.text = "Tạo mới đơn bán"
+            inits()
+            initEvents()
+        } else {
+            Toast.makeText(
+                this,
+                "Không nhận diện được nhà thuốc hiện đang thao tác",
+                Toast.LENGTH_SHORT
+            ).show()
+            finish()
+        }
+    }
+
+    private fun getPassingData(): Boolean {
+        // Tiến hành lấy thông tin nhà thuốc
+        pharmacyJson = intent.getStringExtra(Pharmacy::class.java.simpleName) ?: ""
+        pharmacy = Gson().fromJson(pharmacyJson, Pharmacy::class.java)
+        if (pharmacyJson.isEmpty()) {
+            Toast.makeText(
+                this,
+                "Không lấy được thông tin nhà thuốc truyền vào",
+                Toast.LENGTH_SHORT
+            ).show()
+            finish()
+            return false
+        }
+        return true
     }
 
     private fun initEvents() {
@@ -53,7 +88,7 @@ class PharmacyBillActivity : AppCompatActivity() {
             val intent = Intent(this, PatientPickerActivity::class.java)
             intent.putExtra(
                 User::class.java.simpleName,
-                Gson().toJson(patient)
+                Gson().toJson(binding.bill!!.patient)
             )
             startActivityForResult(intent, RequestCode.REQUEST_USER_PICKER_CODE)
             this.overridePendingTransition(0, 300)
@@ -66,6 +101,15 @@ class PharmacyBillActivity : AppCompatActivity() {
         }
         ivDocsImage3.setOnClickListener {
             pickImage(3)
+        }
+        lnAddNewGoodsToCard.setOnClickListener {
+            val intent = Intent(this, GoodsPickerActivity::class.java)
+            intent.putExtra(
+                Pharmacy::class.java.simpleName,
+                Gson().toJson(pharmacy)
+            )
+            startActivityForResult(intent, RequestCode.REQUEST_GOODS_PICKER_CODE)
+            this.overridePendingTransition(0, 300)
         }
     }
 
@@ -81,6 +125,12 @@ class PharmacyBillActivity : AppCompatActivity() {
             tvToolbarLabel.paddingRight,
             tvToolbarLabel.paddingBottom + 20
         )
+
+        rvBillItems.setHasFixedSize(true)
+        rvBillItems.layoutManager = LinearLayoutManager(this)
+
+        adapter = BillItemAdapter(billItems)
+        rvBillItems.adapter = adapter
     }
 
     fun bind(user: User?) {
@@ -101,7 +151,7 @@ class PharmacyBillActivity : AppCompatActivity() {
             tvPatientAccountState.text = "Chưa xác nhận"
             ivPatientAvatar.setImageResource(R.drawable.no_avatar)
         }
-        patient = user
+        binding.bill!!.patient = user
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -120,6 +170,29 @@ class PharmacyBillActivity : AppCompatActivity() {
                 return
             }
             processingSelectedUri(tempUri)
+        } else if (requestCode == RequestCode.REQUEST_GOODS_PICKER_CODE && resultCode == Activity.RESULT_OK && data != null) {
+            val goodsJson =
+                data.getStringExtra(Goods::class.java.simpleName) ?: ""
+            val g = Gson().fromJson(goodsJson, Goods::class.java)
+            if (g != null && goodsJson.isNotEmpty()) {
+                // Tiến hành tạo Bill Item cho sản phẩm
+                val intent = Intent(this, BillItemUpdaterActivity::class.java)
+                intent.putExtra(
+                    Goods::class.java.simpleName,
+                    Gson().toJson(g)
+                )
+                startActivityForResult(intent, RequestCode.REQUEST_BILL_ITEM_DETAILS_CODE)
+                this.overridePendingTransition(0, 300)
+            }
+        } else if (requestCode == RequestCode.REQUEST_BILL_ITEM_DETAILS_CODE && resultCode == Activity.RESULT_OK && data != null) {
+            val billItemJson =
+                data.getStringExtra(BillItem::class.java.simpleName) ?: ""
+            val billItem = Gson().fromJson(billItemJson, BillItem::class.java)
+            if (billItem != null && billItemJson.isNotEmpty()) {
+                // Cập nhật sản phẩm vào danh sách
+                billItems.add(billItem)
+                adapter.notifyDataSetChanged()
+            }
         }
     }
 

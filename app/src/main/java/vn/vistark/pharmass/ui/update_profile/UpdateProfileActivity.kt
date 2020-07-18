@@ -7,7 +7,6 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.view.animation.AnimationUtils
-import android.widget.DatePicker
 import androidx.databinding.DataBindingUtil
 import com.google.gson.Gson
 import kotlinx.android.synthetic.main.activity_update_profile.*
@@ -24,10 +23,9 @@ import vn.vistark.pharmass.core.model.UserAddress
 import vn.vistark.pharmass.databinding.ActivityUpdateProfileBinding
 import vn.vistark.pharmass.processing.UpdateUserSelftProfileProcessing
 import vn.vistark.pharmass.processing.UserUploadImageProcessing
-import vn.vistark.pharmass.ui.address_updater.AddressUpdaterActivity
+import vn.vistark.pharmass.component.address_picker.AddressPickerActivity
 import vn.vistark.pharmass.utils.DialogNotify
 import vn.vistark.pharmass.utils.GlideUtils
-import java.util.*
 
 class UpdateProfileActivity : AppCompatActivity() {
     lateinit var binding: ActivityUpdateProfileBinding
@@ -47,9 +45,9 @@ class UpdateProfileActivity : AppCompatActivity() {
         }
 
         lnUpdateAddressButton.setOnClickListener {
-            val intent = Intent(this, AddressUpdaterActivity::class.java)
+            val intent = Intent(this, AddressPickerActivity::class.java)
             intent.putExtra(
-                AddressUpdaterActivity::class.java.simpleName,
+                AddressPickerActivity::class.java.simpleName,
                 Gson().toJson(Constants.user.address)
             )
             startActivityForResult(intent, REQUEST_ADDRESS_CODE)
@@ -170,7 +168,7 @@ class UpdateProfileActivity : AppCompatActivity() {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == REQUEST_ADDRESS_CODE && resultCode == Activity.RESULT_OK && data != null) {
             val userAddressJson =
-                data.getStringExtra(AddressUpdaterActivity::class.java.simpleName) ?: ""
+                data.getStringExtra(AddressPickerActivity::class.java.simpleName) ?: ""
             if (userAddressJson.length > 10) {
                 val userAddress =
                     Gson().fromJson(userAddressJson, UserAddress::class.java) ?: return

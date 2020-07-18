@@ -1,4 +1,4 @@
-package vn.vistark.pharmass.ui.address_updater
+package vn.vistark.pharmass.component.address_picker
 
 import android.app.Activity
 import android.content.Intent
@@ -8,14 +8,14 @@ import android.os.Bundle
 import android.view.animation.AnimationUtils
 import androidx.appcompat.app.AlertDialog
 import com.google.gson.Gson
-import kotlinx.android.synthetic.main.activity_address_updater.*
+import kotlinx.android.synthetic.main.activity_address_picker.*
 import vn.vistark.pharmass.R
 import vn.vistark.pharmass.core.constants.vietnam.*
 import vn.vistark.pharmass.core.model.UserAddress
 import vn.vistark.pharmass.utils.DialogNotify
 import java.io.InputStreamReader
 
-class AddressUpdaterActivity : AppCompatActivity() {
+class AddressPickerActivity : AppCompatActivity() {
     lateinit var vietnamAdministrativeUnits: VietnamAdministrativeUnits
 
     var selectedProvince: Province? = null
@@ -26,7 +26,7 @@ class AddressUpdaterActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_address_updater)
+        setContentView(R.layout.activity_address_picker)
         inits()
         initEvents()
         setResult(Activity.RESULT_CANCELED)
@@ -113,7 +113,7 @@ class AddressUpdaterActivity : AppCompatActivity() {
 
                 val textResult = Gson().toJson(userAddress)
                 val intent = Intent()
-                intent.putExtra(AddressUpdaterActivity::class.java.simpleName, textResult)
+                intent.putExtra(AddressPickerActivity::class.java.simpleName, textResult)
 
                 setResult(Activity.RESULT_OK, intent)
                 finish()
@@ -134,7 +134,7 @@ class AddressUpdaterActivity : AppCompatActivity() {
         readData()
 
         val userAddressJson =
-            intent.getStringExtra(AddressUpdaterActivity::class.java.simpleName) ?: ""
+            intent.getStringExtra(AddressPickerActivity::class.java.simpleName) ?: ""
         if (userAddressJson.length > 10) {
             userAddress = Gson().fromJson(userAddressJson, UserAddress::class.java)
             if (userAddress != null) {

@@ -1,4 +1,4 @@
-package vn.vistark.pharmass.ui.medicine_category_picker
+package vn.vistark.pharmass.component.medicine_category_picker
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -14,7 +14,9 @@ class MedicineCategoryAdapter(val medicineCategories: ArrayList<MedicineCategory
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MedicineCategoryViewHolder {
         val v = LayoutInflater.from(parent.context)
             .inflate(R.layout.component_medicine_category_item, parent, false)
-        return MedicineCategoryViewHolder(v)
+        return MedicineCategoryViewHolder(
+            v
+        )
     }
 
     override fun getItemCount(): Int {

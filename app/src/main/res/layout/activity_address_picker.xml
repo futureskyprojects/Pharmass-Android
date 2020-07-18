@@ -8,7 +8,7 @@
     android:background="#B2000000"
     android:clickable="true"
     android:focusable="true"
-    tools:context=".ui.address_updater.AddressUpdaterActivity">
+    tools:context=".component.address_picker.AddressPickerActivity">
 
     <ImageView
         android:id="@+id/ivCloseButton"

@@ -1,4 +1,4 @@
-package vn.vistark.pharmass.ui.patient_picker
+package vn.vistark.pharmass.component.patient_picker
 
 import android.app.Activity
 import android.content.Intent
@@ -46,7 +46,8 @@ class PatientPickerActivity : AppCompatActivity() {
 
         selectMedicineCategoryHintControl()
 
-        adapter = PatientAdapter(patients)
+        adapter =
+            PatientAdapter(patients)
         rvPatient.adapter = adapter
 
         adapter.onClicked = {

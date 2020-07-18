@@ -8,7 +8,7 @@
     android:background="#B2000000"
     android:clickable="true"
     android:focusable="true"
-    tools:context=".ui.medicine_category_picker.MedicineCategoryPickerActivity">
+    tools:context=".component.medicine_category_picker.MedicineCategoryPickerActivity">
 
     <ImageView
         android:id="@+id/ivCloseButton"

@@ -7,6 +7,9 @@ import vn.vistark.pharmass.R
 import vn.vistark.pharmass.core.model.Goods
 
 class GoodsAdapter(val goodsList: ArrayList<Goods>) : RecyclerView.Adapter<GoodsViewHolder>() {
+
+    var onClicked: ((Goods) -> Unit)? = null
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): GoodsViewHolder {
         val v = LayoutInflater.from(parent.context).inflate(
             R.layout.component_pharmacy_goods_item,
@@ -23,6 +26,9 @@ class GoodsAdapter(val goodsList: ArrayList<Goods>) : RecyclerView.Adapter<Goods
     override fun onBindViewHolder(holder: GoodsViewHolder, position: Int) {
         val goods = goodsList[position]
         holder.bind(goods)
+        holder.rlRoot.setOnClickListener {
+            onClicked?.invoke(goods)
+        }
     }
 
 }

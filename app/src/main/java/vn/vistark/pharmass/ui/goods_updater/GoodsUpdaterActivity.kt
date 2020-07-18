@@ -26,9 +26,9 @@ import vn.vistark.pharmass.core.model.*
 import vn.vistark.pharmass.databinding.ActivityGoodUpdaterBinding
 import vn.vistark.pharmass.processing.CreatePharmacyGoodsInCategoryProcessing
 import vn.vistark.pharmass.processing.UserUploadImageProcessing
-import vn.vistark.pharmass.ui.barcode_scanner.BarcodeScannerActivity
-import vn.vistark.pharmass.ui.medicine_category_picker.MedicineCategoryPickerActivity
-import vn.vistark.pharmass.ui.supplier_picker.SupplierPickerActivity
+import vn.vistark.pharmass.component.barcode_scanner.BarcodeScannerActivity
+import vn.vistark.pharmass.component.medicine_category_picker.MedicineCategoryPickerActivity
+import vn.vistark.pharmass.component.supplier_picker.SupplierPickerActivity
 import vn.vistark.pharmass.utils.DialogNotify
 import vn.vistark.pharmass.utils.GlideUtils
 

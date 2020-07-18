@@ -1,4 +1,4 @@
-package vn.vistark.pharmass.ui.medicine_category_picker
+package vn.vistark.pharmass.component.medicine_category_picker
 
 import android.app.Activity
 import android.content.Intent
@@ -88,7 +88,10 @@ class MedicineCategoryPickerActivity : AppCompatActivity() {
 
         selectMedicineCategoryHintControl()
 
-        adapter = MedicineCategoryAdapter(medicineCateories)
+        adapter =
+            MedicineCategoryAdapter(
+                medicineCateories
+            )
         rvSupplier.adapter = adapter
 
         adapter.onClicked = {

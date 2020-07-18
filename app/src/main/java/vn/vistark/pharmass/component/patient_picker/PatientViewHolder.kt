@@ -1,4 +1,4 @@
-package vn.vistark.pharmass.ui.patient_picker
+package vn.vistark.pharmass.component.patient_picker
 
 import android.view.View
 import android.widget.ImageView

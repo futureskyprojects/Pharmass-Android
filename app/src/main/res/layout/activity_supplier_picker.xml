@@ -8,7 +8,7 @@
     android:background="#B2000000"
     android:clickable="true"
     android:focusable="true"
-    tools:context=".ui.supplier_picker.SupplierPickerActivity">
+    tools:context=".component.supplier_picker.SupplierPickerActivity">
 
     <ImageView
         android:id="@+id/ivCloseButton"

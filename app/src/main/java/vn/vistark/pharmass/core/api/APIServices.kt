@@ -63,10 +63,23 @@ public interface APIServices {
     ): Call<List<Goods>>
 
     @GET("/goods")
+    fun getGoodsById(
+        @Query("id") id: Int
+    ): Call<Goods>
+
+    @GET("/goods")
     fun getPharmacyGoodsInCategory(
         @Query("goods_category.id") goodsCategoryId: Int,
         @Query("pharmacy.id") pharmacyId: Int
     ): Call<List<Goods>>
+
+
+    @GET("/goods")
+    fun getPharmacyGoodsByName(
+        @Query("pharmacy.id") pharmacyId: Int,
+        @Query("name_contains") name: String
+    ): Call<List<Goods>>
+
 
     @POST("/goods")
     fun createPharmacyGoodsInCategory(@Body goods: Goods): Call<Goods>
