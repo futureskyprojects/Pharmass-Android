@@ -1,5 +1,6 @@
 package vn.vistark.pharmass.ui.pharmacy.fragments.bill
 
+import android.app.Activity
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -31,7 +32,6 @@ class BillFragment : Fragment() {
         super.onCreate(savedInstanceState)
         arguments?.let {
             pharmacyJson = it.getString(ARG_PHARMACY_KEY)
-            println("Đã nhận: $pharmacyJson")
         }
     }
 
@@ -53,10 +53,12 @@ class BillFragment : Fragment() {
             pharmacy = Gson().fromJson(pharmacyJson, Pharmacy::class.java)
         }
         if (pharmacy == null) {
-            DialogNotify.error(
-                context!!,
-                "Không xác định được nhà thuốc hiện đang thao tác để có thể lấy danh sách đơn bán. Vui lòng thử vào lại!"
-            )
+            Toast.makeText(
+                context,
+                "Không xác định được nhà thuốc hiện đang thao tác để có thể lấy danh sách đơn bán. Vui lòng thử vào lại!",
+                Toast.LENGTH_SHORT
+            ).show()
+            (context as Activity).finish()
         } else {
             GetBillByPharmacyIdProcessing(context!!, pharmacy!!.id).onFinished = {
                 if (it != null) {

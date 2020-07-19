@@ -26,6 +26,7 @@ import vn.vistark.pharmass.core.model.*
 import vn.vistark.pharmass.databinding.ActivityPharmacyBillBinding
 import vn.vistark.pharmass.processing.CreateOrUpdateBillItemProcessing
 import vn.vistark.pharmass.processing.CreateBillProcessing
+import vn.vistark.pharmass.processing.GetBillByPharmacyIdAndPatientIdProcessing
 import vn.vistark.pharmass.processing.UserUploadImageProcessing
 import vn.vistark.pharmass.utils.DialogNotify
 import vn.vistark.pharmass.utils.GlideUtils
@@ -94,6 +95,10 @@ class PharmacyBillActivity : AppCompatActivity() {
             intent.putExtra(
                 User::class.java.simpleName,
                 Gson().toJson(binding.bill!!.patient)
+            )
+            intent.putExtra(
+                Pharmacy::class.java.simpleName,
+                Gson().toJson(pharmacy)
             )
             startActivityForResult(intent, RequestCode.REQUEST_USER_PICKER_CODE)
             this.overridePendingTransition(0, 300)
@@ -209,6 +214,22 @@ class PharmacyBillActivity : AppCompatActivity() {
                 user.getAvatarFullAddress(),
                 R.drawable.no_avatar
             )
+            GetBillByPharmacyIdAndPatientIdProcessing(
+                tvPatientAccountState.context,
+                pharmacy.id,
+                user.id
+            ).onFinished = { bills ->
+                if (bills == null || bills.isEmpty()) {
+                    tvPatientAccountState.text = "Khách hàng mới"
+                } else {
+                    var totalGoodsBuy = 0
+                    repeat(bills.size) { i ->
+                        totalGoodsBuy += bills[i].simpleBillItems.size
+                    }
+                    tvPatientAccountState.text =
+                        "Đã có ${bills.size} đơn mua (${totalGoodsBuy} sản phẩm)"
+                }
+            }
         } else {
             ivRemoveUserBtn.visibility = View.GONE
             tvPatientFullname.text = ""

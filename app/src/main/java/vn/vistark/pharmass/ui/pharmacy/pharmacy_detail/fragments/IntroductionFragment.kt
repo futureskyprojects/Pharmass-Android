@@ -12,17 +12,12 @@ class IntroductionFragment : Fragment() {
 
 
     private var param1: String? = null
-    lateinit var tvIntroduction: TextView;
+    lateinit var tvIntroduction: TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
             param1 = it.getString(ARG_PARAM1)
-            if (param1 == null || param1!!.isEmpty()) {
-
-            } else {
-                tvIntroduction.text = param1
-            }
         }
     }
 
@@ -34,7 +29,10 @@ class IntroductionFragment : Fragment() {
         tvIntroduction = v.findViewById(
             R.id.tvIntroduction
         )
-        return v;
+        if (param1 != null && param1!!.isNotEmpty()) {
+            tvIntroduction.text = param1
+        }
+        return v
     }
 
     companion object {
@@ -45,9 +43,9 @@ class IntroductionFragment : Fragment() {
         fun newInstance(param1: String) =
             IntroductionFragment()
                 .apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
+                    arguments = Bundle().apply {
+                        putString(ARG_PARAM1, param1)
+                    }
                 }
-            }
     }
 }

@@ -35,7 +35,6 @@ class StaffFragment : Fragment() {
         super.onCreate(savedInstanceState)
         arguments?.let {
             pharmacyJson = it.getString(ARG_PHARMACY_KEY)
-            println("Đã nhận: $pharmacyJson")
         }
     }
 

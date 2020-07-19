@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.pharmacy.fragments.StatisticalFragment">
+    tools:context=".ui.pharmacy.fragments.statistical.StatisticalFragment">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -38,7 +38,7 @@
                     android:layout_height="match_parent"
                     android:layout_marginHorizontal="10dp"
                     android:gravity="center"
-                    android:text="Mở rộng"
+                    android:text="Thao tác với nhà thuốc"
                     android:textColor="#000"
                     android:textSize="16sp" />
 
@@ -62,19 +62,36 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
-                <include layout="@layout/component_home_doctor_item" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/padding"
+                    android:layout_marginBottom="5dp"
+                    android:text="Doanh thu bán hàng"
+                    android:textColor="#636363"
+                    android:textSize="@dimen/text_size" />
 
-                <include layout="@layout/component_home_doctor_item" />
+                <com.github.mikephil.charting.charts.CombinedChart
+                    android:id="@+id/combinedChart"
+                    android:layout_width="match_parent"
+                    android:layout_height="300dp"
+                    android:layout_marginHorizontal="@dimen/padding" />
 
-                <include layout="@layout/component_home_doctor_item" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/padding"
+                    android:layout_marginTop="@dimen/padding"
+                    android:layout_marginBottom="5dp"
+                    android:text="Tỉ lệ đơn bán của mỗi nhân viên"
+                    android:textColor="#636363"
+                    android:textSize="@dimen/text_size" />
 
-                <include layout="@layout/component_home_doctor_item" />
-
-                <include layout="@layout/component_home_doctor_item" />
-
-                <include layout="@layout/component_home_doctor_item" />
-
-                <include layout="@layout/component_home_doctor_item" />
+                <com.github.mikephil.charting.charts.PieChart
+                    android:id="@+id/pcRatioOfBillPerStaff"
+                    android:layout_width="match_parent"
+                    android:layout_height="300dp"
+                    android:layout_marginHorizontal="@dimen/padding" />
             </LinearLayout>
         </ScrollView>
     </LinearLayout>

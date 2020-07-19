@@ -19,22 +19,48 @@ import kotlinx.android.synthetic.main.activity_patient_picker.loadingIcon
 import kotlinx.android.synthetic.main.activity_patient_picker.rlHomeMenuRoot
 import kotlinx.android.synthetic.main.activity_patient_picker.tvSelectMedicicecategory
 import vn.vistark.pharmass.R
+import vn.vistark.pharmass.component.address_picker.AddressPickerActivity
 import vn.vistark.pharmass.core.model.MedicineCategory
+import vn.vistark.pharmass.core.model.Pharmacy
 import vn.vistark.pharmass.core.model.User
 import vn.vistark.pharmass.processing.GetMedicineCategoryByNameProcessing
 import vn.vistark.pharmass.processing.GetUserByPhoneProcessing
 
 class PatientPickerActivity : AppCompatActivity() {
+    var pickedPatient: User? = null
+    var pharmacy: Pharmacy? = null
+
     val patients = ArrayList<User>()
     lateinit var adapter: PatientAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_patient_picker)
-        inits()
-        initEvents()
-        onTextChange()
         setResult(Activity.RESULT_CANCELED)
+
+        if (readData()) {
+            inits()
+            initEvents()
+            onTextChange()
+        } else {
+            Toast.makeText(this, "Không lấy được thông tin nhà thuốc hiện hành", Toast.LENGTH_SHORT)
+                .show()
+            finish()
+        }
+    }
+
+    private fun readData(): Boolean {
+        val pharmacyJson =
+            intent.getStringExtra(Pharmacy::class.java.simpleName) ?: ""
+        pharmacy = Gson().fromJson(pharmacyJson, Pharmacy::class.java)
+        if (pharmacyJson.isEmpty() || pharmacy == null) {
+            return false
+        } else {
+            val patientJson =
+                intent.getStringExtra(User::class.java.simpleName) ?: ""
+            pickedPatient = Gson().fromJson(patientJson, User::class.java)
+        }
+        return true
     }
 
     private fun inits() {
@@ -47,7 +73,7 @@ class PatientPickerActivity : AppCompatActivity() {
         selectMedicineCategoryHintControl()
 
         adapter =
-            PatientAdapter(patients)
+            PatientAdapter(pharmacy!!, patients)
         rvPatient.adapter = adapter
 
         adapter.onClicked = {
@@ -56,7 +82,9 @@ class PatientPickerActivity : AppCompatActivity() {
             setResult(Activity.RESULT_OK, intent)
             finish()
         }
+        loadUserByPhone("")
     }
+
     private fun initEvents() {
         rlHomeMenuRoot.setOnClickListener {
             rlHomeMenuRoot.setBackgroundColor(Color.TRANSPARENT)

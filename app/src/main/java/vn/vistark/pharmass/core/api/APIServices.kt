@@ -125,4 +125,10 @@ public interface APIServices {
 
     @GET("/bills")
     fun getBillByPharmacyId(@Query("pharmacy_staff.pharmacy") id: Int): Call<List<Bill>>
+
+    @GET("/bills")
+    fun getBillByPharmacyIdAndPatientId(
+        @Query("pharmacy_staff.pharmacy") pharmacyId: Int,
+        @Query("patient.id") patientId: Int
+    ): Call<List<Bill>>
 }

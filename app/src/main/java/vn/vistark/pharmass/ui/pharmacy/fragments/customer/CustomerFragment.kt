@@ -1,5 +1,6 @@
 package vn.vistark.pharmass.ui.pharmacy.fragments.customer
 
+import android.app.Activity
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -33,7 +34,6 @@ class CustomerFragment : Fragment() {
         super.onCreate(savedInstanceState)
         arguments?.let {
             pharmacyJson = it.getString(BillFragment.ARG_PHARMACY_KEY)
-            println("Đã nhận: $pharmacyJson")
         }
     }
 
@@ -43,39 +43,42 @@ class CustomerFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         val v = inflater.inflate(R.layout.fragment_customer, container, false)
-        initViews(v)
-        initRecyclerView()
-        loadBills()
 
-        return v
-    }
-
-    private fun loadBills() {
         if (pharmacyJson != null && pharmacyJson!!.isNotEmpty()) {
             pharmacy = Gson().fromJson(pharmacyJson, Pharmacy::class.java)
         }
         if (pharmacy == null) {
-            DialogNotify.error(
-                context!!,
-                "Không xác định được nhà thuốc hiện đang thao tác để có thể lấy danh sách đơn bán. Vui lòng thử vào lại!"
-            )
+            Toast.makeText(
+                context,
+                "Không xác định được nhà thuốc hiện đang thao tác để có thể lấy danh sách đơn bán. Vui lòng thử vào lại!",
+                Toast.LENGTH_SHORT
+            ).show()
+            (context as Activity).finish()
         } else {
-            GetBillByPharmacyIdProcessing(context!!, pharmacy!!.id).onFinished = {
-                if (it != null) {
-                    loadingIcon.visibility = View.GONE
-                    patients.clear()
-                    it.forEach {
-                        if (it.patient != null) {
-                            if (patients.filter { p -> p.id != it.patient!!.id }.isEmpty()) {
-                                patients.add(it.patient!!)
-                                adapter.notifyDataSetChanged()
-                            }
+            initViews(v)
+            initRecyclerView()
+            loadBills()
+        }
+        return v
+    }
+
+    private fun loadBills() {
+
+        GetBillByPharmacyIdProcessing(context!!, pharmacy!!.id).onFinished = {
+            if (it != null) {
+                loadingIcon.visibility = View.GONE
+                patients.clear()
+                it.forEach {
+                    if (it.patient != null) {
+                        if (patients.none { p -> p.id == it.patient!!.id }) {
+                            patients.add(it.patient!!)
+                            adapter.notifyDataSetChanged()
                         }
                     }
-                } else {
-                    // Tiến hành lấy lại danh sách đơn bán
-                    loadBills()
                 }
+            } else {
+                // Tiến hành lấy lại danh sách đơn bán
+                loadBills()
             }
         }
     }
@@ -84,10 +87,12 @@ class CustomerFragment : Fragment() {
         rvCustomer.setHasFixedSize(true)
         rvCustomer.layoutManager = LinearLayoutManager(context)
 
-        adapter = PatientAdapter(patients)
-        rvCustomer.adapter = adapter
-        adapter.onClicked = {
-            Toast.makeText(context, "Xem chi tiet", Toast.LENGTH_SHORT).show()
+        if (pharmacy != null) {
+            adapter = PatientAdapter(pharmacy!!, patients)
+            rvCustomer.adapter = adapter
+            adapter.onClicked = {
+                Toast.makeText(context, "Xem chi tiet", Toast.LENGTH_SHORT).show()
+            }
         }
     }
 
