@@ -7,9 +7,16 @@ import java.util.*
 class DateTimeUtils {
     companion object {
         fun JsDateTimeStringToDate(string: String): Date? {
-            val format = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.sss'Z'")
+            val format = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
             try {
-                return format.parse(string)
+
+                val cal = Calendar.getInstance() // creates calendar
+
+                cal.time = format.parse(string)!! // sets calendar time/date
+
+                cal.add(Calendar.HOUR_OF_DAY, 7) // adds one hour
+
+                return cal.time // returns new date object, one hour in the future
             } catch (e: ParseException) {
                 e.printStackTrace()
             }

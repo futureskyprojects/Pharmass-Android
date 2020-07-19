@@ -21,6 +21,14 @@ import vn.vistark.pharmass.processing.GetUserPharmaciesProcessing
 import vn.vistark.pharmass.ui.pharmacy.pharmacy_updater.PharmacyUpdaterActivity
 
 class WorkActivity : AppCompatActivity() {
+
+    companion object {
+        private var workActivity: WorkActivity? = null
+        fun update() {
+            workActivity?.initListPharmacy()
+        }
+    }
+
     val userPharmacies: ArrayList<Pharmacy> = ArrayList()
     lateinit var userPharmaciesAdapter: CurrentUserPharmacyAdapter
 
@@ -32,9 +40,11 @@ class WorkActivity : AppCompatActivity() {
         initEvents()
         initListPharmacy()
         window.decorView.clearFocus()
+        workActivity = this
     }
 
     private fun initListPharmacy() {
+        userPharmacies.clear()
         userPharmaciesAdapter = CurrentUserPharmacyAdapter(userPharmacies)
 
         rvCurrentUserPharmacies.setHasFixedSize(true)
@@ -42,12 +52,10 @@ class WorkActivity : AppCompatActivity() {
         rvCurrentUserPharmacies.adapter = userPharmaciesAdapter
         GetUserPharmaciesProcessing(this).onFinished = {
             loadingPharmaciesIcon.visibility = View.GONE
-            if (it != null) {
-                it.forEach {
-                    userPharmacies.add(it)
-                    userPharmaciesAdapter.notifyDataSetChanged()
-                    updateOwner(it)
-                }
+            it?.forEach {
+                userPharmacies.add(it)
+                userPharmaciesAdapter.notifyDataSetChanged()
+                updateOwner(it)
             }
         }
     }

@@ -14,7 +14,9 @@ import vn.vistark.pharmass.core.model.Bill
 import vn.vistark.pharmass.processing.GetBillItemByIdProcessing
 import vn.vistark.pharmass.utils.DateTimeUtils
 import java.lang.Exception
-import java.util.Comparator
+import java.util.*
+import kotlin.collections.ArrayList
+import kotlin.collections.HashMap
 
 
 class Revenue(val mChart: CombinedChart, val bills: List<Bill>) : OnChartValueSelectedListener {
@@ -57,8 +59,12 @@ class Revenue(val mChart: CombinedChart, val bills: List<Bill>) : OnChartValueSe
 
     private fun getValue(dataMap: java.util.HashMap<String, Float>): Array<Float> {
         var temp: Array<Float> = emptyArray()
+        var maxValue: Float = 0F
         dataMap.forEach {
             temp = temp.plus(it.value)
+            if (it.value > maxValue) {
+                maxValue = it.value
+            }
             println("Giá trị: ${it.value} >>>>>>>>>> Đã được thêm vào DS")
         }
         return temp
@@ -84,14 +90,16 @@ class Revenue(val mChart: CombinedChart, val bills: List<Bill>) : OnChartValueSe
                         .onFinished = { billItem ->
                         if (billItem != null) {
                             println("Update for ${dateKey} >>>> ${dataMap[dateKey]}")
-                            dataMap[dateKey] =
-                                dataMap[dateKey] ?: 0 + billItem.goods.exportPrice.toFloat()
-                            println("End update for ${dateKey} >>>> ${dataMap[dateKey]}")
+                            println("Now is ${billItem.goods.name} >>> PRICE: ${billItem.goods.exportPrice}")
+                            dataMap[dateKey] = if (dataMap[dateKey] == null) {
+                                billItem.goods.exportPrice.toFloat()
+                            } else {
+                                dataMap[dateKey]!! + billItem.goods.exportPrice.toFloat()
+                            }
+                            println("End update for ${dateKey} add ${billItem.goods.exportPrice.toFloat()} become >>>> ${dataMap[dateKey]}")
                             sumLoadRoute--
                             if (sumLoadRoute <= 0) {
                                 println("SS1: Đã hoàn tất với ${dataMap.size} phần tử")
-                                // Sap sep lai
-
                                 // ====== XU LY TIEP THEO ====== //
                                 val dataCollectionMap = processingDataCollection(dataMap)
 
@@ -178,7 +186,11 @@ class Revenue(val mChart: CombinedChart, val bills: List<Bill>) : OnChartValueSe
             }
         }
         println("SS2: Đã hoàn tất với ${dataMap.size} phần tử")
-        return dataMap
+        var treeMap = TreeMap<String, Float>()
+        treeMap.putAll(dataMap)
+        return HashMap<String, Float>().apply {
+            putAll(treeMap)
+        }
     }
 
     override fun onNothingSelected() {
@@ -204,17 +216,17 @@ class Revenue(val mChart: CombinedChart, val bills: List<Bill>) : OnChartValueSe
         for (i in data.indices) {
             entries.add(Entry(i.toFloat(), data[i]))
         }
-        val set = LineDataSet(entries, "Request Ots approved")
-        set.color = Color.GREEN
+        val set = LineDataSet(entries, "Đường tăng trưởng doanh thu")
+        set.color = Color.MAGENTA
         set.lineWidth = 2.5f
-        set.setCircleColor(Color.GREEN)
+        set.setCircleColor(Color.MAGENTA)
         set.circleRadius = 5f
-        set.fillColor = Color.GREEN
+        set.fillColor = Color.MAGENTA
         set.mode = LineDataSet.Mode.CUBIC_BEZIER
         set.setDrawValues(true)
         set.valueTextSize = 10f
         set.valueTextColor = Color.GREEN
-        set.axisDependency = YAxis.AxisDependency.LEFT
+        set.axisDependency = YAxis.AxisDependency.RIGHT
         d.addDataSet(set)
         return set
     }

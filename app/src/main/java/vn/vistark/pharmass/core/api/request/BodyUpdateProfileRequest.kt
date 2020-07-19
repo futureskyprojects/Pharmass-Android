@@ -10,7 +10,7 @@ data class BodyUpdateProfileRequest(
     @SerializedName("fullName")
     var fullName: String = "",
     @SerializedName("birthDay")
-    var birthDay: String = "",
+    var birthDay: String? = "",
     @SerializedName("address")
     var address: UserAddress = UserAddress(),
     @SerializedName("introduction")

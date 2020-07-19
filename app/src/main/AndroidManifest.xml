@@ -28,6 +28,9 @@
         tools:replace="android:icon"
         tools:targetApi="n">
         <activity
+            android:name=".component.pharmacy_options_picker.PharmacyOptionsPickerActivity"
+            android:theme="@style/AppTheme.Transparent" />
+        <activity
             android:name=".component.time_range_picker.TimeRangePickerActivity"
             android:theme="@style/AppTheme.Transparent" />
         <activity android:name=".component.bill_item_updater.BillItemUpdaterActivity" />

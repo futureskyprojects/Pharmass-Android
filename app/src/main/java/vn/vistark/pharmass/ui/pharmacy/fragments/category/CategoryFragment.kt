@@ -80,7 +80,7 @@ class CategoryFragment : Fragment() {
                 loadingIcon.visibility = View.GONE
                 if (it != null) {
                     goodsCategories.clear()
-                    goodsCategories.addAll(it)
+                    goodsCategories.addAll(it.sortedBy { it.name })
                     adapter.notifyDataSetChanged()
                 } else {
                     Toast.makeText(

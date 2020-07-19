@@ -24,6 +24,7 @@ import vn.vistark.pharmass.databinding.ActivityUpdateProfileBinding
 import vn.vistark.pharmass.processing.UpdateUserSelftProfileProcessing
 import vn.vistark.pharmass.processing.UserUploadImageProcessing
 import vn.vistark.pharmass.component.address_picker.AddressPickerActivity
+import vn.vistark.pharmass.ui.home.HomeActivity
 import vn.vistark.pharmass.utils.DialogNotify
 import vn.vistark.pharmass.utils.GlideUtils
 
@@ -199,11 +200,15 @@ class UpdateProfileActivity : AppCompatActivity() {
 
     fun updateProfile() {
         hideUpdateDialog()
+        if (binding.profileUpdateRequest!!.birthDay == "") {
+            binding.profileUpdateRequest!!.birthDay = null
+        }
         UpdateUserSelftProfileProcessing(this, binding.profileUpdateRequest!!).onFinished = {
             if (it != null) {
                 Constants.user = it
                 loadUserBaseInfo()
                 DialogNotify.success(this, "Cập nhật hồ sơ thành công")
+                HomeActivity.loadAvatar()
             } else {
                 DialogNotify.error(this, "Cập nhật hồ sơ không thành công")
             }

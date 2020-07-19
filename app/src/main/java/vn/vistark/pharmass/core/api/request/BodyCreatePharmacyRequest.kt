@@ -5,11 +5,14 @@ import androidx.databinding.BaseObservable
 import com.google.gson.annotations.SerializedName
 import vn.vistark.pharmass.core.api.RetrofitClient
 import vn.vistark.pharmass.core.model.Coordinates
+import vn.vistark.pharmass.core.model.Pharmacy
 import vn.vistark.pharmass.core.model.UserAddress
 import vn.vistark.pharmass.utils.RegexLibs
 import vn.vistark.pharmass.utils.UrlUtils
 
 data class BodyCreatePharmacyRequest(
+    @SerializedName("id")
+    var id: Int = 0,
     @SerializedName("logo")
     var logo: String = "",
     @SerializedName("featureImages")
@@ -58,5 +61,22 @@ data class BodyCreatePharmacyRequest(
             return logo
         else
             return UrlUtils.standard("${RetrofitClient.BASE_URL}/$logo")
+    }
+
+    fun fromPharmacy(pharmacy: Pharmacy) {
+        id = pharmacy.id
+        logo = pharmacy.logo
+        featureImages = pharmacy.featureImages
+        name = pharmacy.name
+        shortDescription = pharmacy.shortDescription
+        introduction = pharmacy.introduction
+        address = pharmacy.address
+        coordinates = pharmacy.coordinates
+        confirmed = pharmacy.confirmed
+        blocked = pharmacy.blocked
+        openTime = pharmacy.openTime
+        closeTime = pharmacy.closeTime
+        dayInterval = pharmacy.dayInterval
+        users = User(pharmacy.users.id)
     }
 }

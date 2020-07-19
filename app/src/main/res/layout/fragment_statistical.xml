@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -25,7 +26,7 @@
                 android:textStyle="bold" />
 
             <LinearLayout
-                android:id="@+id/lnCreateNewPharmacyButton"
+                android:id="@+id/lnPharmacyOptionShowButton"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_alignParentEnd="true"
@@ -52,7 +53,7 @@
             </LinearLayout>
         </RelativeLayout>
 
-        <ScrollView
+        <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:overScrollMode="never">
@@ -60,7 +61,6 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/padding"
                 android:background="#34495e"
                 android:orientation="vertical">
 
@@ -114,8 +114,34 @@
                     android:layout_height="300dp"
                     android:layout_marginHorizontal="@dimen/padding"
                     android:layout_marginBottom="@dimen/padding" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/padding"
+                    android:layout_marginBottom="5dp"
+                    android:text="TOP 10 Sản phẩm bán chạy nhất"
+                    android:textColor="#FFF"
+                    android:textSize="@dimen/text_size" />
+
+                <com.github.ybq.android.spinkit.SpinKitView
+                    android:id="@+id/skvLoadingIcon"
+                    style="@style/SpinKitView.Large.Wave"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_margin="20dp"
+                    app:SpinKit_Color="@color/colorAccent" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rvTopTrendingGoods"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginBottom="@dimen/padding"
+                    android:nestedScrollingEnabled="false"
+                    android:overScrollMode="never" />
             </LinearLayout>
-        </ScrollView>
+        </androidx.core.widget.NestedScrollView>
     </LinearLayout>
 
 </FrameLayout>

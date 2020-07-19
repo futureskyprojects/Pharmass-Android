@@ -6,15 +6,19 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.RecyclerView
 import com.github.mikephil.charting.charts.CombinedChart
 import com.github.mikephil.charting.charts.PieChart
+import com.github.ybq.android.spinkit.SpinKitView
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import com.google.gson.reflect.TypeToken
 import vn.vistark.pharmass.R
+import vn.vistark.pharmass.component.pharmacy_options_picker.PharmacyOptionsPickerActivity
 import vn.vistark.pharmass.component.time_range_picker.TimeRangePickerActivity
 import vn.vistark.pharmass.core.constants.RequestCode
 import vn.vistark.pharmass.core.model.Bill
@@ -31,6 +35,10 @@ class StatisticalFragment : Fragment(), BroadCastEvent {
     lateinit var pcRatioOfBillPerStaff: PieChart
     lateinit var ccRevenue: CombinedChart
     lateinit var tvStatistical: TextView
+    lateinit var skvLoadingIcon: SpinKitView
+    lateinit var rvTopTrendingGoods: RecyclerView
+
+    lateinit var lnPharmacyOptionShowButton: LinearLayout
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -76,6 +84,15 @@ class StatisticalFragment : Fragment(), BroadCastEvent {
             activity?.startActivityForResult(intent, RequestCode.REQUEST_TIME_RANGE_PICKER_CODE)
             activity?.overridePendingTransition(0, 300)
         }
+
+        lnPharmacyOptionShowButton.setOnClickListener {
+            val intent = Intent(context, PharmacyOptionsPickerActivity::class.java)
+            activity?.startActivityForResult(
+                intent,
+                RequestCode.REQUEST_PHARMACY_OPTION_PICKER_CODE
+            )
+            activity?.overridePendingTransition(0, 300)
+        }
     }
 
     private fun loadingData() {
@@ -88,14 +105,21 @@ class StatisticalFragment : Fragment(), BroadCastEvent {
     }
 
     private fun initCharts(bills: List<Bill>) {
+        skvLoadingIcon.visibility = View.VISIBLE
+        rvTopTrendingGoods.visibility = View.GONE
+        bills.sortedByDescending { it.createdAt }
         RatioOfBillPerStaff(pcRatioOfBillPerStaff, bills)
         Revenue(ccRevenue, bills)
+        TopTrendingGoods(rvTopTrendingGoods, skvLoadingIcon, bills)
     }
 
     private fun initViews(v: View) {
         pcRatioOfBillPerStaff = v.findViewById(R.id.pcRatioOfBillPerStaff)
         ccRevenue = v.findViewById(R.id.ccRevenue)
         tvStatistical = v.findViewById(R.id.tvStatistical)
+        skvLoadingIcon = v.findViewById(R.id.skvLoadingIcon)
+        rvTopTrendingGoods = v.findViewById(R.id.rvTopTrendingGoods)
+        lnPharmacyOptionShowButton = v.findViewById(R.id.lnPharmacyOptionShowButton)
     }
 
     companion object {

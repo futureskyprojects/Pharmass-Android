@@ -33,6 +33,8 @@ import vn.vistark.pharmass.databinding.ActivityPharmacyUpdaterBinding
 import vn.vistark.pharmass.processing.CreatePharmacyProcessing
 import vn.vistark.pharmass.processing.UserUploadImageProcessing
 import vn.vistark.pharmass.component.address_picker.AddressPickerActivity
+import vn.vistark.pharmass.processing.UpdatePharmacyProcessing
+import vn.vistark.pharmass.ui.work.WorkActivity
 import vn.vistark.pharmass.utils.DialogNotify
 import vn.vistark.pharmass.utils.GlideUtils
 import vn.vistark.pharmass.utils.SimpfyLocationUtils
@@ -63,6 +65,18 @@ class PharmacyUpdaterActivity : AppCompatActivity() {
             if (tempBindingData != null) {
                 isCreateNewPharmacy = false
                 binding.requestCreatePharmacy = tempBindingData
+                tvPharmacyUpdaterAddress.text = binding.requestCreatePharmacy!!.address.toString()
+                GlideUtils.loadToImageViewWithPlaceHolder(
+                    ivPharmacyUpdaterFeature,
+                    binding.requestCreatePharmacy!!.getFeatureImageFullAddress(),
+                    R.drawable.pharmacy_background
+                )
+
+                GlideUtils.loadToImageViewWithPlaceHolder(
+                    ivPharmacyUpdaterLogo,
+                    binding.requestCreatePharmacy!!.getLogoImageFullAddress(),
+                    R.drawable.no_logo
+                )
             }
         }
 
@@ -101,10 +115,17 @@ class PharmacyUpdaterActivity : AppCompatActivity() {
                             BitmapDescriptorFactory.fromResource(R.drawable.pharmacy_location_marker)
                         )
                         .position(
-                            LatLng(
-                                0.0,
-                                0.0
-                            )
+                            if (isCreateNewPharmacy) {
+                                LatLng(
+                                    0.0,
+                                    0.0
+                                )
+                            } else {
+                                LatLng(
+                                    binding.requestCreatePharmacy!!.coordinates.lat,
+                                    binding.requestCreatePharmacy!!.coordinates.lng
+                                )
+                            }
                         )
                 )
                 if (SimpfyLocationUtils.mLastLocation != null) {
@@ -281,9 +302,9 @@ class PharmacyUpdaterActivity : AppCompatActivity() {
                     DialogNotify.missingInput(this, "Vui lòng cho biết giờ mở cửa!")
                 } else if (rp.closeTime.isEmpty()) {
                     DialogNotify.missingInput(this, "Vui lòng cho biết giờ đóng cửa")
-                } else if (logoUri == null) {
+                } else if (logoUri == null && isCreateNewPharmacy) {
                     DialogNotify.missingInput(this, "Vui lòng chọn Logo cho nhà thuốc của bạn")
-                } else if (featureImageUri == null) {
+                } else if (featureImageUri == null && isCreateNewPharmacy) {
                     DialogNotify.missingInput(
                         this,
                         "Vui lòng chọn ảnh nền biểu trưng cho nhà thuốc của bạn"
@@ -331,7 +352,7 @@ class PharmacyUpdaterActivity : AppCompatActivity() {
 
     fun uploadLogo() {
         if (binding.requestCreatePharmacy?.logo != null && binding.requestCreatePharmacy?.logo!!.isNotEmpty()) {
-            createPharmacyProcessing()
+            createOrUpdatePharmacyProcessing()
             return
         }
         UserUploadImageProcessing(this@PharmacyUpdaterActivity, logoUri!!).apply {
@@ -339,7 +360,7 @@ class PharmacyUpdaterActivity : AppCompatActivity() {
             onFinished = { logoImageAddress ->
                 if (logoImageAddress != null) {
                     binding.requestCreatePharmacy!!.logo = logoImageAddress
-                    createPharmacyProcessing()
+                    createOrUpdatePharmacyProcessing()
                 } else {
                     DialogNotify.error(
                         this@PharmacyUpdaterActivity,
@@ -350,17 +371,32 @@ class PharmacyUpdaterActivity : AppCompatActivity() {
         }
     }
 
-    private fun createPharmacyProcessing() {
-        CreatePharmacyProcessing(
-            this@PharmacyUpdaterActivity,
-            binding.requestCreatePharmacy!!
-        ).onFinished = {
-            if (it != null) {
-                DialogNotify.success(this, "Tạo nhà thuốc hoàn tất!")
-            } else {
-                DialogNotify.error(this, "Có lỗi trong quá trình ghi nhận thông tin nhà thuốc!")
+    private fun createOrUpdatePharmacyProcessing() {
+        if (isCreateNewPharmacy) {
+            CreatePharmacyProcessing(
+                this@PharmacyUpdaterActivity,
+                binding.requestCreatePharmacy!!
+            ).onFinished = {
+                if (it != null) {
+                    DialogNotify.success(this, "Tạo nhà thuốc hoàn tất!")
+                } else {
+                    DialogNotify.error(this, "Có lỗi trong quá trình ghi nhận thông tin nhà thuốc!")
+                }
+                finish()
             }
-            finish()
+        } else {
+            UpdatePharmacyProcessing(
+                this@PharmacyUpdaterActivity,
+                binding.requestCreatePharmacy!!
+            ).onFinished = {
+                if (it != null) {
+                    DialogNotify.success(this, "Cập nhật nhà thuốc hoàn tất!")
+                    WorkActivity.update()
+                } else {
+                    DialogNotify.error(this, "Có lỗi trong quá trình ghi nhận thông tin nhà thuốc!")
+                }
+                finish()
+            }
         }
     }
 
@@ -369,6 +405,8 @@ class PharmacyUpdaterActivity : AppCompatActivity() {
         ivBackButton.visibility = View.VISIBLE
         tvToolbarLabel.text =
             if (isCreateNewPharmacy) "Thêm nhà thuốc mới" else "Sửa thông tin nhà thuốc"
+        btnCreatePharmacyConfirm.text =
+            if (isCreateNewPharmacy) "Tạo mới nhà thuốc" else "Sửa thông tin nhà thuốc"
         tvToolbarLabel.setPadding(
             tvToolbarLabel.paddingLeft,
             tvToolbarLabel.paddingTop,

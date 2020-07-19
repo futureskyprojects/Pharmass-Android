@@ -18,6 +18,7 @@ import vn.vistark.pharmass.core.model.Pharmacy
 import vn.vistark.pharmass.processing.GetBillByPharmacyIdAndTimeRangeProcessing
 import vn.vistark.pharmass.processing.GetBillByPharmacyIdProcessing
 import vn.vistark.pharmass.ui.pharmacy.fragments.statistical.StatisticalFragment
+import vn.vistark.pharmass.utils.DateTimeUtils
 import java.util.*
 
 class TimeRangePickerActivity : AppCompatActivity() {
@@ -129,7 +130,16 @@ class TimeRangePickerActivity : AppCompatActivity() {
                     )
                     pickDate(false)
                 } else {
-                    if (toDate < fromDate) {
+                    toDate = String.format(
+                        "%4d-%02d-%02d", year,
+                        monthOfYear + 1,
+                        dayOfMonth
+                    )
+                    if (DateTimeUtils.StringToDate(
+                            toDate,
+                            "yyyy-MM-dd"
+                        )!!.before(DateTimeUtils.StringToDate(fromDate, "yyyy-MM-dd")!!)
+                    ) {
                         Toast.makeText(
                             btnCustomTimeRange.context,
                             "Ngày kết thúc phải lớn hơn ngày khởi đầu, vui lòng chọn lại!",
@@ -138,17 +148,12 @@ class TimeRangePickerActivity : AppCompatActivity() {
                         // Chon lai
                         pickDate(false)
                     } else {
-                        toDate = String.format(
-                            "%4d-%02d-%02d", year,
-                            monthOfYear + 1,
-                            dayOfMonth
-                        )
                         processing("Thống kê từ ${fromDate} đến ${toDate}")
                     }
                 }
             },
             c.get(Calendar.YEAR),
-            c.get(Calendar.MONTH) + 1,
+            c.get(Calendar.MONTH),
             c.get(Calendar.DAY_OF_MONTH)
         ).show()
     }

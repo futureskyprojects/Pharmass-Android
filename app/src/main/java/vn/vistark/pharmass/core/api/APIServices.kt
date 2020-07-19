@@ -39,6 +39,17 @@ public interface APIServices {
     @POST("/pharmacies")
     fun createPharmacy(@Body bodyCreatePharmacyRequest: BodyCreatePharmacyRequest): Call<Pharmacy>
 
+    @PUT("/pharmacies/{id}")
+    fun updatePharmacy(
+        @Path("id") id: Int,
+        @Body bodyCreatePharmacyRequest: BodyCreatePharmacyRequest
+    ): Call<Pharmacy>
+
+    @DELETE("/pharmacies/{id}")
+    fun deletePharmacy(
+        @Path("id") id: Int
+    ): Call<Pharmacy>
+
     @GET("/pharmacies")
     fun getPharmacyOfUser(@Query("owner.id") id: Int = Constants.user.id): Call<List<Pharmacy>>
 
@@ -114,7 +125,7 @@ public interface APIServices {
     @POST("/bill-items")
     fun createBillItem(@Body simpleBillItem: SimpleBillItem): Call<BillItem>
 
-    @PUT("/bill-items")
+    @PUT("/bill-items/{id}")
     fun updateBillItem(@Path("id") id: Int, @Body simpleBillItem: SimpleBillItem): Call<BillItem>
 
     @GET("/bill-items")
@@ -126,20 +137,20 @@ public interface APIServices {
     @POST("/bills")
     fun createBill(@Body bill: Bill): Call<Bill>
 
-    @GET("/bills")
+    @GET("/bills?_sort=created_at:ASC")
     fun getBillById(@Query("id") id: Int): Call<List<Bill>>
 
-    @GET("/bills")
+    @GET("/bills?_sort=created_at:ASC")
     fun getBillByPharmacyId(@Query("pharmacy_staff.pharmacy") id: Int): Call<List<Bill>>
 
-    @GET("/bills")
+    @GET("/bills?_sort=created_at:ASC")
     fun getBillByPharmacyIdAndTimeRange(
         @Query("pharmacy_staff.pharmacy") id: Int,
         @Query("created_at_gte") from: String,
         @Query("created_at_lte") to: String
     ): Call<List<Bill>>
 
-    @GET("/bills")
+    @GET("/bills?_sort=created_at:ASC")
     fun getBillByPharmacyIdAndPatientId(
         @Query("pharmacy_staff.pharmacy") pharmacyId: Int,
         @Query("patient.id") patientId: Int

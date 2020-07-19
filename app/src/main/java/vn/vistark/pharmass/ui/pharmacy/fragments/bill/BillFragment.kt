@@ -64,7 +64,8 @@ class BillFragment : Fragment() {
                 if (it != null) {
                     loadingIcon.visibility = View.GONE
                     bills.clear()
-                    bills.addAll(it)
+                    bills.addAll(it.sortedByDescending { it.id })
+                    adapter.notifyDataSetChanged()
                 } else {
                     // Tiến hành lấy lại danh sách đơn bán
                     loadBills()

@@ -14,6 +14,7 @@ import vn.vistark.pharmass.core.model.Bill
 import vn.vistark.pharmass.core.model.User
 import vn.vistark.pharmass.processing.GetBillItemByIdProcessing
 import vn.vistark.pharmass.processing.GetUserByIdProcessing
+import vn.vistark.pharmass.utils.DateTimeUtils
 import vn.vistark.pharmass.utils.GlideUtils
 import vn.vistark.pharmass.utils.NumberUtils
 
@@ -34,7 +35,16 @@ class BillViewHolder(v: View) : RecyclerView.ViewHolder(v) {
         tvBillPrice.text = "${NumberUtils.convertToVietNamCurrentcy(0.0)}đ"
         tvBillPrice.isSelected = true
 
-        tvBillName.text = "Đơn bán mã #${bill.id}"
+        tvBillName.text = "#${bill.id}"
+        val tempDate = DateTimeUtils.JsDateTimeStringToDate(bill.createdAt)
+        if (tempDate != null) {
+            tvBillName.text =
+                "Đơn #${bill.id}, lúc ${DateTimeUtils.DateToString(
+                    tempDate,
+                    "HH:mm dd/MM/yyyy"
+                )}"
+            tvBillName.isSelected = true
+        }
         // Tiến hành lấy danh sách bill-item và cộng
         updatePrice(bill)
         // Tiến hành lấy tên nhân viên bán

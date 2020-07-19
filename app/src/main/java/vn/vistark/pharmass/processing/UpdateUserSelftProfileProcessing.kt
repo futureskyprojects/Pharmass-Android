@@ -49,6 +49,9 @@ class UpdateUserSelftProfileProcessing(
                         }
                         return
                     }
+
+                    println("UPDATE PROFILE API - SUCCESS: " + Gson().toJson(response.body()))
+                    println("UPDATE PROFILE API - FAIL: " + Gson().toJson(response.errorBody()))
                     onFinished?.invoke(response.body())
                 }
             })

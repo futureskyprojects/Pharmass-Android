@@ -22,12 +22,20 @@ import vn.vistark.pharmass.utils.DaySessionWelcome
 import vn.vistark.pharmass.utils.GlideUtils
 
 class HomeActivity : AppCompatActivity() {
+    companion object {
+        private var homeActivity: HomeActivity? = null
+        fun loadAvatar() {
+            homeActivity?.loadUserAvatar()
+        }
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
         inits()
         initEvents()
         window.decorView.clearFocus()
+        homeActivity = this
     }
 
     private fun initEvents() {
@@ -45,6 +53,10 @@ class HomeActivity : AppCompatActivity() {
 
     private fun inits() {
         GlideUtils.loadWebp(ivExpandAuthorInfomation, R.raw.idle, R.drawable.logo_transparent_black)
+
+    }
+
+    fun loadUserAvatar() {
         GlideUtils.loadToImageViewWithPlaceHolder(
             civUserAvatar,
             Constants.user.getAvatarFullAddress(),

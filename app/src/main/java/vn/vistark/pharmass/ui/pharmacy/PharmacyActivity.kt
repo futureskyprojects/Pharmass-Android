@@ -6,19 +6,25 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
+import cn.pedant.SweetAlert.SweetAlertDialog
 import com.google.gson.Gson
 import kotlinx.android.synthetic.main.activity_pharmacy.*
 import kotlinx.android.synthetic.main.components_toolbar.*
 import vn.vistark.pharmass.R
 import vn.vistark.pharmass.component.address_picker.AddressPickerActivity
+import vn.vistark.pharmass.component.pharmacy_options_picker.PharmacyOptionsPickerActivity
 import vn.vistark.pharmass.component.time_range_picker.TimeRangePickerActivity
+import vn.vistark.pharmass.core.api.request.BodyCreatePharmacyRequest
 import vn.vistark.pharmass.core.constants.RequestCode
 import vn.vistark.pharmass.core.model.Bill
 import vn.vistark.pharmass.core.model.Pharmacy
 import vn.vistark.pharmass.core.model.User
 import vn.vistark.pharmass.core.model.UserAddress
 import vn.vistark.pharmass.event_bus.BroadCastEvent
+import vn.vistark.pharmass.processing.DeletePharmacyProcessing
 import vn.vistark.pharmass.ui.pharmacy.pharmacy_bill.PharmacyBillActivity
+import vn.vistark.pharmass.ui.pharmacy.pharmacy_updater.PharmacyUpdaterActivity
+import vn.vistark.pharmass.ui.work.WorkActivity
 import vn.vistark.pharmass.utils.GlideUtils
 import java.util.*
 
@@ -107,6 +113,49 @@ class PharmacyActivity : AppCompatActivity() {
                 TimeRangePickerActivity::class.java.simpleName,
                 pickedType
             )
+        } else if (requestCode == RequestCode.REQUEST_PHARMACY_OPTION_PICKER_CODE && resultCode == Activity.RESULT_OK && data != null) {
+            val actionSelected =
+                data.getStringExtra(PharmacyOptionsPickerActivity::class.java.simpleName) ?: ""
+            if (actionSelected == PharmacyOptionsPickerActivity.EDIT) {
+                val intent = Intent(this, PharmacyUpdaterActivity::class.java)
+                var bodyCreatePharmacyRequest = BodyCreatePharmacyRequest()
+                bodyCreatePharmacyRequest.fromPharmacy(pharmacy!!)
+                intent.putExtra(
+                    PharmacyUpdaterActivity::class.java.simpleName,
+                    Gson().toJson(bodyCreatePharmacyRequest)
+                )
+                startActivity(intent)
+                finish()
+            } else if (actionSelected == PharmacyOptionsPickerActivity.REMOVE) {
+                removeCurrentPharmacyConfirm()
+            }
+        }
+    }
+
+    private fun removeCurrentPharmacyConfirm() {
+        SweetAlertDialog(this).apply {
+            titleText = "Bạn thực sự muốn xóa nhà thuốc có tên [${pharmacy!!.name}] hay không?"
+            contentText = "XÓA NHÀ THUỐC"
+
+            setConfirmButton("Xóa") {
+                it.dismiss()
+                DeletePharmacyProcessing(this@PharmacyActivity, pharmacy!!.id)
+                    .onFinished = {
+                    if (it != null) {
+                        Toast.makeText(
+                            this@PharmacyActivity,
+                            "Đã xóa thành công",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                        WorkActivity.update()
+                    }
+                }
+                finish()
+            }
+            setCancelButton("Hủy") {
+                it.dismiss()
+            }
+            show()
         }
     }
 }
