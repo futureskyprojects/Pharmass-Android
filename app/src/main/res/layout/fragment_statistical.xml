@@ -60,38 +60,59 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/padding"
+                android:background="#34495e"
                 android:orientation="vertical">
 
                 <TextView
-                    android:layout_width="wrap_content"
+                    android:id="@+id/tvStatistical"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="@dimen/padding"
+                    android:layout_marginTop="10dp"
                     android:layout_marginBottom="5dp"
-                    android:text="Doanh thu bán hàng"
-                    android:textColor="#636363"
-                    android:textSize="@dimen/text_size" />
-
-                <com.github.mikephil.charting.charts.CombinedChart
-                    android:id="@+id/combinedChart"
-                    android:layout_width="match_parent"
-                    android:layout_height="300dp"
-                    android:layout_marginHorizontal="@dimen/padding" />
+                    android:background="@drawable/button_style_white_round"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:gravity="center"
+                    android:text="THỐNG KÊ THÁNG NÀY"
+                    android:textAllCaps="true"
+                    android:textColor="#34495e"
+                    android:textSize="@dimen/text_size"
+                    android:textStyle="bold" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="@dimen/padding"
-                    android:layout_marginTop="@dimen/padding"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="5dp"
+                    android:text="Doanh thu bán hàng"
+                    android:textColor="#FFF"
+                    android:textSize="@dimen/text_size" />
+
+                <com.github.mikephil.charting.charts.CombinedChart
+                    android:id="@+id/ccRevenue"
+                    android:layout_width="match_parent"
+                    android:layout_height="300dp"
+                    android:layout_marginHorizontal="@dimen/padding"
+                    android:layout_marginBottom="@dimen/padding" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/padding"
                     android:layout_marginBottom="5dp"
                     android:text="Tỉ lệ đơn bán của mỗi nhân viên"
-                    android:textColor="#636363"
+                    android:textColor="#FFF"
                     android:textSize="@dimen/text_size" />
 
                 <com.github.mikephil.charting.charts.PieChart
                     android:id="@+id/pcRatioOfBillPerStaff"
                     android:layout_width="match_parent"
                     android:layout_height="300dp"
-                    android:layout_marginHorizontal="@dimen/padding" />
+                    android:layout_marginHorizontal="@dimen/padding"
+                    android:layout_marginBottom="@dimen/padding" />
             </LinearLayout>
         </ScrollView>
     </LinearLayout>

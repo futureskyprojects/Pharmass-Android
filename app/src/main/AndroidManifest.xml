@@ -27,7 +27,8 @@
         android:theme="@style/AppTheme"
         tools:replace="android:icon"
         tools:targetApi="n">
-        <activity android:name=".component.bill_item_updater.BillItemUpdaterActivity"></activity>
+        <activity android:name=".component.time_range_picker.TimeRangePickerActivity"></activity>
+        <activity android:name=".component.bill_item_updater.BillItemUpdaterActivity" />
         <activity
             android:name=".component.goods_picker.GoodsPickerActivity"
             android:theme="@style/AppTheme.Transparent" />

@@ -7,41 +7,37 @@ import retrofit2.Callback
 import retrofit2.Response
 import vn.vistark.pharmass.core.api.APIUtils
 import vn.vistark.pharmass.core.api.ErrorLibrary
-import vn.vistark.pharmass.core.api.request.BodyCreatePharmacyRequest
-import vn.vistark.pharmass.core.model.Pharmacy
 import vn.vistark.pharmass.core.api.response.Error400Response
 import vn.vistark.pharmass.core.api.response.Error401Response
 import vn.vistark.pharmass.core.constants.Constants
-import vn.vistark.pharmass.core.model.PharmacyStaff
+import vn.vistark.pharmass.core.model.Bill
 import vn.vistark.pharmass.utils.DialogNotify
 import java.lang.Exception
 
-class GetPharmacyStaffProcessing(
+class GetBillByPharmacyIdAndTimeRangeProcessing(
     context: Context,
     pharmacyId: Int,
-    userId: Int = -1
+    fromDate: String,
+    toDate: String,
+    hideNotify: Boolean = false
 ) {
-    var onFinished: ((List<PharmacyStaff>?) -> Unit)? = null
+    var onFinished: ((List<Bill>?) -> Unit)? = null
 
     init {
-        APIUtils.mAPIServices?.run {
-            if (userId > 0) {
-                getPharmacyStaffs(pharmacyId, userId)
-            } else {
-                getPharmacyStaffs(pharmacyId)
-            }
-        }
-            ?.enqueue(object : Callback<List<PharmacyStaff>> {
-                override fun onFailure(call: Call<List<PharmacyStaff>>, t: Throwable) {
-                    DialogNotify.error(
-                        context,
-                        t.message ?: "Lỗi không xác định khi lấy danh sách nhân viên"
-                    )
+        APIUtils.mAPIServices?.getBillByPharmacyIdAndTimeRange(pharmacyId, fromDate, toDate)
+            ?.enqueue(object : Callback<List<Bill>> {
+                override fun onFailure(call: Call<List<Bill>>, t: Throwable) {
+                    if (!hideNotify)
+                        DialogNotify.error(
+                            context,
+                            t.message
+                                ?: "Lỗi không xác định khi lấy danh sách đơn bán của nhà thuốc hiện tại theo khoảng thời gian trên"
+                        )
                 }
 
                 override fun onResponse(
-                    call: Call<List<PharmacyStaff>>,
-                    response: Response<List<PharmacyStaff>>
+                    call: Call<List<Bill>>,
+                    response: Response<List<Bill>>
                 ) {
                     if (response.isSuccessful) {
                         // Khi thực hiện thành công
@@ -61,16 +57,18 @@ class GetPharmacyStaffProcessing(
                                         ?: ""
                                 )
                                 if (extractError.isNotEmpty()) {
-                                    DialogNotify.error(context, extractError)
+                                    if (!hideNotify)
+                                        DialogNotify.error(context, extractError)
                                     onFinished?.invoke(null)
                                     return
                                 }
                             }
                         } catch (e: Exception) {
-                            DialogNotify.error(
-                                context,
-                                "Không lấy được dữ liệu"
-                            )
+                            if (!hideNotify)
+                                DialogNotify.error(
+                                    context,
+                                    "Không lấy được dữ liệu"
+                                )
                         }
                     } else if (response.code() == 401) {
                         Constants.token = "" // Xóa token ngay
@@ -79,13 +77,15 @@ class GetPharmacyStaffProcessing(
                             Error401Response::class.java
                         )
                         if (error401Response != null) {
-                            DialogNotify.error(context, error401Response.message)
+                            if (!hideNotify)
+                                DialogNotify.error(context, error401Response.message)
                         }
                         onFinished?.invoke(null)
                         return
                     }
                     // Nếu lỗi không nằm trong dự tính
-                    DialogNotify.error(context, response.message())
+                    if (!hideNotify)
+                        DialogNotify.error(context, response.message())
                     onFinished?.invoke(null)
                 }
             })

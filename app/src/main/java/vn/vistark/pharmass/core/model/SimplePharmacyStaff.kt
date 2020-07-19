@@ -16,4 +16,13 @@ data class SimplePharmacyStaff(
     var createdAt: String = "",
     @SerializedName("updated_at")
     var updatedAt: String = ""
-)
+) {
+    fun from(pharmacyStaff: PharmacyStaff) {
+        id = pharmacyStaff.id
+        positionCode = pharmacyStaff.positionCode
+        user = pharmacyStaff.user.id
+        pharmacy = pharmacyStaff.pharmacy.id
+        createdAt = pharmacyStaff.createAt
+        updatedAt = pharmacyStaff.updateAt
+    }
+}

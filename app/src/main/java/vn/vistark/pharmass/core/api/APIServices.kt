@@ -45,6 +45,12 @@ public interface APIServices {
     @GET("/pharmacy-staffs")
     fun getPharmacyStaffs(@Query("pharmacy.id") id: Int): Call<List<PharmacyStaff>>
 
+    @GET("/pharmacy-staffs")
+    fun getPharmacyStaffs(
+        @Query("pharmacy.id") pharmacyId: Int,
+        @Query("user.id") userId: Int
+    ): Call<List<PharmacyStaff>>
+
     @POST("/pharmacy-staffs")
     fun createPharmacyStaffs(@Body simplePharmacyStaff: SimplePharmacyStaff): Call<PharmacyStaff>
 
@@ -125,6 +131,13 @@ public interface APIServices {
 
     @GET("/bills")
     fun getBillByPharmacyId(@Query("pharmacy_staff.pharmacy") id: Int): Call<List<Bill>>
+
+    @GET("/bills")
+    fun getBillByPharmacyIdAndTimeRange(
+        @Query("pharmacy_staff.pharmacy") id: Int,
+        @Query("created_at_gte") from: String,
+        @Query("created_at_lte") to: String
+    ): Call<List<Bill>>
 
     @GET("/bills")
     fun getBillByPharmacyIdAndPatientId(

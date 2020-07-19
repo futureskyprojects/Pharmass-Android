@@ -22,12 +22,10 @@ import vn.vistark.pharmass.component.bill_item_updater.BillItemUpdaterActivity
 import vn.vistark.pharmass.component.goods_picker.GoodsPickerActivity
 import vn.vistark.pharmass.core.constants.RequestCode
 import vn.vistark.pharmass.component.patient_picker.PatientPickerActivity
+import vn.vistark.pharmass.core.constants.Constants
 import vn.vistark.pharmass.core.model.*
 import vn.vistark.pharmass.databinding.ActivityPharmacyBillBinding
-import vn.vistark.pharmass.processing.CreateOrUpdateBillItemProcessing
-import vn.vistark.pharmass.processing.CreateBillProcessing
-import vn.vistark.pharmass.processing.GetBillByPharmacyIdAndPatientIdProcessing
-import vn.vistark.pharmass.processing.UserUploadImageProcessing
+import vn.vistark.pharmass.processing.*
 import vn.vistark.pharmass.utils.DialogNotify
 import vn.vistark.pharmass.utils.GlideUtils
 import vn.vistark.pharmass.utils.NumberUtils
@@ -50,7 +48,6 @@ class PharmacyBillActivity : AppCompatActivity() {
         binding = DataBindingUtil.setContentView(this, R.layout.activity_pharmacy_bill)
 //        setContentView(R.layout.activity_pharmacy_bill)
         binding.bill = Bill()
-
 
         if (getPassingData()) {
             tvToolbarLabel.text = "Tạo mới đơn bán"
@@ -187,6 +184,24 @@ class PharmacyBillActivity : AppCompatActivity() {
             }
         }
         rvBillItems.adapter = adapter
+
+        initStaffForThisBill()
+    }
+
+    private fun initStaffForThisBill() {
+        GetPharmacyStaffProcessing(this, pharmacy.id, Constants.user.id).onFinished =
+            { pharmacyStaffs ->
+                if (pharmacyStaffs != null && pharmacyStaffs.size > 0) {
+                    binding.bill!!.pharmacyStaff.from(pharmacyStaffs.first())
+                } else {
+                    Toast.makeText(
+                        this,
+                        "Không thể xác định vai trò của bạn trong nhà thuốc này. Vui lòng thử lại!",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                    finish()
+                }
+            }
     }
 
     private fun billLayoutUpdater() {
