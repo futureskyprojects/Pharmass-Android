@@ -14,6 +14,7 @@ import com.github.mikephil.charting.listener.OnChartValueSelectedListener
 import vn.vistark.pharmass.core.model.Bill
 import vn.vistark.pharmass.processing.GetUserByIdProcessing
 import vn.vistark.pharmass.utils.ColorUtils
+import java.lang.Exception
 import java.util.*
 import kotlin.collections.ArrayList
 import kotlin.collections.List
@@ -27,6 +28,13 @@ import kotlin.collections.set
 class RatioOfBillPerStaff(val mChart: PieChart, val bills: List<Bill>) :
     OnChartValueSelectedListener {
     init {
+        try {
+            mChart.invalidate()
+            mChart.clear()
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
+        
         mChart.isRotationEnabled = true
         mChart.description = Description()
         mChart.holeRadius = 35f
