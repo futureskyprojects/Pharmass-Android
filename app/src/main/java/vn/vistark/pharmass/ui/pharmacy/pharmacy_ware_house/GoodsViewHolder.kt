@@ -1,5 +1,6 @@
 package vn.vistark.pharmass.ui.pharmacy.pharmacy_ware_house
 
+import android.graphics.Color
 import android.media.Image
 import android.view.View
 import android.widget.ImageView
@@ -35,6 +36,11 @@ class GoodsViewHolder(v: View) : RecyclerView.ViewHolder(v) {
 
         tvAmount.text =
             "Số lượng: ${removeUnMean(goods.amount.toDouble())} ($unit)"
+
+        if (goods.amount <= 0) {
+            tvAmount.text = "Hết hàng"
+            tvAmount.setTextColor(Color.RED)
+        }
         tvLimit.text =
             "Giới hạn tồn: ${removeUnMean(goods.inventoryAtleast.toDouble())} - ${removeUnMean(goods.inventoryMost.toDouble())} ($unit)"
         tvLimit.isSelected = true

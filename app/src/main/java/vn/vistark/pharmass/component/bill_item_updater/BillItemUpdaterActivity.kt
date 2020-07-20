@@ -15,6 +15,7 @@ import kotlinx.android.synthetic.main.activity_goods_picker.lnMenuContainer
 import kotlinx.android.synthetic.main.activity_goods_picker.rlHomeMenuRoot
 import kotlinx.android.synthetic.main.component_pharmacy_goods_item.*
 import vn.vistark.pharmass.R
+import vn.vistark.pharmass.component.goods_detail.GoodsDetailActivity
 import vn.vistark.pharmass.core.model.SimpleBillItem
 import vn.vistark.pharmass.core.model.Goods
 import vn.vistark.pharmass.databinding.ActivityBillItemUpdaterBinding
@@ -78,6 +79,11 @@ class BillItemUpdaterActivity : AppCompatActivity() {
         btnConfirm.setOnClickListener {
             if (binding.billItem!!.dosage <= 0) {
                 DialogNotify.missingInput(this, "Số lượng không phù hợp")
+            } else if (binding.billItem!!.dosage > goods.amount) {
+                DialogNotify.missingInput(
+                    this,
+                    "Số lượng trong kho không đáp ứng đủ, vui lòng điều chỉnh lại"
+                )
             } else if (binding.billItem!!.direction.length < 10) {
                 DialogNotify.missingInput(
                     this,
@@ -87,7 +93,10 @@ class BillItemUpdaterActivity : AppCompatActivity() {
                 binding.billItem!!.goods = goods.id
                 binding.billItem!!.tempGoods = goods
                 val intent = Intent()
-                intent.putExtra(SimpleBillItem::class.java.simpleName, Gson().toJson(binding.billItem!!))
+                intent.putExtra(
+                    SimpleBillItem::class.java.simpleName,
+                    Gson().toJson(binding.billItem!!)
+                )
                 setResult(Activity.RESULT_OK, intent)
                 finish()
             }
@@ -95,6 +104,9 @@ class BillItemUpdaterActivity : AppCompatActivity() {
     }
 
     fun bind(goods: Goods) {
+        rlRoot.setOnClickListener {
+            GoodsDetailActivity.start(this, goods.id, true)
+        }
         tvGoodsName.text = goods.name
         tvGoodsName.isSelected = true
 

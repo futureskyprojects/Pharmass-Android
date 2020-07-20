@@ -20,7 +20,8 @@ import java.lang.Exception
 class GetPharmacyGoodsInCategoryProcessing(
     context: Context,
     pharmacyId: Int,
-    goodsCategoryId: Int
+    goodsCategoryId: Int,
+    hideNotify: Boolean = false
 ) {
     var onFinished: ((List<Goods>?) -> Unit)? = null
 
@@ -28,10 +29,12 @@ class GetPharmacyGoodsInCategoryProcessing(
         APIUtils.mAPIServices?.getPharmacyGoodsInCategory(goodsCategoryId, pharmacyId)
             ?.enqueue(object : Callback<List<Goods>> {
                 override fun onFailure(call: Call<List<Goods>>, t: Throwable) {
-                    DialogNotify.error(
-                        context,
-                        t.message ?: "Lỗi không xác định khi lấy danh sách hàng theo mục đã chọn"
-                    )
+                    if (!hideNotify)
+                        DialogNotify.error(
+                            context,
+                            t.message
+                                ?: "Lỗi không xác định khi lấy danh sách hàng theo mục đã chọn"
+                        )
                 }
 
                 override fun onResponse(
@@ -56,16 +59,18 @@ class GetPharmacyGoodsInCategoryProcessing(
                                         ?: ""
                                 )
                                 if (extractError.isNotEmpty()) {
-                                    DialogNotify.error(context, extractError)
+                                    if (!hideNotify)
+                                        DialogNotify.error(context, extractError)
                                     onFinished?.invoke(null)
                                     return
                                 }
                             }
                         } catch (e: Exception) {
-                            DialogNotify.error(
-                                context,
-                                "Không lấy được dữ liệu"
-                            )
+                            if (!hideNotify)
+                                DialogNotify.error(
+                                    context,
+                                    "Không lấy được dữ liệu"
+                                )
                         }
                     } else if (response.code() == 401) {
                         Constants.token = "" // Xóa token ngay
@@ -74,13 +79,15 @@ class GetPharmacyGoodsInCategoryProcessing(
                             Error401Response::class.java
                         )
                         if (error401Response != null) {
-                            DialogNotify.error(context, error401Response.message)
+                            if (!hideNotify)
+                                DialogNotify.error(context, error401Response.message)
                         }
                         onFinished?.invoke(null)
                         return
                     }
                     // Nếu lỗi không nằm trong dự tính
-                    DialogNotify.error(context, response.message())
+                    if (!hideNotify)
+                        DialogNotify.error(context, response.message())
                     onFinished?.invoke(null)
                 }
             })

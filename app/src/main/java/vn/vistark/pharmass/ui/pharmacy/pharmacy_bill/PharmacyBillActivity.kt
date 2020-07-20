@@ -23,6 +23,7 @@ import vn.vistark.pharmass.component.goods_detail.GoodsDetailActivity
 import vn.vistark.pharmass.component.goods_picker.GoodsPickerActivity
 import vn.vistark.pharmass.core.constants.RequestCode
 import vn.vistark.pharmass.component.patient_picker.PatientPickerActivity
+import vn.vistark.pharmass.component.user_basic_info.UserBasicInfoActivity
 import vn.vistark.pharmass.core.constants.Constants
 import vn.vistark.pharmass.core.model.*
 import vn.vistark.pharmass.databinding.ActivityPharmacyBillBinding
@@ -101,6 +102,17 @@ class PharmacyBillActivity : AppCompatActivity() {
             startActivityForResult(intent, RequestCode.REQUEST_USER_PICKER_CODE)
             this.overridePendingTransition(0, 300)
         }
+
+        rlBillPatientItem.setOnLongClickListener {
+            if (binding.bill!!.patient != null) {
+                UserBasicInfoActivity.start(this, binding.bill!!.patient!!.id, true)
+            } else {
+                Toast.makeText(this, "Hiện người mua đang ở chế độ ẩn danh", Toast.LENGTH_SHORT)
+                    .show()
+            }
+            return@setOnLongClickListener true
+        }
+
         ivDocsImage1.setOnClickListener {
             pickImage(1)
         }
@@ -185,7 +197,7 @@ class PharmacyBillActivity : AppCompatActivity() {
             }
         }
         adapter.onClicked = {
-            GoodsDetailActivity.start(this, it.id, true)
+            GoodsDetailActivity.start(this, it.goods, true)
         }
         rvBillItems.adapter = adapter
 
@@ -393,21 +405,52 @@ class PharmacyBillActivity : AppCompatActivity() {
                     // Tiến hành cập nhật lại sản phẩm lỗi vừa rồi
                     postBillItems(index)
                 } else {
-                    binding.bill!!.simpleBillItems += SimpleBillItem().copy(
-                        id = it.id,
-                        dosage = it.dosage,
-                        direction = it.direction,
-                        createdAt = it.createdAt,
-                        updatedAt = it.updatedAt,
-                        goods = it.goods.id
-                    )
-                    // Cập nhật sản phẩm tiếp theo vào đơn bán
-                    postBillItems(index + 1)
+                    if (billItems[index].tempGoods != null) {
+                        binding.bill!!.simpleBillItems += SimpleBillItem().copy(
+                            id = it.id,
+                            dosage = it.dosage,
+                            direction = it.direction,
+                            createdAt = it.createdAt,
+                            updatedAt = it.updatedAt,
+                            goods = it.goods.id
+                        )
+
+                        reduceGoodsAmount(
+                            billItems[index].tempGoods!!,
+                            it.dosage.toFloat()
+                        ) { zGoods ->
+                            if (zGoods != null) {
+                                // Cập nhật sản phẩm tiếp theo vào đơn bán
+                                postBillItems(index + 1)
+                            } else {
+                                Toast.makeText(
+                                    this,
+                                    "Không giảm số lượng thuốc trong kho xuống được",
+                                    Toast.LENGTH_SHORT
+                                ).show()
+                            }
+                        }
+                    } else {
+                        Toast.makeText(
+                            this,
+                            "Không lấy được thông tin của sản phẩm cần giảm số lượng",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    }
                 }
             }
         }
     }
 
+    fun reduceGoodsAmount(goods: Goods, forSellAmount: Float, finish: ((Goods?) -> Unit)) {
+        goods.amount -= forSellAmount
+        if (goods.amount < 0)
+            goods.amount = 0F
+        CreateOrUpdatePharmacyGoodsInCategoryProcessing(this, goods)
+            .onFinished = {
+            finish(it)
+        }
+    }
 
     private fun updateImageProcessing(i: Int = 0) {
         if (i < uriArrList.size) {

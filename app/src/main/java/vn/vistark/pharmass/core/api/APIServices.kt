@@ -109,6 +109,9 @@ public interface APIServices {
     @POST("/goods")
     fun createPharmacyGoodsInCategory(@Body goods: Goods): Call<Goods>
 
+    @PUT("/goods/{id}")
+    fun updatePharmacyGoodsInCategory(@Path("id") id: Int, @Body goods: Goods): Call<Goods>
+
 
     // Chỉ dành cho mục đích phát triển
     @POST("/medicine-categories(BoQua)")
@@ -119,7 +122,21 @@ public interface APIServices {
     fun findMedicineCategoryByName(@Query("name_contains") name: String): Call<List<MedicineCategory>>
 
     @GET("/suppliers?_limit=-1")
-    fun findSupplierByName(@Query("name_contains") name: String): Call<List<Supplier>>
+    fun findSupplierOfPharmacyByName(
+        @Query("pharmacy.id") pharmacyId: Int,
+        @Query("name_contains") name: String
+    ): Call<List<Supplier>>
+
+    @POST("/suppliers")
+    fun createSupplierOfPharmacy(
+        @Body supplier: Supplier
+    ): Call<Supplier>
+
+    @PUT("/suppliers/{id}")
+    fun updateSupplierOfPharmacy(
+        @Path("id") id: Int,
+        @Body supplier: Supplier
+    ): Call<Supplier>
 
     @GET("/users?_limit=30")
     fun findUserByPhoneNumber(@Query("phoneNumber_contains") phone: String): Call<List<User>>

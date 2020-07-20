@@ -1,4 +1,4 @@
-package vn.vistark.pharmass.ui.pharmacy.pharmacy_ware_house
+package vn.vistark.pharmass.ui.pharmacy.fragments.inventory_limit
 
 import android.app.Activity
 import android.content.Intent
@@ -8,18 +8,21 @@ import android.view.View
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.gson.Gson
-import kotlinx.android.synthetic.main.activity_pharmacy_ware_house.*
+import com.google.gson.reflect.TypeToken
+import kotlinx.android.synthetic.main.activity_quick_ware_house.*
 import kotlinx.android.synthetic.main.components_toolbar.*
 import vn.vistark.pharmass.R
 import vn.vistark.pharmass.component.goods_detail.GoodsDetailActivity
+import vn.vistark.pharmass.component.goods_inventory_limit_update.GoodsInventoryLimitUpdateActivity
 import vn.vistark.pharmass.core.constants.RequestCode
 import vn.vistark.pharmass.core.model.Goods
 import vn.vistark.pharmass.core.model.GoodsCategory
 import vn.vistark.pharmass.core.model.Pharmacy
 import vn.vistark.pharmass.processing.GetPharmacyGoodsInCategoryProcessing
-import vn.vistark.pharmass.ui.goods_updater.GoodsUpdaterActivity
+import vn.vistark.pharmass.ui.pharmacy.fragments.inventory_limit.InventoryLimitCategoryViewHolder.Companion.TEMP_INVENTORY_GOODS_LIST
+import vn.vistark.pharmass.ui.pharmacy.pharmacy_ware_house.GoodsAdapter
 
-class PharmacyWareHouseActivity : AppCompatActivity() {
+class QuickWareHouseActivity : AppCompatActivity() {
     var pharmacyJson: String = ""
     var goodsCategoryJson: String = ""
 
@@ -28,13 +31,12 @@ class PharmacyWareHouseActivity : AppCompatActivity() {
 
     val goodsList = ArrayList<Goods>()
     lateinit var adapter: GoodsAdapter
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_pharmacy_ware_house)
+        setContentView(R.layout.activity_quick_ware_house)
         setResult(Activity.RESULT_OK)
         if (getPassingData()) {
-            tvToolbarLabel.text = pharmacy!!.name
+            tvToolbarLabel.text = InventoryLimitFragment.currentFilter.name
             tvCategoryName.text = goodsCategory!!.name
             tvCategoryName.isSelected = true
         } else {
@@ -62,36 +64,15 @@ class PharmacyWareHouseActivity : AppCompatActivity() {
         }
 
         adapter.onClicked = {
-            val intent = Intent(this, GoodsUpdaterActivity::class.java)
-            intent.putExtra(Pharmacy::class.java.simpleName, pharmacyJson)
-            intent.putExtra(GoodsCategory::class.java.simpleName, goodsCategoryJson)
+            val intent = Intent(this, GoodsInventoryLimitUpdateActivity::class.java)
             intent.putExtra(
                 Goods::class.java.simpleName,
                 Gson().toJson(it)
             )
             startActivityForResult(intent, RequestCode.REQUEST_GOODS_UPDATE_CODE)
         }
-
-        loadAllGoodsInCurrentCategory()
-
     }
 
-    private fun loadAllGoodsInCurrentCategory() {
-        GetPharmacyGoodsInCategoryProcessing(this, pharmacy!!.id, goodsCategory!!.id).onFinished = {
-            loadingIcon.visibility = View.GONE
-            if (it != null) {
-                goodsList.clear()
-                goodsList.addAll(it)
-                adapter.notifyDataSetChanged()
-            } else {
-                Toast.makeText(
-                    this,
-                    "Hiện nhà thuốc của bạn chưa có sản phẩm nào thuộc danh mục này",
-                    Toast.LENGTH_SHORT
-                ).show()
-            }
-        }
-    }
 
     private fun getPassingData(): Boolean {
         // Tiến hành lấy thông tin nhà thuốc
@@ -110,6 +91,22 @@ class PharmacyWareHouseActivity : AppCompatActivity() {
         goodsCategoryJson = intent.getStringExtra(GoodsCategory::class.java.simpleName) ?: ""
         goodsCategory = Gson().fromJson(goodsCategoryJson, GoodsCategory::class.java)
         if (goodsCategoryJson.isEmpty() || goodsCategory == null) {
+            Toast.makeText(
+                this,
+                "Không thể lấy được thông tin danh mục loại sản phẩm truyền vào",
+                Toast.LENGTH_SHORT
+            ).show()
+            finish()
+            return false
+        }
+        // Lay ds sp
+        val goodsListJson = intent.getStringExtra(TEMP_INVENTORY_GOODS_LIST) ?: ""
+        val tempGoodsList =
+            Gson().fromJson<ArrayList<Goods>>(
+                goodsListJson,
+                object : TypeToken<ArrayList<Goods>>() {}.type
+            )
+        if (goodsListJson.isEmpty() || tempGoodsList == null) {
             Toast.makeText(
                 this,
                 "Không thể lấy được thông tin danh mục loại sản phẩm truyền vào",
@@ -139,19 +136,25 @@ class PharmacyWareHouseActivity : AppCompatActivity() {
         ivBackButton.setOnClickListener {
             onBackPressed()
         }
-        lnCreateNewGoods.setOnClickListener {
-            val intent = Intent(this, GoodsUpdaterActivity::class.java)
-            intent.putExtra(Pharmacy::class.java.simpleName, pharmacyJson)
-            intent.putExtra(GoodsCategory::class.java.simpleName, goodsCategoryJson)
-            startActivityForResult(intent, RequestCode.REQUEST_GOODS_UPDATE_CODE)
-        }
     }
 
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        if ((requestCode == RequestCode.REQUEST_GOODS_UPDATE_CODE || requestCode == RequestCode.REQUEST_GOODS_CREATE_CODE) && resultCode == Activity.RESULT_OK && data != null) {
-            loadAllGoodsInCurrentCategory()
+        if ((requestCode == RequestCode.REQUEST_GOODS_UPDATE_CODE) && resultCode == Activity.RESULT_OK && data != null) {
+            val goodsJson = data.getStringExtra(Goods::class.java.simpleName) ?: ""
+            val goods = Gson().fromJson(goodsJson, Goods::class.java)
+            if (goodsJson.isNotEmpty() && goods != null) {
+                for (i in goodsList.indices) {
+                    if (goodsList[i].id == goods.id) {
+                        goodsList[i].amount = goods.amount
+                        goodsList[i].inventoryMost = goods.inventoryMost
+                        goodsList[i].inventoryAtleast = goods.inventoryAtleast
+                        adapter.notifyDataSetChanged()
+                        break
+                    }
+                }
+            }
         }
     }
 }

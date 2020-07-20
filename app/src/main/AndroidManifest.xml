@@ -28,6 +28,14 @@
         tools:replace="android:icon"
         tools:targetApi="n">
         <activity
+            android:name=".component.goods_inventory_limit_update.GoodsInventoryLimitUpdateActivity"
+            android:theme="@style/AppTheme.Transparent" />
+        <activity
+            android:name=".component.inventory_limit_options_picker.InventoryLimitOptionPickerActivity"
+            android:theme="@style/AppTheme.Transparent" />
+        <activity android:name=".ui.pharmacy.fragments.inventory_limit.QuickWareHouseActivity" />
+        <activity android:name=".ui.pharmacy.pharmacy_supplier_update.PharmacySupplierUpdateActivity" />
+        <activity
             android:name=".component.goods_detail.GoodsDetailActivity"
             android:theme="@style/AppTheme.Transparent" />
         <activity

@@ -7,25 +7,22 @@ import retrofit2.Callback
 import retrofit2.Response
 import vn.vistark.pharmass.core.api.APIUtils
 import vn.vistark.pharmass.core.api.ErrorLibrary
-import vn.vistark.pharmass.core.api.request.BodyCreatePharmacyRequest
-import vn.vistark.pharmass.core.model.Pharmacy
 import vn.vistark.pharmass.core.api.response.Error400Response
 import vn.vistark.pharmass.core.api.response.Error401Response
 import vn.vistark.pharmass.core.constants.Constants
-import vn.vistark.pharmass.core.model.MedicineCategory
-import vn.vistark.pharmass.core.model.PharmacyStaff
 import vn.vistark.pharmass.core.model.Supplier
 import vn.vistark.pharmass.utils.DialogNotify
 import java.lang.Exception
 
-class GetSupplierByNameProcessing(
+class GetSupplierOfPharmacyProcessing(
     context: Context,
-    name: String
+    pharmacyId: Int,
+    name: String = ""
 ) {
     var onFinished: ((List<Supplier>?) -> Unit)? = null
 
     init {
-        APIUtils.mAPIServices?.findSupplierByName(name)
+        APIUtils.mAPIServices?.findSupplierOfPharmacyByName(pharmacyId, name)
             ?.enqueue(object : Callback<List<Supplier>> {
                 override fun onFailure(call: Call<List<Supplier>>, t: Throwable) {
                     DialogNotify.error(

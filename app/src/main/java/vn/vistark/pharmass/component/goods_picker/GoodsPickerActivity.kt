@@ -125,10 +125,18 @@ class GoodsPickerActivity : AppCompatActivity() {
         rvGoods.adapter = adapter
 
         adapter.onClicked = {
-            val intent = Intent()
-            intent.putExtra(Goods::class.java.simpleName, Gson().toJson(it))
-            setResult(Activity.RESULT_OK, intent)
-            finish()
+            if (it.amount <= 0) {
+                Toast.makeText(
+                    this,
+                    "Sản phẩm đã hết hàng, vui lòng chọn sản phẩm khác tương tự để thay thế!",
+                    Toast.LENGTH_SHORT
+                ).show()
+            } else {
+                val intent = Intent()
+                intent.putExtra(Goods::class.java.simpleName, Gson().toJson(it))
+                setResult(Activity.RESULT_OK, intent)
+                finish()
+            }
         }
         adapter.onLongClicked = {
             GoodsDetailActivity.start(this, it.id, true)

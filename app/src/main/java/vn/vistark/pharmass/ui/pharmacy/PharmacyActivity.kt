@@ -22,6 +22,9 @@ import vn.vistark.pharmass.core.model.User
 import vn.vistark.pharmass.core.model.UserAddress
 import vn.vistark.pharmass.event_bus.BroadCastEvent
 import vn.vistark.pharmass.processing.DeletePharmacyProcessing
+import vn.vistark.pharmass.ui.pharmacy.fragments.category.CategoryFragment
+import vn.vistark.pharmass.ui.pharmacy.fragments.inventory_limit.InventoryLimitFragment
+import vn.vistark.pharmass.ui.pharmacy.fragments.supplier.SupplierFragment
 import vn.vistark.pharmass.ui.pharmacy.pharmacy_bill.PharmacyBillActivity
 import vn.vistark.pharmass.ui.pharmacy.pharmacy_updater.PharmacyUpdaterActivity
 import vn.vistark.pharmass.ui.work.WorkActivity
@@ -129,6 +132,16 @@ class PharmacyActivity : AppCompatActivity() {
             } else if (actionSelected == PharmacyOptionsPickerActivity.REMOVE) {
                 removeCurrentPharmacyConfirm()
             }
+        } else if ((requestCode == RequestCode.REQUEST_SUPPLIER_UPDATE_CODE || requestCode == RequestCode.REQUEST_SUPPLIER_CREATE_CODE) && resultCode == Activity.RESULT_OK) {
+            stringEventBus?.receivedString(
+                SupplierFragment.RELOAD_SUPPLIER_LIST,
+                ""
+            )
+        } else if (requestCode == RequestCode.REQUEST_GOODS_CATEGORY_RELOAD_CODE && resultCode == Activity.RESULT_OK) {
+            stringEventBus?.receivedString(
+                CategoryFragment.RELOAD_GOODS_CATEGORY,
+                ""
+            )
         }
     }
 

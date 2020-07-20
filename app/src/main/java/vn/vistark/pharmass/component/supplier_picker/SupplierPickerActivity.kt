@@ -15,11 +15,14 @@ import com.google.gson.Gson
 import kotlinx.android.synthetic.main.activity_supplier_picker.*
 import vn.vistark.pharmass.R
 import vn.vistark.pharmass.core.api.response.SupplierSimplePharmacy
+import vn.vistark.pharmass.core.model.Pharmacy
 import vn.vistark.pharmass.core.model.Supplier
-import vn.vistark.pharmass.processing.GetSupplierByNameProcessing
+import vn.vistark.pharmass.processing.GetSupplierOfPharmacyProcessing
 import vn.vistark.pharmass.ui.medicine_category_picker.SupplierPickerAdapter
 
 class SupplierPickerActivity : AppCompatActivity() {
+
+    var pharmacy: Pharmacy? = null
 
     val suppliers = ArrayList<Supplier>()
 
@@ -29,10 +32,27 @@ class SupplierPickerActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_supplier_picker)
-        inits()
-        initEvents()
-        onTextChange()
         setResult(Activity.RESULT_CANCELED)
+        if (getData()) {
+            inits()
+            initEvents()
+            onTextChange()
+            // Load tat ca nha cung cap hien co
+            loadSupplierByName("")
+        } else {
+            Toast.makeText(
+                this,
+                "Đã xảy ra lỗi trong quá trình truyền tải dữ liệu",
+                Toast.LENGTH_SHORT
+            ).show()
+            finish()
+        }
+    }
+
+    private fun getData(): Boolean {
+        val pharmacyJson = intent.getStringExtra(Pharmacy::class.java.simpleName) ?: ""
+        pharmacy = Gson().fromJson(pharmacyJson, Pharmacy::class.java)
+        return (pharmacyJson.isNotEmpty() && pharmacy != null)
     }
 
     private fun onTextChange() {
@@ -56,7 +76,7 @@ class SupplierPickerActivity : AppCompatActivity() {
 
     private fun loadSupplierByName(name: String) {
         loadingIcon.visibility = View.VISIBLE
-        GetSupplierByNameProcessing(this, name).onFinished = {
+        GetSupplierOfPharmacyProcessing(this, pharmacy!!.id, name).onFinished = {
             loadingIcon.visibility = View.GONE
             if (it != null) {
                 suppliers.clear()

@@ -32,7 +32,7 @@ import vn.vistark.pharmass.core.constants.Constants
 import vn.vistark.pharmass.core.constants.RequestCode
 import vn.vistark.pharmass.core.model.*
 import vn.vistark.pharmass.databinding.ActivityGoodUpdaterBinding
-import vn.vistark.pharmass.processing.CreatePharmacyGoodsInCategoryProcessing
+import vn.vistark.pharmass.processing.CreateOrUpdatePharmacyGoodsInCategoryProcessing
 import vn.vistark.pharmass.processing.UserUploadImageProcessing
 import vn.vistark.pharmass.component.barcode_scanner.BarcodeScannerActivity
 import vn.vistark.pharmass.component.medicine_category_picker.MedicineCategoryPickerActivity
@@ -190,6 +190,10 @@ class GoodsUpdaterActivity : AppCompatActivity() {
                 MedicineCategory::class.java.simpleName,
                 Gson().toJson(binding.requestCreateGoods!!.supplier)
             )
+            intent.putExtra(
+                Pharmacy::class.java.simpleName,
+                pharmacyJson
+            )
             startActivityForResult(intent, RequestCode.REQUEST_SUPPLIER_PICKER_CODE)
             this.overridePendingTransition(0, 300)
         }
@@ -217,7 +221,7 @@ class GoodsUpdaterActivity : AppCompatActivity() {
             }
         } else {
             // Tiến hành cập nhật sản phẩm
-            CreatePharmacyGoodsInCategoryProcessing(this, binding.requestCreateGoods!!)
+            CreateOrUpdatePharmacyGoodsInCategoryProcessing(this, binding.requestCreateGoods!!)
                 .onFinished = {
                 if (it != null) {
                     val data = Intent()
