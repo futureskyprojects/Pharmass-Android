@@ -53,7 +53,7 @@ class HomeActivity : AppCompatActivity() {
 
     private fun inits() {
         GlideUtils.loadWebp(ivExpandAuthorInfomation, R.raw.idle, R.drawable.logo_transparent_black)
-
+        loadUserAvatar()
     }
 
     fun loadUserAvatar() {
