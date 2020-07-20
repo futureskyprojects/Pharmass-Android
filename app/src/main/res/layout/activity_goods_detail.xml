@@ -116,9 +116,8 @@
                                 android:orientation="horizontal">
 
                                 <androidx.cardview.widget.CardView
-                                    android:layout_width="100dp"
-                                    android:layout_height="100dp"
-                                    android:layout_gravity="center"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
                                     android:layout_margin="10dp"
                                     android:layout_marginBottom="5dp"
                                     app:cardCornerRadius="@dimen/padding"
@@ -126,16 +125,16 @@
 
                                     <ImageView
                                         android:id="@+id/ivGoodsImage1"
-                                        android:layout_width="match_parent"
-                                        android:layout_height="match_parent"
+                                        android:layout_width="100dp"
+                                        android:layout_height="100dp"
                                         android:scaleType="centerCrop"
-                                        android:src="@drawable/no_logo" />
+                                        android:src="@drawable/no_logo"
+                                        android:visibility="gone" />
                                 </androidx.cardview.widget.CardView>
 
                                 <androidx.cardview.widget.CardView
-                                    android:layout_width="100dp"
-                                    android:layout_height="100dp"
-                                    android:layout_gravity="center"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
                                     android:layout_margin="10dp"
                                     android:layout_marginBottom="5dp"
                                     app:cardCornerRadius="@dimen/padding"
@@ -143,16 +142,16 @@
 
                                     <ImageView
                                         android:id="@+id/ivGoodsImage2"
-                                        android:layout_width="match_parent"
-                                        android:layout_height="match_parent"
+                                        android:layout_width="100dp"
+                                        android:layout_height="100dp"
                                         android:scaleType="centerCrop"
-                                        android:src="@drawable/no_logo" />
+                                        android:src="@drawable/no_logo"
+                                        android:visibility="gone" />
                                 </androidx.cardview.widget.CardView>
 
                                 <androidx.cardview.widget.CardView
-                                    android:layout_width="100dp"
-                                    android:layout_height="100dp"
-                                    android:layout_gravity="center"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
                                     android:layout_margin="10dp"
                                     android:layout_marginBottom="5dp"
                                     app:cardCornerRadius="@dimen/padding"
@@ -160,10 +159,11 @@
 
                                     <ImageView
                                         android:id="@+id/ivGoodsImage3"
-                                        android:layout_width="match_parent"
-                                        android:layout_height="match_parent"
+                                        android:layout_width="100dp"
+                                        android:layout_height="100dp"
                                         android:scaleType="centerCrop"
-                                        android:src="@drawable/no_logo" />
+                                        android:src="@drawable/no_logo"
+                                        android:visibility="gone" />
                                 </androidx.cardview.widget.CardView>
                             </LinearLayout>
                         </HorizontalScrollView>
@@ -223,7 +223,7 @@
                             android:gravity="center|start"
                             android:hint="Không xác định được nhà cung cấp"
                             android:padding="10dp"
-                            android:text="@{goods.supplier.name + `\r\n(` + goods.supplier.address+`)`}"
+                            android:text="@{goods.supplier.name + ` (` + goods.supplier.address+`)`}"
                             android:textColor="#000"
                             android:textSize="@dimen/text_size" />
 
@@ -361,8 +361,8 @@
                             android:gravity="center|start"
                             android:hint="Giá nhập không xác định"
                             android:padding="10dp"
-                            android:text="@{goods.entryPriceInCurrentcy}"
-                            android:textColor="#000"
+                            android:text="@{goods.entryPriceInCurrentcy + ` (VNĐ)`}"
+                            android:textColor="#F00"
                             android:textSize="@dimen/text_size" />
 
                         <TextView
@@ -380,8 +380,8 @@
                             android:gravity="center|start"
                             android:hint="Giá bán không xác định"
                             android:padding="10dp"
-                            android:text="@{goods.exportPriceInCurrentcy}"
-                            android:textColor="#000"
+                            android:text="@{goods.exportPriceInCurrentcy + ` (VNĐ)`}"
+                            android:textColor="#F00"
                             android:textSize="@dimen/text_size" />
 
                         <LinearLayout
@@ -491,7 +491,6 @@
                                 android:layout_alignParentEnd="true"
                                 android:checked="@={goods.public}"
                                 android:clickable="false"
-                                android:enabled="false"
                                 android:focusable="false" />
                         </RelativeLayout>
                     </LinearLayout>

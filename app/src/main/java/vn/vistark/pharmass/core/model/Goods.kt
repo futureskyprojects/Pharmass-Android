@@ -19,7 +19,7 @@ data class Goods(
     @SerializedName("abbreviation")
     var abbreviation: String = "",
     @SerializedName("images")
-    var images: List<String> = emptyList(),
+    var images: List<String> = listOf("", "", ""),
     @SerializedName("barcode")
     var barcode: String = "",
     @SerializedName("manufacturerCountry")
@@ -79,9 +79,9 @@ data class Goods(
         return ""
     }
 
-    val entryPriceInCurrentcy: String =
+    fun getEntryPriceInCurrentcy(): String =
         NumberUtils.convertToVietNamCurrentcy(entryPrice)
 
-    val exportPriceInCurrentcy: String =
+    fun getExportPriceInCurrentcy(): String =
         NumberUtils.convertToVietNamCurrentcy(exportPrice)
 }

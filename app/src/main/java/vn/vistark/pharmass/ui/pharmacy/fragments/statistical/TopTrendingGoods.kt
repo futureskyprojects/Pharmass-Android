@@ -4,6 +4,7 @@ import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.github.ybq.android.spinkit.SpinKitView
+import vn.vistark.pharmass.component.goods_detail.GoodsDetailActivity
 import vn.vistark.pharmass.core.model.Bill
 import vn.vistark.pharmass.core.model.BillItem
 import vn.vistark.pharmass.processing.GetGoodsByIdProcessing
@@ -22,6 +23,9 @@ class TopTrendingGoods(
         rvTopTrendingGoods.layoutManager = LinearLayoutManager(rvTopTrendingGoods.context)
 
         adapter = TopTrendingGoodsAdapter(topTrendingGoodsInfos)
+        adapter.onClicked = {
+            GoodsDetailActivity.start(rvTopTrendingGoods.context, it.goods.id, true)
+        }
         rvTopTrendingGoods.adapter = adapter
 
         skvLoadingIcon.visibility = View.VISIBLE

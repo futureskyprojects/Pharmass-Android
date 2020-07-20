@@ -7,6 +7,7 @@ import android.graphics.Color
 import android.os.Bundle
 import android.view.View
 import android.view.animation.AnimationUtils
+import android.widget.ImageView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
@@ -15,6 +16,7 @@ import vn.vistark.pharmass.R
 import vn.vistark.pharmass.databinding.ActivityGoodsDetailBinding
 import vn.vistark.pharmass.processing.GetGoodsByIdProcessing
 import vn.vistark.pharmass.utils.GlideUtils
+import vn.vistark.pharmass.utils.UrlUtils
 
 class GoodsDetailActivity : AppCompatActivity() {
 
@@ -69,11 +71,13 @@ class GoodsDetailActivity : AppCompatActivity() {
     }
 
     private fun hideData() {
-        tvGdEntryPriceLabel.visibility = View.GONE
-        tvEntryPrice.visibility = View.GONE
-        lnInventoryLimitLayout.visibility = View.GONE
-        tvAmountLabel.visibility = View.GONE
-        tvAmount.visibility = View.GONE
+        if (!isShowFullInfo) {
+            tvGdEntryPriceLabel.visibility = View.GONE
+            tvEntryPrice.visibility = View.GONE
+            lnInventoryLimitLayout.visibility = View.GONE
+            tvAmountLabel.visibility = View.GONE
+            tvAmount.visibility = View.GONE
+        }
     }
 
     private fun loadData() {
@@ -94,17 +98,19 @@ class GoodsDetailActivity : AppCompatActivity() {
         if (images.isNotEmpty()) {
             for (i in images.indices) {
                 try {
+                    val v: ImageView = findViewById(
+                        resources.getIdentifier(
+                            "ivGoodsImage$i",
+                            "id",
+                            packageName
+                        )
+                    )
                     GlideUtils.loadToImageViewWithPlaceHolder(
-                        findViewById(
-                            resources.getIdentifier(
-                                "ivGoodsImage$i",
-                                "id",
-                                packageName
-                            )
-                        ),
-                        images[i],
+                        v,
+                        UrlUtils.truePathOfMyServer(images[i]),
                         R.drawable.no_image
                     )
+                    v.visibility = View.VISIBLE
                 } catch (e: Exception) {
                     e.printStackTrace()
                 }

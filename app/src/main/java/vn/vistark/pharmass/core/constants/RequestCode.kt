@@ -2,6 +2,7 @@ package vn.vistark.pharmass.core.constants
 
 class RequestCode {
     companion object {
+        val REQUEST_GOODS_CREATE_CODE = 4580
         val REQUEST_GOODS_UPDATE_CODE = 4579
         val REQUEST_PHARMACY_OPTION_PICKER_CODE = 4578
         val REQUEST_TIME_RANGE_PICKER_CODE = 4577

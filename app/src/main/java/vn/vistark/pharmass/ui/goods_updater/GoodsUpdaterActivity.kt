@@ -15,6 +15,14 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import com.google.gson.Gson
 import kotlinx.android.synthetic.main.activity_good_updater.*
+import kotlinx.android.synthetic.main.activity_good_updater.ivGoodsImage1
+import kotlinx.android.synthetic.main.activity_good_updater.ivGoodsImage2
+import kotlinx.android.synthetic.main.activity_good_updater.ivGoodsImage3
+import kotlinx.android.synthetic.main.activity_good_updater.tvGoodsName
+import kotlinx.android.synthetic.main.activity_good_updater.tvManufacturerCountry
+import kotlinx.android.synthetic.main.activity_good_updater.tvPacking
+import kotlinx.android.synthetic.main.activity_good_updater.tvUnit
+import kotlinx.android.synthetic.main.activity_goods_detail.*
 import kotlinx.android.synthetic.main.components_toolbar.*
 import vn.vistark.pharmass.R
 import vn.vistark.pharmass.core.api.response.GoodsCategorySimplePharmacy
@@ -31,8 +39,12 @@ import vn.vistark.pharmass.component.medicine_category_picker.MedicineCategoryPi
 import vn.vistark.pharmass.component.supplier_picker.SupplierPickerActivity
 import vn.vistark.pharmass.utils.DialogNotify
 import vn.vistark.pharmass.utils.GlideUtils
+import vn.vistark.pharmass.utils.UrlUtils
 
 class GoodsUpdaterActivity : AppCompatActivity() {
+
+    var isCreateNewGoods: Boolean = true
+
     var pharmacyJson: String = ""
     var goodsCategoryJson: String = ""
 
@@ -60,6 +72,10 @@ class GoodsUpdaterActivity : AppCompatActivity() {
             finish()
             return
         }
+
+        // Fill image list
+        for (i in 0..(3 - binding.requestCreateGoods!!.images.size))
+            binding.requestCreateGoods!!.images += ""
 
         edtSupplier.inputType = InputType.TYPE_NULL
         // Xử lý phân biệt đối với thuốc và các sản phẩm không phải là thuốc
@@ -95,6 +111,18 @@ class GoodsUpdaterActivity : AppCompatActivity() {
     }
 
     private fun getPassingData(): Boolean {
+        // Thử lấy hàng nếu được truyền
+        val goodsJson = intent.getStringExtra(Goods::class.java.simpleName) ?: ""
+        val tempGoods = Gson().fromJson(goodsJson, Goods::class.java)
+        if (goodsJson.isNotEmpty() && tempGoods != null) {
+            isCreateNewGoods = false
+            binding.requestCreateGoods = tempGoods
+            if (binding.requestCreateGoods!!.supplier != null) {
+                edtSupplier.setText(binding.requestCreateGoods!!.supplier!!.name)
+            }
+            loadExistsImageOfGoods(binding.requestCreateGoods!!.images)
+        }
+
         // Tiến hành lấy thông tin nhà thuốc
         pharmacyJson = intent.getStringExtra(Pharmacy::class.java.simpleName) ?: ""
         pharmacy = Gson().fromJson(pharmacyJson, Pharmacy::class.java)
@@ -119,10 +147,12 @@ class GoodsUpdaterActivity : AppCompatActivity() {
             finish()
             return false
         }
-        // Gán vào binding
-        binding.requestCreateGoods!!.pharmacy = PharmacySimpleOwner.fromPharmacy(pharmacy)
-        binding.requestCreateGoods!!.goodsCategory =
-            GoodsCategorySimplePharmacy.fromGoodsCategory(goodsCategory)
+        if (isCreateNewGoods) {
+            // Gán vào binding
+            binding.requestCreateGoods!!.pharmacy = PharmacySimpleOwner.fromPharmacy(pharmacy)
+            binding.requestCreateGoods!!.goodsCategory =
+                GoodsCategorySimplePharmacy.fromGoodsCategory(goodsCategory)
+        }
         return true
     }
 
@@ -172,8 +202,11 @@ class GoodsUpdaterActivity : AppCompatActivity() {
                 UserUploadImageProcessing(this, uriArrList[i]!!).apply {
                     onFinished = {
                         if (it != null) {
-                            binding.requestCreateGoods!!.images =
-                                binding.requestCreateGoods!!.images.plus(it)
+                            val tempArray = binding.requestCreateGoods!!.images.toTypedArray()
+                            tempArray[i] = it
+                            binding.requestCreateGoods!!.images = tempArray.toList()
+//                                binding.requestCreateGoods!!.images =
+//                                binding.requestCreateGoods!!.images.plus(it)
                         }
                         updateProcessing(i + 1)
                     }
@@ -254,7 +287,8 @@ class GoodsUpdaterActivity : AppCompatActivity() {
         } else if (requestCode == RequestCode.REQUEST_SUPPLIER_PICKER_CODE && resultCode == Activity.RESULT_OK && data != null) {
             val supplierJson =
                 data.getStringExtra(Supplier::class.java.simpleName) ?: ""
-            binding.requestCreateGoods!!.supplier = Gson().fromJson(supplierJson, SupplierSimplePharmacy::class.java)
+            binding.requestCreateGoods!!.supplier =
+                Gson().fromJson(supplierJson, SupplierSimplePharmacy::class.java)
             if (binding.requestCreateGoods!!.supplier != null && supplierJson.isNotEmpty()) {
                 edtSupplier.setText(binding.requestCreateGoods!!.supplier!!.name)
             }
@@ -327,5 +361,32 @@ class GoodsUpdaterActivity : AppCompatActivity() {
             R.drawable.no_image
         )
         uriArrList[imageViewSelectedNumer - 1] = tempUri
+    }
+
+    private fun loadExistsImageOfGoods(images: List<String>) {
+        if (images.isNotEmpty()) {
+            for (i in images.indices) {
+                try {
+                    val v: ImageView = findViewById(
+                        resources.getIdentifier(
+                            "ivGoodsImage$i",
+                            "id",
+                            packageName
+                        )
+                    )
+                    GlideUtils.loadToImageViewWithPlaceHolder(
+                        v,
+                        UrlUtils.truePathOfMyServer(images[i]),
+                        R.drawable.no_image
+                    )
+                    v.visibility = View.VISIBLE
+                } catch (e: Exception) {
+                    e.printStackTrace()
+                }
+            }
+        } else {
+            tvGoodsDetailImageLabel.visibility = View.GONE
+            hsvGoodsDetailImages.visibility = View.GONE
+        }
     }
 }

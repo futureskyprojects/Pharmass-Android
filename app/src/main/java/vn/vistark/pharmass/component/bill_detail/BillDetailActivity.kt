@@ -7,6 +7,7 @@ import android.graphics.Color
 import android.os.Bundle
 import android.view.View
 import android.view.animation.AnimationUtils
+import android.widget.ImageView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -27,6 +28,7 @@ import vn.vistark.pharmass.processing.GetPharmacyStaffByIdProcessing
 import vn.vistark.pharmass.ui.pharmacy.pharmacy_bill.BillItemAdapter
 import vn.vistark.pharmass.utils.GlideUtils
 import vn.vistark.pharmass.utils.NumberUtils
+import vn.vistark.pharmass.utils.UrlUtils
 
 class BillDetailActivity : AppCompatActivity() {
 
@@ -124,17 +126,19 @@ class BillDetailActivity : AppCompatActivity() {
         if (images.isNotEmpty()) {
             for (i in images.indices) {
                 try {
+                    val v: ImageView = findViewById(
+                        resources.getIdentifier(
+                            "ivDocsImage$i",
+                            "id",
+                            packageName
+                        )
+                    )
                     GlideUtils.loadToImageViewWithPlaceHolder(
-                        findViewById(
-                            resources.getIdentifier(
-                                "ivDocsImage$i",
-                                "id",
-                                packageName
-                            )
-                        ),
-                        images[i],
+                        v,
+                        UrlUtils.truePathOfMyServer(images[i]),
                         R.drawable.no_image
                     )
+                    v.visibility = View.VISIBLE
                 } catch (e: Exception) {
                     e.printStackTrace()
                 }

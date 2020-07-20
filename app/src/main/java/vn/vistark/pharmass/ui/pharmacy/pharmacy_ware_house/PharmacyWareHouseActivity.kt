@@ -1,5 +1,6 @@
 package vn.vistark.pharmass.ui.pharmacy.pharmacy_ware_house
 
+import android.app.Activity
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -61,6 +62,8 @@ class PharmacyWareHouseActivity : AppCompatActivity() {
 
         adapter.onClicked = {
             val intent = Intent(this, GoodsUpdaterActivity::class.java)
+            intent.putExtra(Pharmacy::class.java.simpleName, pharmacyJson)
+            intent.putExtra(GoodsCategory::class.java.simpleName, goodsCategoryJson)
             intent.putExtra(
                 Goods::class.java.simpleName,
                 Gson().toJson(it)
@@ -68,6 +71,11 @@ class PharmacyWareHouseActivity : AppCompatActivity() {
             startActivityForResult(intent, RequestCode.REQUEST_GOODS_UPDATE_CODE)
         }
 
+        loadAllGoodsInCurrentCategory()
+
+    }
+
+    private fun loadAllGoodsInCurrentCategory() {
         GetPharmacyGoodsInCategoryProcessing(this, pharmacy!!.id, goodsCategory!!.id).onFinished = {
             loadingIcon.visibility = View.GONE
             if (it != null) {
@@ -82,7 +90,6 @@ class PharmacyWareHouseActivity : AppCompatActivity() {
                 ).show()
             }
         }
-
     }
 
     private fun getPassingData(): Boolean {
@@ -135,8 +142,15 @@ class PharmacyWareHouseActivity : AppCompatActivity() {
             val intent = Intent(this, GoodsUpdaterActivity::class.java)
             intent.putExtra(Pharmacy::class.java.simpleName, pharmacyJson)
             intent.putExtra(GoodsCategory::class.java.simpleName, goodsCategoryJson)
-            startActivity(intent)
+            startActivityForResult(intent, RequestCode.REQUEST_GOODS_UPDATE_CODE)
         }
     }
 
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if ((requestCode == RequestCode.REQUEST_GOODS_UPDATE_CODE || requestCode == RequestCode.REQUEST_GOODS_CREATE_CODE) && resultCode == Activity.RESULT_OK && data != null) {
+            loadAllGoodsInCurrentCategory()
+        }
+    }
 }
