@@ -64,7 +64,7 @@ class ViewAllBillActivity : AppCompatActivity() {
         } else {
             Toast.makeText(
                 this,
-                "Không thể xác dịnh thông tin của người này, vui lòng thử lại!",
+                "Lỗi trong quá trình truyền tải thông tin, vui lòng thử lại!",
                 Toast.LENGTH_SHORT
             ).show()
         }

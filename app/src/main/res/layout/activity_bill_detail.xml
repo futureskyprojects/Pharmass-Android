@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/rlHomeMenuRoot"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#B2000000"
+    android:clickable="true"
+    android:focusable="true"
+    tools:context=".component.bill_detail.BillDetailActivity">
+
+    <LinearLayout
+        android:id="@+id/lnMenuContainer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginTop="40dp"
+        android:background="@drawable/background_bottom_sheet_white"
+        android:clickable="true"
+        android:focusable="true"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginTop="10dp">
+
+            <ImageView
+                android:id="@+id/ivCloseButton"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="15dp"
+                android:background="@drawable/button_style_white_round"
+                android:src="@drawable/ic_close" />
+
+            <TextView
+                android:id="@+id/tvTheHint"
+                android:layout_width="match_parent"
+                android:layout_height="32dp"
+                android:layout_centerVertical="true"
+                android:layout_gravity="center"
+                android:layout_marginHorizontal="@dimen/padding"
+                android:layout_marginBottom="10dp"
+                android:gravity="center"
+                android:text="Danh sách đơn"
+                android:textAllCaps="true"
+                android:textColor="#424242"
+                android:textSize="@dimen/text_size"
+                android:textStyle="bold" />
+        </RelativeLayout>
+
+        <com.github.ybq.android.spinkit.SpinKitView
+            android:id="@+id/skvLoadingIcon"
+            style="@style/SpinKitView.Large.Wave"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_margin="20dp"
+            app:SpinKit_Color="@color/colorAccent" />
+
+        <include layout="@layout/notify_no_data" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvInfoDisplayArea"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:overScrollMode="never" />
+    </LinearLayout>
+</RelativeLayout>
