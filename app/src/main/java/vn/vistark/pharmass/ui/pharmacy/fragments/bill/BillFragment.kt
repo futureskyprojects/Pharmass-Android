@@ -80,9 +80,6 @@ class BillFragment : Fragment() {
 
         adapter = BillAdapter(bills)
         rvBills.adapter = adapter
-        adapter.onClicked = {
-            Toast.makeText(context, "Xem chi tiet", Toast.LENGTH_SHORT).show()
-        }
     }
 
     private fun initViews(v: View) {

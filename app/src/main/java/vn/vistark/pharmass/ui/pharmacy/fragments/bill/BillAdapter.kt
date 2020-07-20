@@ -2,6 +2,7 @@ package vn.vistark.pharmass.ui.pharmacy.fragments.bill
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import vn.vistark.pharmass.R
 import vn.vistark.pharmass.core.model.Bill
@@ -24,7 +25,7 @@ class BillAdapter(val bills: ArrayList<Bill>) : RecyclerView.Adapter<BillViewHol
         val bill = bills[position]
         holder.bind(bill)
         holder.rlRoot.setOnClickListener {
-            onClicked?.invoke(bill)
+            Toast.makeText(holder.rlRoot.context, "Hien thi chi tiet", Toast.LENGTH_SHORT).show()
         }
     }
 }

@@ -2,6 +2,7 @@ package vn.vistark.pharmass.ui.pharmacy.fragments.staff
 
 import android.view.View
 import android.widget.ImageView
+import android.widget.RelativeLayout
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import vn.vistark.pharmass.R
@@ -9,6 +10,8 @@ import vn.vistark.pharmass.core.model.PharmacyStaff
 import vn.vistark.pharmass.utils.GlideUtils
 
 class PharmacyStaffViewHolder(v: View) : RecyclerView.ViewHolder(v) {
+    val rlRoot: RelativeLayout = v.findViewById(R.id.rlRoot)
+
     val ivStaffAvatar: ImageView = v.findViewById(R.id.ivStaffAvatar)
     val tvStaffFullName: TextView = v.findViewById(R.id.tvStaffFullName)
     val tvStaffAddress: TextView = v.findViewById(R.id.tvStaffAddress)

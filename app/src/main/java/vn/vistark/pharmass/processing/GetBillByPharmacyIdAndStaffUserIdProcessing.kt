@@ -14,23 +14,23 @@ import vn.vistark.pharmass.core.model.Bill
 import vn.vistark.pharmass.utils.DialogNotify
 import java.lang.Exception
 
-class GetBillByPharmacyIdAndPatientIdProcessing(
+class GetBillByPharmacyIdAndStaffUserIdProcessing(
     context: Context,
     pharmacyId: Int,
-    patientId: Int,
+    staffUserId: Int,
     hideNotify: Boolean = false
 ) {
     var onFinished: ((List<Bill>?) -> Unit)? = null
 
     init {
-        APIUtils.mAPIServices?.getBillByPharmacyIdAndPatientId(pharmacyId, patientId)
+        APIUtils.mAPIServices?.getBillByPharmacyIdAndStaffUserId(pharmacyId, staffUserId)
             ?.enqueue(object : Callback<List<Bill>> {
                 override fun onFailure(call: Call<List<Bill>>, t: Throwable) {
                     if (!hideNotify)
                         DialogNotify.error(
                             context,
                             t.message
-                                ?: "Lỗi không xác định khi lấy danh sách đơn mua của người dùng tại nhà thuốc hiện tại"
+                                ?: "Lỗi không xác định khi lấy danh sách đơn bán của nhân viên"
                         )
                 }
 

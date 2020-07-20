@@ -29,6 +29,7 @@ class BillViewHolder(v: View) : RecyclerView.ViewHolder(v) {
     val tvStaffFullName: TextView = v.findViewById(R.id.tvStaffFullName)
     val tvPatientFullname: TextView = v.findViewById(R.id.tvPatientFullname)
     val loadindForBillItem: SpinKitView = v.findViewById(R.id.loadindForBillItem)
+    val tvConclude: TextView = v.findViewById(R.id.tvConclude)
 
 
     fun bind(bill: Bill) {
@@ -45,6 +46,9 @@ class BillViewHolder(v: View) : RecyclerView.ViewHolder(v) {
                 )}"
             tvBillName.isSelected = true
         }
+
+        tvConclude.text = bill.conclude
+        tvConclude.isSelected = true
         // Tiến hành lấy danh sách bill-item và cộng
         updatePrice(bill)
         // Tiến hành lấy tên nhân viên bán

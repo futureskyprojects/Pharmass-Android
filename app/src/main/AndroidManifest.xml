@@ -28,6 +28,12 @@
         tools:replace="android:icon"
         tools:targetApi="n">
         <activity
+            android:name=".component.view_all_bill.ViewAllBillActivity"
+            android:theme="@style/AppTheme.Transparent" />
+        <activity
+            android:name=".component.user_basic_info.UserBasicInfoActivity"
+            android:theme="@style/AppTheme.Transparent" />
+        <activity
             android:name=".component.pharmacy_options_picker.PharmacyOptionsPickerActivity"
             android:theme="@style/AppTheme.Transparent" />
         <activity

@@ -12,12 +12,12 @@ import androidx.recyclerview.widget.RecyclerView
 import com.github.ybq.android.spinkit.SpinKitView
 import com.google.gson.Gson
 import vn.vistark.pharmass.R
+import vn.vistark.pharmass.component.view_all_bill.ViewAllBillActivity
 import vn.vistark.pharmass.component.patient_picker.PatientAdapter
 import vn.vistark.pharmass.core.model.Pharmacy
 import vn.vistark.pharmass.core.model.User
 import vn.vistark.pharmass.processing.GetBillByPharmacyIdProcessing
 import vn.vistark.pharmass.ui.pharmacy.fragments.bill.BillFragment
-import vn.vistark.pharmass.utils.DialogNotify
 
 class CustomerFragment : Fragment() {
     private var pharmacyJson: String? = null
@@ -91,7 +91,7 @@ class CustomerFragment : Fragment() {
             adapter = PatientAdapter(pharmacy!!, patients)
             rvCustomer.adapter = adapter
             adapter.onClicked = {
-                Toast.makeText(context, "Xem chi tiet", Toast.LENGTH_SHORT).show()
+                ViewAllBillActivity.start(context!!, pharmacy!!.id, it.id)
             }
         }
     }

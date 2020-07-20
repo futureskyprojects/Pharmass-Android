@@ -4,6 +4,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import vn.vistark.pharmass.R
+import vn.vistark.pharmass.component.user_basic_info.UserBasicInfoActivity
 import vn.vistark.pharmass.core.model.MedicineCategory
 import vn.vistark.pharmass.core.model.Pharmacy
 import vn.vistark.pharmass.core.model.User
@@ -25,6 +26,10 @@ class PatientAdapter(val pharmacy: Pharmacy, var patients: ArrayList<User>) :
         val patient = patients[position]
         holder.rlBillPatientItem.setOnClickListener {
             onClicked?.invoke(patient)
+        }
+        holder.rlBillPatientItem.setOnLongClickListener {
+            UserBasicInfoActivity.start(holder.rlBillPatientItem.context, patient.id, true)
+            return@setOnLongClickListener true
         }
 
         holder.bind(pharmacy, patient)

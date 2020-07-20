@@ -137,22 +137,28 @@ public interface APIServices {
     @POST("/bills")
     fun createBill(@Body bill: Bill): Call<Bill>
 
-    @GET("/bills?_sort=created_at:ASC")
+    @GET("/bills")
     fun getBillById(@Query("id") id: Int): Call<List<Bill>>
 
-    @GET("/bills?_sort=created_at:ASC")
+    @GET("/bills")
     fun getBillByPharmacyId(@Query("pharmacy_staff.pharmacy") id: Int): Call<List<Bill>>
 
-    @GET("/bills?_sort=created_at:ASC")
+    @GET("/bills")
     fun getBillByPharmacyIdAndTimeRange(
         @Query("pharmacy_staff.pharmacy") id: Int,
         @Query("created_at_gte") from: String,
         @Query("created_at_lte") to: String
     ): Call<List<Bill>>
 
-    @GET("/bills?_sort=created_at:ASC")
+    @GET("/bills")
     fun getBillByPharmacyIdAndPatientId(
         @Query("pharmacy_staff.pharmacy") pharmacyId: Int,
         @Query("patient.id") patientId: Int
+    ): Call<List<Bill>>
+
+    @GET("/bills")
+    fun getBillByPharmacyIdAndStaffUserId(
+        @Query("pharmacy_staff.pharmacy") pharmacyId: Int,
+        @Query("pharmacy_staff.user") staffUserId: Int
     ): Call<List<Bill>>
 }
