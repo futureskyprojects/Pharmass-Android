@@ -19,6 +19,7 @@ import kotlinx.android.synthetic.main.component_bill_patient_item.*
 import kotlinx.android.synthetic.main.components_toolbar.*
 import vn.vistark.pharmass.R
 import vn.vistark.pharmass.component.bill_item_updater.BillItemUpdaterActivity
+import vn.vistark.pharmass.component.goods_detail.GoodsDetailActivity
 import vn.vistark.pharmass.component.goods_picker.GoodsPickerActivity
 import vn.vistark.pharmass.core.constants.RequestCode
 import vn.vistark.pharmass.component.patient_picker.PatientPickerActivity
@@ -183,13 +184,16 @@ class PharmacyBillActivity : AppCompatActivity() {
                 show()
             }
         }
+        adapter.onClicked = {
+            GoodsDetailActivity.start(this, it.id, true)
+        }
         rvBillItems.adapter = adapter
 
         initStaffForThisBill()
     }
 
     private fun initStaffForThisBill() {
-        GetPharmacyStaffProcessing(this, pharmacy.id, Constants.user.id).onFinished =
+        GetPharmacyStaffByPharmacyProcessing(this, pharmacy.id, Constants.user.id).onFinished =
             { pharmacyStaffs ->
                 if (pharmacyStaffs != null && pharmacyStaffs.size > 0) {
                     binding.bill!!.pharmacyStaff.from(pharmacyStaffs.first())

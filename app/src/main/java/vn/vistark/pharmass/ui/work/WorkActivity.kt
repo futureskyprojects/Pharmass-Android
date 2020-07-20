@@ -14,9 +14,8 @@ import vn.vistark.pharmass.core.constants.Constants
 import vn.vistark.pharmass.core.constants.PharmacyStaffPostion
 import vn.vistark.pharmass.core.model.Pharmacy
 import vn.vistark.pharmass.core.model.SimplePharmacyStaff
-import vn.vistark.pharmass.processing.CreateBillProcessing
 import vn.vistark.pharmass.processing.CreatePharmacyStaffProcessing
-import vn.vistark.pharmass.processing.GetPharmacyStaffProcessing
+import vn.vistark.pharmass.processing.GetPharmacyStaffByPharmacyProcessing
 import vn.vistark.pharmass.processing.GetUserPharmaciesProcessing
 import vn.vistark.pharmass.ui.pharmacy.pharmacy_updater.PharmacyUpdaterActivity
 
@@ -62,7 +61,7 @@ class WorkActivity : AppCompatActivity() {
 
     private fun updateOwner(pharmacy: Pharmacy) {
         // Cập nhật chủ sở hữu nếu chưa có
-        GetPharmacyStaffProcessing(this, pharmacy.id).onFinished = { pharmacyStaffs ->
+        GetPharmacyStaffByPharmacyProcessing(this, pharmacy.id).onFinished = { pharmacyStaffs ->
             if (pharmacyStaffs != null) {
                 var isFound = false
                 for (ps in pharmacyStaffs) {

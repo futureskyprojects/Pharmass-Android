@@ -1,17 +1,14 @@
 package vn.vistark.pharmass.ui.pharmacy.fragments.bill
 
-import android.media.Image
 import android.view.View
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.RelativeLayout
 import android.widget.TextView
-import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 import com.github.ybq.android.spinkit.SpinKitView
 import vn.vistark.pharmass.R
 import vn.vistark.pharmass.core.model.Bill
-import vn.vistark.pharmass.core.model.User
 import vn.vistark.pharmass.processing.GetBillItemByIdProcessing
 import vn.vistark.pharmass.processing.GetUserByIdProcessing
 import vn.vistark.pharmass.utils.DateTimeUtils
@@ -35,17 +32,9 @@ class BillViewHolder(v: View) : RecyclerView.ViewHolder(v) {
     fun bind(bill: Bill) {
         tvBillPrice.text = "${NumberUtils.convertToVietNamCurrentcy(0.0)}đ"
         tvBillPrice.isSelected = true
-
-        tvBillName.text = "#${bill.id}"
-        val tempDate = DateTimeUtils.JsDateTimeStringToDate(bill.createdAt)
-        if (tempDate != null) {
-            tvBillName.text =
-                "Đơn #${bill.id}, lúc ${DateTimeUtils.DateToString(
-                    tempDate,
-                    "HH:mm dd/MM/yyyy"
-                )}"
-            tvBillName.isSelected = true
-        }
+        tvBillName.text =
+            bill.getDesName()
+        tvBillName.isSelected = true
 
         tvConclude.text = bill.conclude
         tvConclude.isSelected = true

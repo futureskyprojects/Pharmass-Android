@@ -6,20 +6,15 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import cn.pedant.SweetAlert.SweetAlertDialog
 import com.github.ybq.android.spinkit.SpinKitView
 import com.google.gson.Gson
-import kotlinx.android.synthetic.*
-import kotlinx.android.synthetic.main.component_work_top_pharmacies.*
 import vn.vistark.pharmass.R
 import vn.vistark.pharmass.core.model.Pharmacy
 import vn.vistark.pharmass.core.model.PharmacyStaff
-import vn.vistark.pharmass.processing.GetPharmacyStaffProcessing
-import vn.vistark.pharmass.ui.pharmacy.pharmacy_detail.fragments.IntroductionFragment
-import vn.vistark.pharmass.utils.DialogNotify
+import vn.vistark.pharmass.processing.GetPharmacyStaffByPharmacyProcessing
 
 class StaffFragment : Fragment() {
     private var pharmacyJson: String? = null
@@ -77,7 +72,7 @@ class StaffFragment : Fragment() {
             }
             return
         } else {
-            GetPharmacyStaffProcessing(context!!, pharmacy!!.id).onFinished = {
+            GetPharmacyStaffByPharmacyProcessing(context!!, pharmacy!!.id).onFinished = {
                 loadingIcon.visibility = View.GONE
                 if (it != null) {
                     staffs.clear()

@@ -5,6 +5,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import vn.vistark.pharmass.R
+import vn.vistark.pharmass.component.bill_detail.BillDetailActivity
 import vn.vistark.pharmass.core.model.Bill
 
 class BillAdapter(val bills: ArrayList<Bill>) : RecyclerView.Adapter<BillViewHolder>() {
@@ -25,7 +26,7 @@ class BillAdapter(val bills: ArrayList<Bill>) : RecyclerView.Adapter<BillViewHol
         val bill = bills[position]
         holder.bind(bill)
         holder.rlRoot.setOnClickListener {
-            Toast.makeText(holder.rlRoot.context, "Hien thi chi tiet", Toast.LENGTH_SHORT).show()
+            BillDetailActivity.start(holder.rlRoot.context, bill.id)
         }
     }
 }

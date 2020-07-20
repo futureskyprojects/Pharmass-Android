@@ -28,6 +28,9 @@
         tools:replace="android:icon"
         tools:targetApi="n">
         <activity
+            android:name=".component.goods_detail.GoodsDetailActivity"
+            android:theme="@style/AppTheme.Transparent" />
+        <activity
             android:name=".component.bill_detail.BillDetailActivity"
             android:theme="@style/AppTheme.Transparent" />
         <activity

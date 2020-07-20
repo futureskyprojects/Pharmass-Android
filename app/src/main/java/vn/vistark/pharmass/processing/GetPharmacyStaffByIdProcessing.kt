@@ -16,27 +16,22 @@ import vn.vistark.pharmass.core.model.PharmacyStaff
 import vn.vistark.pharmass.utils.DialogNotify
 import java.lang.Exception
 
-class GetPharmacyStaffProcessing(
+class GetPharmacyStaffByIdProcessing(
     context: Context,
-    pharmacyId: Int,
-    userId: Int = -1
+    id: Int,
+    hideNotify: Boolean = false
 ) {
-    var onFinished: ((List<PharmacyStaff>?) -> Unit)? = null
+    var onFinished: ((PharmacyStaff?) -> Unit)? = null
 
     init {
-        APIUtils.mAPIServices?.run {
-            if (userId > 0) {
-                getPharmacyStaffs(pharmacyId, userId)
-            } else {
-                getPharmacyStaffs(pharmacyId)
-            }
-        }
+        APIUtils.mAPIServices?.getPharmacyStaffsById(id)
             ?.enqueue(object : Callback<List<PharmacyStaff>> {
                 override fun onFailure(call: Call<List<PharmacyStaff>>, t: Throwable) {
-                    DialogNotify.error(
-                        context,
-                        t.message ?: "Lỗi không xác định khi lấy danh sách nhân viên"
-                    )
+                    if (!hideNotify)
+                        DialogNotify.error(
+                            context,
+                            t.message ?: "Lỗi không xác định khi lấy nhân viên"
+                        )
                 }
 
                 override fun onResponse(
@@ -45,7 +40,7 @@ class GetPharmacyStaffProcessing(
                 ) {
                     if (response.isSuccessful) {
                         // Khi thực hiện thành công
-                        onFinished?.invoke(response.body())
+                        onFinished?.invoke(response.body()?.firstOrNull())
                         return
                     } else if (response.code() == 400) {
                         try {
@@ -61,16 +56,18 @@ class GetPharmacyStaffProcessing(
                                         ?: ""
                                 )
                                 if (extractError.isNotEmpty()) {
-                                    DialogNotify.error(context, extractError)
+                                    if (!hideNotify)
+                                        DialogNotify.error(context, extractError)
                                     onFinished?.invoke(null)
                                     return
                                 }
                             }
                         } catch (e: Exception) {
-                            DialogNotify.error(
-                                context,
-                                "Không lấy được dữ liệu"
-                            )
+                            if (!hideNotify)
+                                DialogNotify.error(
+                                    context,
+                                    "Không lấy được dữ liệu"
+                                )
                         }
                     } else if (response.code() == 401) {
                         Constants.token = "" // Xóa token ngay
@@ -79,13 +76,15 @@ class GetPharmacyStaffProcessing(
                             Error401Response::class.java
                         )
                         if (error401Response != null) {
-                            DialogNotify.error(context, error401Response.message)
+                            if (!hideNotify)
+                                DialogNotify.error(context, error401Response.message)
                         }
                         onFinished?.invoke(null)
                         return
                     }
                     // Nếu lỗi không nằm trong dự tính
-                    DialogNotify.error(context, response.message())
+                    if (!hideNotify)
+                        DialogNotify.error(context, response.message())
                     onFinished?.invoke(null)
                 }
             })

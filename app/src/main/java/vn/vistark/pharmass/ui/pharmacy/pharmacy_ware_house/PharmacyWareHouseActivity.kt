@@ -10,6 +10,8 @@ import com.google.gson.Gson
 import kotlinx.android.synthetic.main.activity_pharmacy_ware_house.*
 import kotlinx.android.synthetic.main.components_toolbar.*
 import vn.vistark.pharmass.R
+import vn.vistark.pharmass.component.goods_detail.GoodsDetailActivity
+import vn.vistark.pharmass.core.constants.RequestCode
 import vn.vistark.pharmass.core.model.Goods
 import vn.vistark.pharmass.core.model.GoodsCategory
 import vn.vistark.pharmass.core.model.Pharmacy
@@ -53,6 +55,19 @@ class PharmacyWareHouseActivity : AppCompatActivity() {
             )
         rvGoods.adapter = adapter
 
+        adapter.onLongClicked = {
+            GoodsDetailActivity.start(this, it.id, true)
+        }
+
+        adapter.onClicked = {
+            val intent = Intent(this, GoodsUpdaterActivity::class.java)
+            intent.putExtra(
+                Goods::class.java.simpleName,
+                Gson().toJson(it)
+            )
+            startActivityForResult(intent, RequestCode.REQUEST_GOODS_UPDATE_CODE)
+        }
+
         GetPharmacyGoodsInCategoryProcessing(this, pharmacy!!.id, goodsCategory!!.id).onFinished = {
             loadingIcon.visibility = View.GONE
             if (it != null) {
@@ -62,7 +77,7 @@ class PharmacyWareHouseActivity : AppCompatActivity() {
             } else {
                 Toast.makeText(
                     this,
-                    "Hiện tại bạn chưa có nhân viên nào!",
+                    "Hiện nhà thuốc của bạn chưa có sản phẩm nào thuộc danh mục này",
                     Toast.LENGTH_SHORT
                 ).show()
             }
@@ -123,4 +138,5 @@ class PharmacyWareHouseActivity : AppCompatActivity() {
             startActivity(intent)
         }
     }
+
 }

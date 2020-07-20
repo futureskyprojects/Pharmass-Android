@@ -54,12 +54,17 @@ public interface APIServices {
     fun getPharmacyOfUser(@Query("owner.id") id: Int = Constants.user.id): Call<List<Pharmacy>>
 
     @GET("/pharmacy-staffs")
-    fun getPharmacyStaffs(@Query("pharmacy.id") id: Int): Call<List<PharmacyStaff>>
+    fun getPharmacyStaffs(@Query("pharmacy.id") pharmacyId: Int): Call<List<PharmacyStaff>>
 
     @GET("/pharmacy-staffs")
     fun getPharmacyStaffs(
         @Query("pharmacy.id") pharmacyId: Int,
         @Query("user.id") userId: Int
+    ): Call<List<PharmacyStaff>>
+
+    @GET("/pharmacy-staffs")
+    fun getPharmacyStaffsById(
+        @Query("id") id: Int
     ): Call<List<PharmacyStaff>>
 
     @POST("/pharmacy-staffs")

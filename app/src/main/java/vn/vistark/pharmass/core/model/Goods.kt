@@ -7,6 +7,7 @@ import vn.vistark.pharmass.core.api.RetrofitClient
 import vn.vistark.pharmass.core.api.response.GoodsCategorySimplePharmacy
 import vn.vistark.pharmass.core.api.response.PharmacySimpleOwner
 import vn.vistark.pharmass.core.api.response.SupplierSimplePharmacy
+import vn.vistark.pharmass.utils.NumberUtils
 import vn.vistark.pharmass.utils.UrlUtils
 import java.lang.Exception
 
@@ -77,4 +78,10 @@ data class Goods(
         }
         return ""
     }
+
+    val entryPriceInCurrentcy: String =
+        NumberUtils.convertToVietNamCurrentcy(entryPrice)
+
+    val exportPriceInCurrentcy: String =
+        NumberUtils.convertToVietNamCurrentcy(exportPrice)
 }

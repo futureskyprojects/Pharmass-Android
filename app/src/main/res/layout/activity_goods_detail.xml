@@ -1,0 +1,502 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="goods"
+            type="vn.vistark.pharmass.core.model.Goods" />
+    </data>
+
+    <RelativeLayout
+        android:id="@+id/rlHomeMenuRoot"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#B2000000"
+        android:clickable="true"
+        android:focusable="true"
+        tools:context=".component.goods_detail.GoodsDetailActivity">
+
+        <LinearLayout
+            android:id="@+id/lnMenuContainer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginTop="40dp"
+            android:background="@drawable/background_bottom_sheet_white"
+            android:clickable="true"
+            android:focusable="true"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginTop="10dp">
+
+                <ImageView
+                    android:id="@+id/ivCloseButton"
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginEnd="15dp"
+                    android:background="@drawable/button_style_white_round"
+                    android:src="@drawable/ic_close" />
+
+                <TextView
+                    android:id="@+id/tvTheHint"
+                    android:layout_width="match_parent"
+                    android:layout_height="32dp"
+                    android:layout_centerVertical="true"
+                    android:layout_gravity="center"
+                    android:layout_marginHorizontal="@dimen/padding"
+                    android:layout_marginBottom="10dp"
+                    android:ellipsize="marquee"
+                    android:gravity="center"
+                    android:marqueeRepeatLimit="marquee_forever"
+                    android:singleLine="true"
+                    android:text="Chi tiết sản phẩm"
+                    android:textAllCaps="true"
+                    android:textColor="#424242"
+                    android:textSize="@dimen/text_size"
+                    android:textStyle="bold" />
+            </RelativeLayout>
+
+            <com.github.ybq.android.spinkit.SpinKitView
+                android:id="@+id/skvLoadingIcon"
+                style="@style/SpinKitView.Large.Wave"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_margin="20dp"
+                android:visibility="gone"
+                app:SpinKit_Color="@color/colorAccent" />
+
+            <RelativeLayout
+                android:id="@+id/rlInfoDisplayArea"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <ScrollView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:overScrollMode="never">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="10dp"
+                        android:orientation="vertical"
+                        android:padding="10dp">
+
+                        <TextView
+                            android:id="@+id/tvGoodsDetailImageLabel"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
+                            android:layout_marginBottom="5dp"
+                            android:text="Ảnh sản phẩm"
+                            android:textColor="#636363"
+                            android:textSize="@dimen/text_size" />
+
+                        <HorizontalScrollView
+                            android:id="@+id/hsvGoodsDetailImages"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="15dp"
+                            android:overScrollMode="never">
+
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:gravity="center"
+                                android:orientation="horizontal">
+
+                                <androidx.cardview.widget.CardView
+                                    android:layout_width="100dp"
+                                    android:layout_height="100dp"
+                                    android:layout_gravity="center"
+                                    android:layout_margin="10dp"
+                                    android:layout_marginBottom="5dp"
+                                    app:cardCornerRadius="@dimen/padding"
+                                    app:cardElevation="0dp">
+
+                                    <ImageView
+                                        android:id="@+id/ivGoodsImage1"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="match_parent"
+                                        android:scaleType="centerCrop"
+                                        android:src="@drawable/no_logo" />
+                                </androidx.cardview.widget.CardView>
+
+                                <androidx.cardview.widget.CardView
+                                    android:layout_width="100dp"
+                                    android:layout_height="100dp"
+                                    android:layout_gravity="center"
+                                    android:layout_margin="10dp"
+                                    android:layout_marginBottom="5dp"
+                                    app:cardCornerRadius="@dimen/padding"
+                                    app:cardElevation="0dp">
+
+                                    <ImageView
+                                        android:id="@+id/ivGoodsImage2"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="match_parent"
+                                        android:scaleType="centerCrop"
+                                        android:src="@drawable/no_logo" />
+                                </androidx.cardview.widget.CardView>
+
+                                <androidx.cardview.widget.CardView
+                                    android:layout_width="100dp"
+                                    android:layout_height="100dp"
+                                    android:layout_gravity="center"
+                                    android:layout_margin="10dp"
+                                    android:layout_marginBottom="5dp"
+                                    app:cardCornerRadius="@dimen/padding"
+                                    app:cardElevation="0dp">
+
+                                    <ImageView
+                                        android:id="@+id/ivGoodsImage3"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="match_parent"
+                                        android:scaleType="centerCrop"
+                                        android:src="@drawable/no_logo" />
+                                </androidx.cardview.widget.CardView>
+                            </LinearLayout>
+                        </HorizontalScrollView>
+
+                        <TextView
+                            android:id="@+id/tvGoodsName"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="5dp"
+                            android:text="Tên sản phẩm"
+                            android:textColor="#636363"
+                            android:textSize="@dimen/text_size" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_marginHorizontal="@dimen/padding"
+                            android:gravity="center|start"
+                            android:hint="Chưa có tên sản phẩm"
+                            android:padding="10dp"
+                            android:text="@{goods.name}"
+                            android:textColor="#000"
+                            android:textSize="@dimen/text_size" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="5dp"
+                            android:text="Tên viết tắt"
+                            android:textColor="#636363"
+                            android:textSize="@dimen/text_size" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_marginHorizontal="@dimen/padding"
+                            android:gravity="center|start"
+                            android:hint="Sản phẩm này không có tên viết tắt"
+                            android:padding="10dp"
+                            android:text="@{goods.abbreviation}"
+                            android:textColor="#000"
+                            android:textSize="@dimen/text_size" />
+
+                        <TextView
+                            android:id="@+id/tvSupplier"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="5dp"
+                            android:text="Nhà cung cấp"
+                            android:textColor="#636363"
+                            android:textSize="@dimen/text_size" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_marginHorizontal="@dimen/padding"
+                            android:gravity="center|start"
+                            android:hint="Không xác định được nhà cung cấp"
+                            android:padding="10dp"
+                            android:text="@{goods.supplier.name + `\r\n(` + goods.supplier.address+`)`}"
+                            android:textColor="#000"
+                            android:textSize="@dimen/text_size" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="5dp"
+                            android:text="Mã vạch"
+                            android:textColor="#636363"
+                            android:textSize="@dimen/text_size" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_marginHorizontal="@dimen/padding"
+                            android:gravity="center|start"
+                            android:hint="Sản phẩm không có mã vạch"
+                            android:padding="10dp"
+                            android:text="@{goods.barcode}"
+                            android:textColor="#000"
+                            android:textSize="@dimen/text_size" />
+
+                        <TextView
+                            android:id="@+id/tvManufacturerCountry"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="5dp"
+                            android:text="Nước sản xuất"
+                            android:textColor="#636363"
+                            android:textSize="@dimen/text_size" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_marginHorizontal="@dimen/padding"
+                            android:gravity="center|start"
+                            android:hint="Không xác định"
+                            android:padding="10dp"
+                            android:text="@{goods.manufacturerCountry}"
+                            android:textColor="#000"
+                            android:textSize="@dimen/text_size" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="5dp"
+                            android:text="Mô tả"
+                            android:textColor="#636363"
+                            android:textSize="@dimen/text_size" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_marginHorizontal="@dimen/padding"
+                            android:gravity="center|start"
+                            android:hint="Sản phẩm không có mô tả"
+                            android:padding="10dp"
+                            android:text="@{goods.description}"
+                            android:textColor="#000"
+                            android:textSize="@dimen/text_size" />
+
+                        <TextView
+                            android:id="@+id/tvUnit"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="5dp"
+                            android:text="Đơn vị tính"
+                            android:textColor="#636363"
+                            android:textSize="@dimen/text_size" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_marginHorizontal="@dimen/padding"
+                            android:gravity="center|start"
+                            android:hint="Đơn vị tính không xác định"
+                            android:padding="10dp"
+                            android:text="@{goods.unit}"
+                            android:textColor="#000"
+                            android:textSize="@dimen/text_size" />
+
+                        <TextView
+                            android:id="@+id/tvPacking"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="5dp"
+                            android:text="Quy cách đóng gói"
+                            android:textColor="#636363"
+                            android:textSize="@dimen/text_size" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_marginHorizontal="@dimen/padding"
+                            android:gravity="center|start"
+                            android:hint="Quy cách đóng gói chưa được cung cấp"
+                            android:padding="10dp"
+                            android:text="@{goods.packing}"
+                            android:textColor="#000"
+                            android:textSize="@dimen/text_size" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="5dp"
+                            android:text="Đường dùng"
+                            android:textColor="#636363"
+                            android:textSize="@dimen/text_size" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_marginHorizontal="@dimen/padding"
+                            android:gravity="center|start"
+                            android:hint="Chưa cung cấp thông tin"
+                            android:padding="10dp"
+                            android:text="@{goods.routeUsed}"
+                            android:textColor="#000"
+                            android:textSize="@dimen/text_size" />
+
+                        <TextView
+                            android:id="@+id/tvGdEntryPriceLabel"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="5dp"
+                            android:text="Giá nhập"
+                            android:textColor="#636363"
+                            android:textSize="@dimen/text_size" />
+
+                        <TextView
+                            android:id="@+id/tvEntryPrice"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_marginHorizontal="@dimen/padding"
+                            android:gravity="center|start"
+                            android:hint="Giá nhập không xác định"
+                            android:padding="10dp"
+                            android:text="@{goods.entryPriceInCurrentcy}"
+                            android:textColor="#000"
+                            android:textSize="@dimen/text_size" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="5dp"
+                            android:text="Giá bán"
+                            android:textColor="#636363"
+                            android:textSize="@dimen/text_size" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_marginHorizontal="@dimen/padding"
+                            android:gravity="center|start"
+                            android:hint="Giá bán không xác định"
+                            android:padding="10dp"
+                            android:text="@{goods.exportPriceInCurrentcy}"
+                            android:textColor="#000"
+                            android:textSize="@dimen/text_size" />
+
+                        <LinearLayout
+                            android:id="@+id/lnInventoryLimitLayout"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:weightSum="2">
+
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_marginRight="5dp"
+                                android:layout_weight="1"
+                                android:orientation="vertical">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center|start"
+                                    android:layout_marginBottom="5dp"
+                                    android:text="Tồn ít nhất"
+                                    android:textColor="#636363"
+                                    android:textSize="@dimen/text_size" />
+
+                                <TextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:layout_marginHorizontal="@dimen/padding"
+                                    android:gravity="center|start"
+                                    android:hint="0"
+                                    android:padding="10dp"
+                                    android:text="@{goods.inventoryAtleast +``}"
+                                    android:textColor="#000"
+                                    android:textSize="@dimen/text_size" />
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="5dp"
+                                android:layout_weight="1"
+                                android:orientation="vertical">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center|start"
+                                    android:layout_marginBottom="5dp"
+                                    android:text="Tồn nhiều nhất"
+                                    android:textColor="#636363"
+                                    android:textSize="@dimen/text_size" />
+
+                                <TextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:layout_marginHorizontal="@dimen/padding"
+                                    android:gravity="center|start"
+                                    android:hint="Không giới hạn"
+                                    android:padding="10dp"
+                                    android:text="@{goods.inventoryMost + ``}"
+                                    android:textColor="#000"
+                                    android:textSize="@dimen/text_size" />
+                            </LinearLayout>
+                        </LinearLayout>
+
+                        <TextView
+                            android:id="@+id/tvAmountLabel"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="5dp"
+                            android:text="Số lượng sản phẩm còn trong kho"
+                            android:textColor="#636363"
+                            android:textSize="@dimen/text_size" />
+
+                        <TextView
+                            android:id="@+id/tvAmount"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_marginHorizontal="@dimen/padding"
+                            android:gravity="center|start"
+                            android:hint="Không rõ"
+                            android:padding="10dp"
+                            android:text="@{goods.amount +` ` + goods.unit}"
+                            android:textColor="#000"
+                            android:textSize="@dimen/text_size" />
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="15dp"
+                            android:layout_marginBottom="@dimen/padding">
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginBottom="5dp"
+                                android:layout_toStartOf="@id/swBtnIsPublic"
+                                android:text="Bán trực tuyến"
+                                android:textColor="#636363"
+                                android:textSize="@dimen/text_size" />
+
+                            <androidx.appcompat.widget.SwitchCompat
+                                android:id="@+id/swBtnIsPublic"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentEnd="true"
+                                android:checked="@={goods.public}"
+                                android:clickable="false"
+                                android:enabled="false"
+                                android:focusable="false" />
+                        </RelativeLayout>
+                    </LinearLayout>
+                </ScrollView>
+            </RelativeLayout>
+        </LinearLayout>
+    </RelativeLayout>
+</layout>

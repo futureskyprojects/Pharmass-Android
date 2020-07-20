@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.gson.Gson
 import kotlinx.android.synthetic.main.activity_goods_picker.*
 import vn.vistark.pharmass.R
+import vn.vistark.pharmass.component.goods_detail.GoodsDetailActivity
 import vn.vistark.pharmass.core.model.Goods
 import vn.vistark.pharmass.core.model.Pharmacy
 import vn.vistark.pharmass.processing.GetPharmacyGoodsByNameProcessing
@@ -128,6 +129,9 @@ class GoodsPickerActivity : AppCompatActivity() {
             intent.putExtra(Goods::class.java.simpleName, Gson().toJson(it))
             setResult(Activity.RESULT_OK, intent)
             finish()
+        }
+        adapter.onLongClicked = {
+            GoodsDetailActivity.start(this, it.id, true)
         }
     }
 

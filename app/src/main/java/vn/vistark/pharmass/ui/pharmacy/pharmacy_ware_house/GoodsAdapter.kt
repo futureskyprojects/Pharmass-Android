@@ -4,11 +4,13 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import vn.vistark.pharmass.R
+import vn.vistark.pharmass.component.goods_detail.GoodsDetailActivity
 import vn.vistark.pharmass.core.model.Goods
 
 class GoodsAdapter(val goodsList: ArrayList<Goods>) : RecyclerView.Adapter<GoodsViewHolder>() {
 
     var onClicked: ((Goods) -> Unit)? = null
+    var onLongClicked: ((Goods) -> Unit)? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): GoodsViewHolder {
         val v = LayoutInflater.from(parent.context).inflate(
@@ -30,6 +32,10 @@ class GoodsAdapter(val goodsList: ArrayList<Goods>) : RecyclerView.Adapter<Goods
         holder.bind(goods)
         holder.rlRoot.setOnClickListener {
             onClicked?.invoke(goods)
+        }
+        holder.rlRoot.setOnLongClickListener {
+            onLongClicked?.invoke(goods)
+            return@setOnLongClickListener true
         }
     }
 
